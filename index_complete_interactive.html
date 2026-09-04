@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sanket Biradar — AI Software Engineer portfolio. Generative AI, RAG, LangGraph, multi-agent systems and scalable backend engineering.">
+<title>Sanket Biradar — AI Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f3ee; --surface:#fffdf8; --ink:#141414; --muted:#66635d;
+  --line:#d9d5cc; --accent:#c9ff4a; --accent2:#1d1d1b;
+  --nav-ink:#555; --nav-hover:#000; --kicker:#666; --eyebrow:#777; --secondary:#45433f; --fine:#888;
+  --tag-bg:#ece9e1; --tag-ink:#141414; --icon-bg:#f1eee7; --hover-border:#bbb; --btn-hover-bg:#fff;
+  --dark-panel:#181817; --dark-panel-text:#fff; --dark-panel-muted:#aaa; --dark-panel-tag:#292927; --dark-panel-tag-text:#d5d5d0;
+  --shadow-color:rgba(20,20,20,.08);
+  --max:1180px; --radius:24px; --shadow:0 20px 60px rgba(20,20,20,.08);
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,sans-serif;line-height:1.55}
+a{color:inherit;text-decoration:none} button{font:inherit}
+.container{width:min(calc(100% - 40px),var(--max));margin:auto}
+.nav{height:78px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:30;background:rgba(245,243,238,.86);backdrop-filter:blur(16px);border-bottom:1px solid rgba(217,213,204,.7)}
+.logo{font-weight:800;font-size:24px;letter-spacing:-.04em}.logo span{display:inline-block;width:9px;height:9px;background:var(--accent);border-radius:50%;margin-left:5px}
+.navlinks{display:flex;gap:28px;font-size:14px;font-weight:700} .navlinks{margin-left:auto}.navlinks a{color:var(--nav-ink);transition:.2s}.navlinks a:hover{color:var(--nav-hover)}
+.menu{display:none;border:1px solid var(--line);background:transparent;border-radius:12px;padding:8px 11px}
+.hero{padding:100px 0 85px;display:grid;grid-template-columns:1.4fr .6fr;gap:70px;align-items:end}
+.kicker{font-family:"DM Mono",monospace;font-size:12px;text-transform:uppercase;letter-spacing:.13em;color:var(--kicker);margin-bottom:22px}
+h1{font-size:clamp(54px,8vw,106px);line-height:.93;letter-spacing:-.075em;margin:0;max-width:900px}
+h1 em{font-style:normal;color:#74716b}.hero-copy{max-width:700px;margin-top:28px;font-size:18px;color:var(--muted)}
+.actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--ink);border-radius:999px;padding:12px 18px;font-weight:800;font-size:14px;transition:.2s}
+.btn.primary{background:var(--ink);color:white}.btn.primary:hover{transform:translateY(-2px)}
+.btn.light{background:transparent}.btn.light:hover{background:white}
+.hero-card{background:var(--accent);border-radius:var(--radius);padding:28px;min-height:270px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow)}
+.hero-card .big{font-size:58px;line-height:1;font-weight:800;letter-spacing:-.07em}.hero-card p{margin:0;font-size:13px;font-weight:700;max-width:210px}
+.stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);margin-bottom:110px}
+.stat{padding:24px 15px;border-right:1px solid var(--line)}.stat:last-child{border-right:0}.stat b{font-size:29px;letter-spacing:-.05em}.stat span{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+.section{padding:25px 0 115px}.section-head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:35px}
+.eyebrow{font-family:"DM Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--eyebrow)}
+h2{font-size:clamp(36px,5vw,64px);line-height:1;letter-spacing:-.065em;margin:8px 0 0}.section-intro{max-width:420px;color:var(--muted);font-size:14px}
+.projects{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.project{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:25px;min-height:285px;display:flex;flex-direction:column;cursor:pointer;transition:.25s;position:relative;overflow:hidden}
+.project:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:var(--hover-border)}
+.project.featured{grid-column:span 2;background:#181817;color:#fff;border-color:#181817;min-height:350px}.project.featured .desc,.project.featured .meta{color:#aaa}.project.featured .tag{background:#292927;color:#d5d5d0}
+.number{font-family:"DM Mono",monospace;color:#8a8780;font-size:11px}.project h3{font-size:26px;letter-spacing:-.045em;line-height:1.1;margin:34px 0 12px}.project .desc{color:var(--muted);font-size:14px;max-width:570px}.project .meta{margin-top:auto;padding-top:22px;color:#777;font-family:"DM Mono",monospace;font-size:10px;text-transform:uppercase}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:18px}.tag{background:var(--tag-bg);border-radius:999px;padding:6px 9px;font-size:10px;font-weight:800}
+.arrow{position:absolute;right:23px;top:22px;font-size:20px}
+.company{display:grid;grid-template-columns:.55fr 1.45fr;gap:45px}.company-side{position:sticky;top:110px;height:max-content}.company-name{font-size:30px;font-weight:800;letter-spacing:-.05em}.company-side p{color:var(--muted);font-size:13px}
+.case{border-top:1px solid var(--line);padding:26px 0;cursor:pointer}.case:last-child{border-bottom:1px solid var(--line)}.case-top{display:flex;justify-content:space-between;gap:20px}.case h3{font-size:27px;margin:0;letter-spacing:-.04em}.case p{color:var(--muted);font-size:13px;max-width:680px}.case .num{font-family:"DM Mono";font-size:11px;color:#888}
+.skills{display:flex;flex-wrap:wrap;gap:10px}.skill{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:11px 15px;font-size:13px;font-weight:700}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px}.about-grid p{font-size:18px;color:var(--secondary)}.about-grid{grid-template-columns:1fr}.about-grid .about-lead{font-size:22px;font-weight:800;margin-top:0;margin-bottom:18px}.timeline{border-top:1px solid var(--line)}.role{display:grid;grid-template-columns:160px 1fr;gap:35px;padding:22px 0;border-bottom:1px solid var(--line)}.role small{font-family:"DM Mono";font-size:10px;color:#888}.role h3{margin:0;font-size:20px}.role p{margin:5px 0 0;color:var(--muted);font-size:13px}
+.certs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.cert{background:var(--surface);border:1px solid var(--line);padding:22px;border-radius:18px;cursor:pointer;transition:.2s}.cert:hover{transform:translateY(-3px)}.cert .icon{font-size:25px}.cert h3{font-size:15px;margin:18px 0 5px}.cert p{font-size:11px;color:#888;margin:0}
+.contact{background:#181817;color:#fff;border-radius:30px;padding:60px;display:flex;justify-content:space-between;gap:40px;align-items:end}.contact h2{max-width:680px}.contact p{color:#aaa;max-width:500px}.contact .btn{border-color:white;color:white}.contact .btn.primary{background:var(--accent);border-color:var(--accent);color:#111}
+footer{padding:30px 0 50px;display:flex;justify-content:space-between;color:#777;font-size:12px}.footer-links{display:flex;gap:18px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.modal-box{width:min(920px,100%);max-height:90vh;overflow:auto;background:var(--surface);border-radius:25px;padding:32px;position:relative}.close{position:absolute;right:18px;top:15px;border:0;background:#eee;border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:18px}.modal-box h2{font-size:42px;margin-right:40px}.modal-body{margin-top:25px}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px}.detail-block{border-top:1px solid var(--line);padding-top:15px}.detail-block h4{font-family:"DM Mono";font-size:10px;text-transform:uppercase;color:#888;margin:0 0 8px}.detail-block p,.detail-block li{font-size:13px;color:#4e4b46}.cert-image{width:100%;border:1px solid var(--line);border-radius:14px;margin-top:20px;display:block;background:#eee;min-height:200px;object-fit:contain}
+.wib-track-wrap{overflow:hidden;cursor:grab;padding:4px 0 14px;user-select:none;touch-action:pan-y}.wib-track-wrap.is-dragging{cursor:grabbing}.wib-track{display:flex;gap:14px;width:max-content;will-change:transform}.wib-card{width:300px;min-height:300px;flex:0 0 300px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px;position:relative;cursor:pointer;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}.wib-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:var(--hover-border)}.wib-card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}.wib-top{display:flex;align-items:center;justify-content:space-between}.wib-icon{width:38px;height:38px;border:1px solid var(--line);border-radius:12px;display:grid;place-items:center;background:var(--icon-bg);font-size:18px}.wib-number{font-family:"DM Mono",monospace;color:#8a8780;font-size:10px}.wib-card h3{font-size:22px;line-height:1.12;letter-spacing:-.045em;margin:25px 0 10px}.wib-desc{color:var(--muted);font-size:13px;line-height:1.55;margin:0}.wib-focus{margin-top:24px;padding-top:15px;border-top:1px solid var(--line)}.wib-focus-label{display:block;font-family:"DM Mono",monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#888;margin-bottom:10px}.wib-pills{display:flex;flex-wrap:wrap;gap:6px}.wib-pill{background:#ece9e1;border-radius:999px;padding:5px 8px;font-size:9px;font-weight:800}.wib-click{position:absolute;right:20px;bottom:20px;font-family:"DM Mono",monospace;font-size:9px;color:#888;opacity:0;transition:.2s}.wib-card:hover .wib-click{opacity:1}.wib-modal-intro{font-size:16px;color:#555;margin-top:22px;max-width:760px}.wib-modal-list{margin:8px 0 0;padding-left:18px}.wib-modal-list li{margin:4px 0}
+/* Interactive additions — scoped to preserve the existing portfolio design */
+.nav-inner{padding-left:20px;padding-right:20px}
+.skill{cursor:pointer;transition:.2s;font-family:Manrope,sans-serif;color:var(--ink)}
+.skill:hover,.skill.active{transform:translateY(-2px);border-color:#aaa;box-shadow:0 8px 22px rgba(20,20,20,.07)}
+.flow-btn{background:transparent;color:var(--ink);cursor:pointer}
+.flow-btn:hover{background:var(--ink);color:var(--surface)}
+.theme-control{position:relative;flex:0 0 auto;margin-left:14px}.theme-trigger{width:36px;height:36px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);display:grid;place-items:center;cursor:pointer;font-size:16px;transition:.2s;box-shadow:0 6px 18px rgba(20,20,20,.06)}.theme-trigger:hover,.theme-trigger:focus-visible{transform:translateY(-1px);border-color:var(--hover-border);outline:none}.theme-menu{position:absolute;right:0;top:calc(100% + 9px);width:170px;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 16px 40px rgba(20,20,20,.12);opacity:0;visibility:hidden;transform:translateY(-5px) scale(.98);transform-origin:top right;transition:.16s ease;z-index:50}.theme-control.open .theme-menu{opacity:1;visibility:visible;transform:translateY(0) scale(1)}.theme-menu button{width:100%;border:0;background:transparent;color:var(--ink);display:grid;grid-template-columns:26px 1fr;grid-template-rows:auto auto;text-align:left;column-gap:7px;padding:9px 8px;border-radius:10px;cursor:pointer}.theme-menu button:hover,.theme-menu button:focus-visible{background:var(--tag-bg);outline:none}.theme-menu button span{grid-row:1 / 3;font-size:16px;display:grid;place-items:center}.theme-menu button b{font-size:12px;line-height:1.1}.theme-menu button small{font-size:9px;color:var(--muted);margin-top:2px}.theme-menu button.active{background:var(--tag-bg)}
+body.theme-warm{--bg:#f3eadc;--surface:#fff8ed;--ink:#30251b;--muted:#756452;--line:#d8c8b2;--accent:#d6a84f;--accent2:#4b3724}
+body.theme-warm .nav{background:rgba(243,234,220,.88)}
+body.theme-warm .project.featured,body.theme-warm .contact{background:#3a2b1d;border-color:#3a2b1d}
+body.theme-warm .project.featured .tag{background:#4b3826;color:#eadbc5}
+body.theme-dark{--bg:#111211;--surface:#191a18;--ink:#f4f1e9;--muted:#aaa69c;--line:#343530;--accent:#c9ff4a;--accent2:#f4f1e9;--nav-ink:#d1cec5;--nav-hover:#fff;--kicker:#bcb8ae;--eyebrow:#aaa69c;--secondary:#d0ccc3;--fine:#aaa69c;--tag-bg:#292b28;--tag-ink:#f0ede5;--icon-bg:#252723;--hover-border:#5b5d56;--btn-hover-bg:#242621;--dark-panel:#1b1c1a;--dark-panel-text:#f4f1e9;--dark-panel-muted:#b8b5ac;--dark-panel-tag:#292b28;--dark-panel-tag-text:#eeeae1;--shadow-color:rgba(0,0,0,.28)}
+body.theme-dark .hero-card{background:#3a3b39;color:#f4f1e9}
+body.theme-dark .nav{background:rgba(17,18,17,.9);border-color:#343530}
+body.theme-dark .navlinks a{color:var(--nav-ink)}
+body.theme-dark .navlinks a:hover{color:var(--nav-hover)}
+body.theme-dark .project,body.theme-dark .cert,body.theme-dark .skill,body.theme-dark .wib-card{background:var(--surface);border-color:var(--line);color:var(--ink)}
+body.theme-dark .project:hover,body.theme-dark .cert:hover,body.theme-dark .wib-card:hover{border-color:var(--hover-border);box-shadow:0 20px 60px rgba(0,0,0,.25)}
+body.theme-dark .tag,body.theme-dark .wib-pill{background:var(--tag-bg);color:var(--tag-ink)}
+body.theme-dark .project.featured{background:var(--dark-panel);color:var(--dark-panel-text);border-color:var(--line)}
+body.theme-dark .project.featured .desc,body.theme-dark .project.featured .meta{color:var(--dark-panel-muted)}
+body.theme-dark .project.featured .tag{background:var(--dark-panel-tag);color:var(--dark-panel-tag-text)}
+body.theme-dark .contact{background:var(--dark-panel);color:var(--dark-panel-text)}
+body.theme-dark .contact p{color:var(--dark-panel-muted)}
+body.theme-dark .contact .btn{border-color:#ddd9cf;color:#f4f1e9}
+body.theme-dark .contact .btn.primary{background:var(--accent);border-color:var(--accent);color:#111211}
+body.theme-dark .contact .btn.light:hover{background:#252723}
+body.theme-dark .btn{border-color:var(--ink);color:var(--ink)}
+body.theme-dark .btn.primary{background:var(--ink);color:#111211}
+body.theme-dark .btn.light:hover{background:#242621}
+body.theme-dark .modal{background:rgba(0,0,0,.82)}
+body.theme-dark .modal-box{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+body.theme-dark .modal-box h2,body.theme-dark .modal-box h3,body.theme-dark .modal-box h4{color:var(--ink)}
+body.theme-dark .detail-block p,body.theme-dark .detail-block li{color:#c9c5bc}
+body.theme-dark .detail-block h4{color:#aaa69c}
+body.theme-dark .wib-modal-intro{color:#c9c5bc}
+body.theme-dark .close{background:#30312e;color:#fff;border:1px solid #484a44}
+body.theme-dark .flow-node{background:#20211f;border-color:#454741;color:#f0ede5;box-shadow:0 7px 20px rgba(0,0,0,.25)}
+body.theme-dark .flow-node small{color:#aaa69c}
+body.theme-dark .flow-arrow{color:#c0bcb3}
+body.theme-dark .cert-image{background:#20211f}
+body.theme-dark .theme-trigger{background:#191a18;color:#f4f1e9;border-color:#343530}
+body.theme-dark .menu{color:var(--ink)}
+body.theme-dark .menu:hover{background:#242621}
+body.theme-dark input,body.theme-dark textarea,body.theme-dark select{background:#191a18;color:#f4f1e9;border-color:#4a4c46}
+body.theme-dark input::placeholder,body.theme-dark textarea::placeholder{color:#8f8c84}
+body.theme-dark label{color:#d2cec5}
+.wib-card{background:var(--surface)!important}
+.flowchart-wrap{margin-top:28px;border-top:1px solid var(--line);padding-top:22px}
+.flowchart{display:flex;align-items:center;gap:10px;overflow-x:auto;padding:14px 4px 18px;scrollbar-width:thin}
+.flow-node{flex:0 0 auto;min-width:130px;padding:14px 13px;border:1px solid var(--line);border-radius:14px;background:var(--surface);text-align:center;font-size:12px;font-weight:800;box-shadow:0 7px 20px rgba(20,20,20,.05)}
+.flow-node small{display:block;margin-top:4px;font:9px "DM Mono",monospace;color:var(--muted);text-transform:uppercase}
+.flow-arrow{font-size:18px;color:var(--muted);flex:0 0 auto}
+@media(max-width:800px){.nav-inner{padding-left:20px;padding-right:20px}.navlinks{left:20px;right:20px;border-left:1px solid var(--line);border-right:1px solid var(--line);border-radius:0 0 14px 14px}}
+@media(max-width:800px){.wib-card{width:280px;min-height:290px;flex-basis:280px}}@media(max-width:480px){.wib-card{width:calc(100vw - 42px);flex-basis:calc(100vw - 42px);min-height:285px}.wib-click{opacity:1}}
+@media(max-width:800px){
+ .container{width:min(calc(100% - 28px),var(--max))}.nav{height:68px}.navlinks{display:none;position:absolute;top:68px;left:0;right:0;background:var(--bg);padding:18px 20px;border-bottom:1px solid var(--line);flex-direction:column;gap:15px}.navlinks.open{display:flex}.menu{display:block}
+ .hero{padding:65px 0;grid-template-columns:1fr;gap:35px}.hero-card{min-height:190px}.hero-card .big{font-size:45px}.stats{grid-template-columns:1fr 1fr;margin-bottom:70px}.stat:nth-child(2){border-right:0}.stat{border-bottom:1px solid var(--line)}
+ .section{padding-bottom:75px}.section-head{display:block}.section-intro{margin-top:15px}.projects{grid-template-columns:1fr}.project.featured{grid-column:span 1}.company{grid-template-columns:1fr;gap:25px}.company-side{position:static}.about-grid{grid-template-columns:1fr;gap:25px}.certs{grid-template-columns:1fr 1fr}.role{grid-template-columns:1fr;gap:5px}.contact{padding:35px 25px;display:block}.contact .actions{margin-top:25px}footer{display:block}.footer-links{margin-top:10px}.detail-grid{grid-template-columns:1fr}.modal-box{padding:24px}.modal-box h2{font-size:34px}
+}
+@media(max-width:480px){.certs{grid-template-columns:1fr}.project h3{font-size:23px}h1{font-size:55px}}
+</style>
+</head>
+<body>
+<nav class="nav">
+ <div class="container nav-inner" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+  <a class="logo" href="#">SANKET<span></span></a>
+  <button class="menu" id="menu">☰</button>
+  <div class="navlinks" id="navlinks"><a href="#work">Work</a><a href="#what-i-build">What I Build</a><a href="#about">About</a><a href="#resume">Resume</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#certificates">Certificates</a><a href="#contact">Contact</a></div>
+  <div class="theme-control" id="themeControl">
+   <button class="theme-trigger" id="themeTrigger" type="button" aria-label="Change theme" aria-haspopup="true" aria-expanded="false"><span id="themeIcon">☀️</span></button>
+   <div class="theme-menu" id="themeMenu" role="menu">
+    <button type="button" role="menuitem" data-theme="light" title="Light — Morning Sun"><span>☀️</span><b>Light</b><small>Morning Sun</small></button>
+    <button type="button" role="menuitem" data-theme="warm" title="Warm — Evening Sun"><span>🌅</span><b>Warm</b><small>Evening Sun</small></button>
+    <button type="button" role="menuitem" data-theme="dark" title="Dark — Half Moon"><span>🌙</span><b>Dark</b><small>Half Moon</small></button>
+   </div>
+  </div>
+ </div>
+</nav>
+
+<main>
+<section class="container hero">
+ <div>
+  <div class="kicker">AI Software Engineer · Bengaluru</div>
+  <h1>Building AI that feels <em>useful.</em></h1>
+  <p class="hero-copy">I build production-ready Generative AI and backend systems — from RAG pipelines and multi-agent workflows to scalable FastAPI services.</p>
+  <div class="actions"><a class="btn primary" href="#work">Explore my work ↗</a><a class="btn light" href="mailto:sanketbiradar007@gmail.com">Let's talk</a></div>
+ </div>
+ <div class="hero-card"><div class="big">AI<br>×<br>BACKEND</div><p>Generative AI · RAG · Agents · APIs · Systems</p></div>
+</section>
+
+<section class="container stats">
+ <div class="stat"><b>10+</b><span>Self projects</span></div><div class="stat"><b>4</b><span>Collaboration projects</span></div><div class="stat"><b>10</b><span>Certificates</span></div>
+</section>
+
+<section class="container section" id="work">
+ <div class="section-head"><div><div class="eyebrow">01 — Selected work</div><h2>Self Projects</h2></div><p class="section-intro">Hands-on builds across machine learning, LLM applications, RAG, agent orchestration, automation and AI products. Click any card for the complete case-study view.</p></div>
+ <div class="projects" id="selfProjects"></div>
+</section>
+
+<section class="container section" id="collab">
+ <div class="section-head"><div><div class="eyebrow">02 — Professional work</div><h2>Rokkun Collaboration</h2></div><p class="section-intro">Production-oriented systems developed during my AI Engineer / Software Developer role.</p></div>
+ <div class="company"><aside class="company-side"><div class="company-name">Rokkun Systems</div><p>AI Engineer · Software Developer<br>Bangalore</p><div class="tags"><span class="tag">GCP</span><span class="tag">FastAPI</span><span class="tag">LangGraph</span><span class="tag">RAG</span></div></aside><div id="collabProjects"></div></div>
+</section>
+
+<section class="container section wib-section" id="what-i-build">
+ <div class="section-head"><div><div class="eyebrow">03 — What I build</div><h2>What I Build</h2></div><p class="section-intro">AI systems, backend services, and integrations I build to solve real-world problems.</p></div>
+ <div class="wib-track-wrap" id="wibTrackWrap"><div class="wib-track" id="wibTrack"></div></div>
+</section>
+
+<section class="container section" id="about">
+ <div class="section-head"><div><div class="eyebrow">04 — About</div><h2>About Me</h2></div><p class="section-intro">AI engineering with a strong backend foundation — focused on building useful, reliable software around modern language models.</p></div>
+ <div class="about-grid"><div><p class="about-lead">I build AI systems that are designed to be useful, reliable, and production-ready.</p><p>As an AI Software Engineer, I work across Generative AI, RAG, Agentic AI, LLM applications, multi-agent workflows, and backend engineering. I use technologies such as Python, FastAPI, LangChain, LangGraph, and vector databases to turn ideas into practical systems.</p><p>I enjoy solving the engineering problems behind AI — from designing structured workflows and APIs to integrating models, tools, retrieval systems, and asynchronous processing.</p></div></div>
+</section>
+
+<section class="container section" id="resume">
+ <div class="section-head"><div><div class="eyebrow">05 — Resume</div><h2>My Resume</h2></div><p class="section-intro">A concise overview of my AI engineering experience, projects, skills and technical background.</p></div>
+ <div class="contact" style="padding:32px 38px"><div><h2 style="font-size:32px">AI Software Engineer</h2><p>Generative AI · RAG · Agents · FastAPI · Backend Systems</p></div><div class="actions" style="margin-top:0"><a class="btn primary" href="assets/Sanket_Biradar_Resume.pdf" download>Download Resume ↓</a></div></div>
+</section>
+
+<section class="container section" id="experience">
+ <div class="section-head"><div><div class="eyebrow">06 — Background</div><h2>Experience</h2></div></div>
+ <div class="timeline">
+  <div class="role"><small>MAR 2025 — PRESENT</small><div><h3>AI Engineer · Software Developer</h3><p>Rokkun Systems Private Limited — Bangalore</p><p>Production AI chatbots, RAG, LangGraph, multi-agent orchestration, FastAPI microservices, async APIs, Redis and background processing on GCP.</p></div></div>
+  <div class="role"><small>JUN 2024 — FEB 2025</small><div><h3>Full Stack Developer Intern</h3><p>Besant EdTech Private Limited — Bangalore</p><p>Backend engineering, REST APIs, database integration and modular components following clean architecture practices.</p></div></div>
+  <div class="role"><small>2020 — 2024</small><div><h3>Bachelor of Engineering — Computer Science</h3><p>Don Bosco Institute of Technology, Bangalore · CGPA 7.2</p></div></div>
+ </div>
+</section>
+
+<section class="container section" id="skills">
+ <div class="section-head"><div><div class="eyebrow">07 — Toolbox</div><h2>Skills</h2></div><p class="section-intro">The stack I use to turn AI ideas into reliable software.</p></div>
+ <div class="skills" id="skillsList"></div>
+</section>
+
+<section class="container section" id="certificates">
+ <div class="section-head"><div><div class="eyebrow">08 — Credentials</div><h2>Certificates</h2></div><p class="section-intro">Click a certificate to view the certificate image. Add your files to <code>assets/certificates/</code> using the filenames configured below.</p></div>
+ <div class="certs" id="certs"></div>
+</section>
+
+<section class="container section" id="contact">
+ <div class="contact"><div><div class="eyebrow" style="color:#aaa">09 — Contact</div><h2>Let's build something intelligent.</h2><p>Open to AI Engineer and Generative AI opportunities, interesting products and engineering collaborations.</p></div><div class="actions"><a class="btn primary" href="mailto:sanketbiradar007@gmail.com">Email me ↗</a><a class="btn" href="https://www.linkedin.com/in/sanket-biradar/" target="_blank">LinkedIn ↗</a><a class="btn" href="https://github.com/SanketBiradar017" target="_blank">GitHub ↗</a></div></div>
+</section>
+</main>
+<footer class="container"><span>© 2026 Sanket Biradar</span><div class="footer-links"><a href="mailto:sanketbiradar007@gmail.com">Email</a><a href="https://github.com/SanketBiradar017" target="_blank">GitHub</a><a href="https://www.linkedin.com/in/sanket-biradar/" target="_blank">LinkedIn</a></div></footer>
+
+<div class="modal" id="modal"><div class="modal-box"><button class="close" id="close">×</button><div id="modalContent"></div></div></div>
+<script>
+const selfProjects = [
+ {title:"Student Exam Score Prediction",desc:"Machine learning application predicting exam scores from study hours, sleep, attendance and previous scores.",tech:["Python","Pandas","NumPy","Scikit-learn"],full:"Built the complete supervised-learning workflow: data exploration, missing-value analysis, preprocessing, train/test split, Linear Regression, evaluation with MAE, MSE, RMSE and R², and an interactive prediction flow.",demonstrates:["Data Analysis","Feature Engineering","Supervised Learning","Regression","Model Evaluation"],github:""},
+ {title:"Intelligent AI Chatbot with LangGraph & Gemini",desc:"State-based conversational AI that conditionally routes queries to specialized processing nodes.",tech:["Python","LangGraph","Gemini","LangChain"],full:"Implemented a LangGraph StateGraph workflow with structured TypedDict state, conditional routing, modular chatbot nodes, Gemini responses and fallback handling. The architecture is designed to grow into additional agents and tools.",demonstrates:["LangGraph","Stateful AI Workflows","Conditional Routing","LLM Integration","Prompt Engineering"],github:""},
+ {title:"AI Text Summarization using LangChain & OpenAI",desc:"LLM-powered text summarization pipeline using reusable LangChain components and OpenAI.",tech:["Python","LangChain","OpenAI","LLMs"],full:"Built a structured PromptTemplate and LangChain processing pipeline using LLMChain to turn user-provided text into concise summaries while keeping prompt logic separated from application logic.",demonstrates:["LLM Integration","LangChain","Prompt Engineering","Text Summarization"],github:""},
+ {title:"AI-Based Contextual Question Answering System",desc:"Context-aware NLP QA system using Hugging Face Transformers and DistilBERT fine-tuned on SQuAD.",tech:["Python","Transformers","DistilBERT","PyTorch"],full:"Accepts a question plus context, tokenizes the input, runs a SQuAD-fine-tuned DistilBERT model and extracts the relevant answer span from the supplied text.",demonstrates:["NLP","Transformers","Question Answering","Fine-Tuned Models","PyTorch"],github:""},
+ {title:"AI Spelling Correction Agent",desc:"NLP-based spelling correction application that detects and corrects errors in user-provided text.",tech:["Python","TextBlob","NLP","Automation"],full:"Implemented a reusable SpellingAgent class with an interactive CLI that continuously accepts text and returns corrected output in real time.",demonstrates:["NLP","Text Processing","Python Automation","Agent-Based Design"],github:""},
+ {title:"Multi-Agent AI Content Generation System — CrewAI",desc:"Collaborative AI agents research a topic and generate an informative blog post through a sequential workflow.",tech:["Python","CrewAI","Gemini","Multi-Agent AI"],full:"Designed role-based Researcher and Content Writer agents, sequential task execution, context passing between agents and Gemini 2.5 Flash integration for automated content generation.",demonstrates:["Multi-Agent AI","Agent Collaboration","Task Orchestration","LLM Applications"],github:""},
+ {title:"AI Multi-Agent Conversational System — AutoGen",desc:"Autonomous role-based agents communicate with each other to complete conversational tasks.",tech:["Python","AutoGen","Gemini","LLM Orchestration"],full:"Created multiple specialized agents with distinct roles and personalities, configured turn-based interactions, contextual conversation and Gemini-powered responses.",demonstrates:["AutoGen","Multi-Agent Systems","Agent Communication","LLM Orchestration"],github:""},
+ {title:"AutoMail AI — Intelligent Email Automation System",desc:"AI email generation and automation using Gmail API, OAuth 2.0, Gemini and LangChain.",tech:["FastAPI","Gmail API","OAuth 2.0","Gemini","JavaScript"],full:"Users provide recipient information, subject, date and context. Gemini generates a professional email, the user can preview/edit it, and the application sends it through Gmail using secure OAuth 2.0 authentication. Includes FastAPI REST endpoints and frontend/backend communication.",demonstrates:["LLM Integration","OAuth 2.0","API Integration","FastAPI","Email Automation","Production-Oriented AI"],github:""},
+ {title:"ResearchFlow AI — Agentic AI Research & Report Generation",desc:"Agentic research system that searches the web, synthesizes findings and generates structured reports.",tech:["LangGraph","Tavily","Gemini","FastAPI","Docker"],full:"Built a LangGraph workflow with Researcher and Writer agents, Tavily for real-time web research, Gemini for synthesis, FastAPI REST APIs, a web interface and Docker support.",demonstrates:["Agentic AI","LangGraph","Multi-Agent Systems","Web Research","LLM Orchestration","FastAPI","Docker"],github:""},
+ {title:"Meeting Intelligence AI Agent",desc:"Transforms meeting recordings into searchable knowledge with transcripts, summaries, decisions, actions and RAG Q&A.",tech:["FastAPI","LangChain","Gemini","RAG","Vector DB"],full:"Processes recordings through speech-to-text, generates structured summaries and extracts decisions/action items, stores searchable meeting knowledge in a vector database, then answers contextual questions using similarity retrieval and Gemini.",demonstrates:["RAG","LLM Applications","Information Retrieval","Speech-to-Text","LangChain","Vector Search","AI Agents"],github:""}
+];
+const collabProjects = [
+ {title:"AstroMuni.ai — AI-Powered Conversational Astrology Platform",desc:"Multi-agent astrology platform across web and WhatsApp with real-time conversational interactions.",tech:["FastAPI","LangGraph","RAG","PostgreSQL","Redis","Celery","WebSocket","Zoho Billing"],full:"Built and deployed a multi-agent LLM platform on GCP with a live website and real-time WhatsApp chatbot. Designed an orchestrator plus specialized agents for intent-based routing and personalized predictions. Implemented LangGraph tool-calling, RAG, async FastAPI APIs, WebSocket/SSE streaming, Redis caching, Celery and Zoho Billing integration.",github:""},
+ {title:"BUDIA — AI-Powered Diet & Fitness Assistant",desc:"RAG-based conversational assistant for personalized diet and nutrition guidance.",tech:["FastAPI","LangChain","LangGraph","RAG","Vector DB","Redis","PostgreSQL"],full:"Built an end-to-end RAG pipeline with embeddings, vector indexing and retrieval, then added LangGraph multi-agent intent routing and context-aware responses. Engineered async FastAPI services, Redis caching and prompt optimization for low-latency performance.",github:""},
+ {title:"COALMANDI — High-Volume Coal Trading Platform",desc:"High-throughput backend platform for transaction processing and concurrent workflows.",tech:["FastAPI","PostgreSQL","Redis","Celery"],full:"Developed high-throughput FastAPI async APIs, background processing with Celery and Redis queues, optimized PostgreSQL schemas and queries, and designed scalable workflows for concurrent transaction handling.",github:""}
+];
+const skills=["Python","FastAPI","REST APIs","Async APIs","LLM Applications","RAG","Prompt Engineering","LangChain","LangGraph","LlamaIndex","Multi-Agent Systems","Agent Routing","Agent Orchestration","PostgreSQL","MySQL","Vector Databases","Redis","Celery","Background Jobs","Caching","Microservices","API Architecture","Pandas","NumPy","GitHub","GCP"];
+
+const $=s=>document.querySelector(s);
+function tags(arr){return arr.map(x=>`<span class="tag">${x}</span>`).join("")}
+function renderProjects(){
+ $("#selfProjects").innerHTML=selfProjects.map((p,i)=>`<article class="project ${i===7?'featured':''}" onclick="showProject(selfProjects[${i}])"><span class="number">${String(i+1).padStart(2,"0")}</span><span class="arrow">↗</span><h3>${p.title}</h3><p class="desc">${p.desc}</p><div class="tags">${tags(p.tech)}</div><div class="meta">Click to explore complete project</div></article>`).join("");
+ $("#collabProjects").innerHTML=collabProjects.map((p,i)=>`<article class="case" onclick="showProject(collabProjects[${i}])"><div class="case-top"><h3>${p.title}</h3><span class="num">0${i+1} ↗</span></div><p>${p.desc}</p><div class="tags">${tags(p.tech)}</div></article>`).join("");
+ $("#skillsList").innerHTML=skills.map((s,i)=>`<button class="skill" type="button" onclick="showSkill(${i})">${s}</button>`).join("");
+}
+const skillDetails = {
+"Python": ["Core language I use across AI applications and backend services.","I use Python for model integration, data processing, API logic, automation and service development.",["FastAPI","Pandas","NumPy","Pydantic"],["Student Exam Score Prediction","AutoMail AI","Meeting Intelligence AI Agent"]],
+"FastAPI": ["A high-performance Python framework for building APIs and AI services.","I structure AI backends with typed request models, async endpoints, service layers and clear API boundaries.",["Pydantic","Uvicorn","AsyncIO","REST APIs"],["AutoMail AI","AstroMuni.ai","COALMANDI"]],
+"REST APIs": ["HTTP interfaces that connect frontend clients, AI workflows and external systems.","I design resource-oriented endpoints with validation, predictable responses and integration-friendly contracts.",["FastAPI","Pydantic","HTTP","JSON"],["AutoMail AI","AstroMuni.ai","COALMANDI"]],
+"Async APIs": ["Non-blocking APIs for I/O-heavy AI and integration workloads.","I use async request handling for model calls, database access, external APIs and streaming workflows.",["FastAPI","AsyncIO","HTTPX","WebSockets"],["AstroMuni.ai","COALMANDI","AutoMail AI"]],
+"LLM Applications": ["Applications that use large language models as part of a structured software workflow.","I combine prompts, model calls, structured outputs, validation and application logic rather than relying on raw chat completions.",["Gemini","OpenAI","LangChain","Prompt Engineering"],["AutoMail AI","Meeting Intelligence AI Agent","AI Text Summarization"]],
+"RAG": ["Retrieval-Augmented Generation grounds model responses in relevant external knowledge.","I build ingestion, chunking, embedding, retrieval and generation pipelines with context-aware prompts.",["Embeddings","Vector DB","LangChain","Semantic Search"],["Meeting Intelligence AI Agent","BUDIA","AstroMuni.ai"]],
+"Prompt Engineering": ["Designing prompts that make model behavior more consistent, useful and controllable.","I use structured instructions, context formatting, role/task separation and output constraints.",["Gemini","OpenAI","LangChain","Structured Outputs"],["AI Text Summarization","AutoMail AI","ResearchFlow AI"]],
+"LangChain": ["A framework for composing LLM, retrieval and tool-enabled application components.","I use chains, prompts, retrievers and model integrations to build reusable AI pipelines.",["Python","Gemini","Retrievers","Prompt Templates"],["AI Text Summarization","Meeting Intelligence AI Agent","BUDIA"]],
+"LangGraph": ["A graph-based framework for stateful, controllable AI workflows.","I use state, nodes, conditional routing and tool calls to build agentic workflows.",["StateGraph","Python","Gemini","Tool Calling"],["Intelligent AI Chatbot","ResearchFlow AI","AstroMuni.ai"]],
+"LlamaIndex": ["A framework for connecting LLM applications with structured and unstructured data.","I use it as an option for building knowledge and retrieval-oriented AI systems.",["Python","Indexing","Retrieval","Embeddings"],["Knowledge Systems","RAG experiments"]],
+"Multi-Agent Systems": ["Systems where multiple specialized agents collaborate on complex tasks.","I separate responsibilities into agents and coordinate their state, routing and outputs.",["LangGraph","CrewAI","AutoGen","Gemini"],["ResearchFlow AI","CrewAI Content Generation","AutoGen Conversational System"]],
+"Agent Routing": ["Routing requests to the most appropriate AI capability or agent.","I use intent-aware conditional paths so each request reaches specialized processing logic.",["LangGraph","Conditional Edges","Intent Classification","State"],["Intelligent AI Chatbot","AstroMuni.ai"]],
+"Agent Orchestration": ["Coordinating multiple AI steps, agents and tools into one reliable workflow.","I design explicit workflow stages, state transitions and handoffs between specialized components.",["LangGraph","CrewAI","AutoGen","Tool Calling"],["ResearchFlow AI","AstroMuni.ai","CrewAI Content Generation"]],
+"PostgreSQL": ["Relational database for reliable structured application data.","I use it for persistent application data, user records, workflow state and transactional backend systems.",["SQL","FastAPI","ORMs","Indexes"],["AstroMuni.ai","BUDIA","COALMANDI"]],
+"MySQL": ["Relational database technology for structured application workloads.","I use SQL concepts for schema design, querying and backend data integration.",["SQL","Indexes","Transactions","Python"],["Backend API projects","Database integrations"]],
+"Vector Databases": ["Storage and search infrastructure for semantic embeddings.","I use vector search to retrieve contextually relevant chunks for RAG pipelines.",["Embeddings","Similarity Search","Metadata Filters","RAG"],["Meeting Intelligence AI Agent","BUDIA","AstroMuni.ai"]],
+"Redis": ["In-memory infrastructure for fast caching and transient application state.","I use Redis for low-latency caching and supporting asynchronous backend workflows.",["Caching","Queues","FastAPI","Celery"],["AstroMuni.ai","BUDIA","COALMANDI"]],
+"Celery": ["Distributed background task processing for asynchronous workloads.","I use task queues for work that should run outside the request-response path.",["Redis","Workers","Background Jobs","Python"],["AstroMuni.ai","COALMANDI"]],
+"Background Jobs": ["Asynchronous processing that runs independently of the main API request.","I use background workers for long-running, scheduled or non-blocking application tasks.",["Celery","Redis","Async APIs","Task Queues"],["AstroMuni.ai","COALMANDI","AI Workflows"]],
+"Caching": ["A performance pattern for avoiding repeated expensive operations.","I cache frequently requested or expensive results to reduce latency and backend load.",["Redis","TTL","Cache Keys","FastAPI"],["AstroMuni.ai","BUDIA"]],
+"Microservices": ["Separating a system into focused services with clear responsibilities.","I use service boundaries to isolate AI, API, data and integration concerns where useful.",["FastAPI","REST APIs","Redis","GCP"],["AstroMuni.ai","COALMANDI"]],
+"API Architecture": ["The structure and boundaries used to make backend APIs maintainable and scalable.","I organize routes, validation, business logic, integrations and data access into clear layers.",["FastAPI","Pydantic","REST","AsyncIO"],["AutoMail AI","AstroMuni.ai","COALMANDI"]],
+"Pandas": ["Python library for data manipulation and analysis.","I use it for dataset inspection, preprocessing, feature preparation and model workflows.",["Python","NumPy","DataFrames","CSV"],["Student Exam Score Prediction"]],
+"NumPy": ["Core numerical computing library in Python.","I use it for numerical transformations and supporting machine-learning data workflows.",["Python","Pandas","Arrays","Numerical Computing"],["Student Exam Score Prediction"]],
+"GitHub": ["Platform I use to version, organize and showcase software projects.","I use Git-based workflows to maintain project history, collaborate and present portfolio work.",["Git","Branches","Pull Requests","Repositories"],["All showcased projects"]],
+"GCP": ["Cloud platform used for deploying and operating application infrastructure.","I use GCP as part of production-oriented backend and AI system deployments.",["Cloud Run","Storage","Services","Monitoring"],["AstroMuni.ai","Production AI Systems"]]
+};
+function showSkill(i){const name=skills[i],d=skillDetails[name]||["Technical capability used in my AI engineering work.","I apply it where it improves the reliability, performance or maintainability of an AI system.",[name],["Relevant AI and backend projects"]];document.querySelectorAll('.skill').forEach((x,n)=>x.classList.toggle('active',n===i));$("#modalContent").innerHTML=`<div class="eyebrow">Skill detail</div><h2>${name}</h2><div class="modal-body"><div class="detail-grid"><div class="detail-block"><h4>What it is</h4><p>${d[0]}</p></div><div class="detail-block"><h4>How I use it</h4><p>${d[1]}</p></div><div class="detail-block"><h4>Key technologies / libraries</h4><div class="tags">${tags(d[2])}</div></div><div class="detail-block"><h4>Relevant projects</h4><ul>${d[3].map(x=>`<li>${x}</li>`).join('')}</ul></div></div></div>`;$("#modal").classList.add('open');}
+
+function showFlowchart(p){const steps=(p.flow||["Input","API / Processing","AI Workflow","Data / Retrieval","Output"]);$("#modalContent").innerHTML=`<div class="eyebrow">Project architecture</div><h2>${p.title}</h2><div class="flowchart-wrap"><p style="font-size:14px;color:var(--muted)">Complete workflow from input to processing to output.</p><div class="flowchart">${steps.map((x,i)=>`${i?'<span class="flow-arrow">→</span>':''}<div class="flow-node">${x}<small>STEP ${String(i+1).padStart(2,'0')}</small></div>`).join('')}</div></div>`;$("#modal").classList.add('open');}
+
+const flowMap={
+"Student Exam Score Prediction":["Student Input","Data Validation","Preprocessing","Regression Model","Score Prediction"],
+"Intelligent AI Chatbot with LangGraph & Gemini":["User Query","LangGraph State","Conditional Router","Gemini / Node","Response"],
+"AI Text Summarization using LangChain & OpenAI":["Text Input","Prompt Template","LangChain Pipeline","OpenAI LLM","Summary"],
+"AI-Based Contextual Question Answering System":["Question + Context","Tokenization","DistilBERT","Answer Span Extraction","Answer"],
+"AI Spelling Correction Agent":["Text Input","Spelling Agent","NLP Correction","Validation","Corrected Text"],
+"Multi-Agent AI Content Generation System — CrewAI":["Topic Input","Researcher Agent","Context Handoff","Writer Agent","Blog Output"],
+"AI Multi-Agent Conversational System — AutoGen":["User Task","Agent Selection","Agent Conversation","Task Execution","Final Response"],
+"AutoMail AI — Intelligent Email Automation System":["Email Details","FastAPI","Gemini + LangChain","Preview / Edit","Gmail API → Sent"],
+"ResearchFlow AI — Agentic AI Research & Report Generation":["Research Query","LangGraph Router","Tavily Research","Gemini Synthesis","Structured Report"],
+"Meeting Intelligence AI Agent":["Meeting Recording","Speech-to-Text","Summary + Actions","Vector Index / Retrieval","RAG Answer"],
+"AstroMuni.ai — AI-Powered Conversational Astrology Platform":["User / WhatsApp","FastAPI","LangGraph Agents","RAG + Tools","Response / SSE"],
+"BUDIA — AI-Powered Diet & Fitness Assistant":["User Question","FastAPI","Retriever + Vector DB","LangGraph / LLM","Personalized Answer"],
+"COALMANDI — High-Volume Coal Trading Platform":["Transaction Request","FastAPI Async API","PostgreSQL","Redis + Celery","Processed Result"]
+};
+[...selfProjects,...collabProjects].forEach(p=>p.flow=flowMap[p.title]||["Input","API","Processing","AI / Data Layer","Output"]);
+const themeMeta={light:{icon:'☀️',label:'Light'},warm:{icon:'🌅',label:'Warm'},dark:{icon:'🌙',label:'Dark'}};
+function setTheme(theme,save=true){if(!themeMeta[theme])theme='light';document.body.classList.remove('theme-warm','theme-dark');if(theme!=='light')document.body.classList.add('theme-'+theme);document.documentElement.dataset.theme=theme;const icon=document.getElementById('themeIcon');if(icon)icon.textContent=themeMeta[theme].icon;document.querySelectorAll('.theme-menu button').forEach(b=>b.classList.toggle('active',b.dataset.theme===theme));if(save)localStorage.setItem('portfolio-theme',theme);}
+const savedTheme=localStorage.getItem('portfolio-theme');setTheme(savedTheme&&themeMeta[savedTheme]?savedTheme:'light',false);
+const themeControl=document.getElementById('themeControl'),themeTrigger=document.getElementById('themeTrigger');
+themeTrigger.addEventListener('click',e=>{e.stopPropagation();const open=themeControl.classList.toggle('open');themeTrigger.setAttribute('aria-expanded',open?'true':'false')});
+document.querySelectorAll('.theme-menu button').forEach(b=>b.addEventListener('click',()=>{setTheme(b.dataset.theme);themeControl.classList.remove('open');themeTrigger.setAttribute('aria-expanded','false')}));
+document.addEventListener('click',e=>{if(!themeControl.contains(e.target)){themeControl.classList.remove('open');themeTrigger.setAttribute('aria-expanded','false')}});
+
+const certificates=[
+ ["Hugging Face Agent Course Certification","Hugging Face","assets/certificates/01-huggingface-agent.jpg"],
+ ["Hugging Face LLM Course Certification","Hugging Face","assets/certificates/02-huggingface-llm.jpg"],
+ ["AI Fluency: Framework & Foundation","Anthropic","assets/certificates/03-anthropic-ai-fluency.jpg"],
+ ["Python Full Stack Certification","Besant Technologies","assets/certificates/04-python-fullstack.jpg"],
+ ["HackerRank Python Certification","HackerRank","assets/certificates/05-hackerrank-python.jpg"],
+ ["HackerRank SQL Certification","HackerRank","assets/certificates/06-hackerrank-sql.jpg"],
+ ["Certificate 07","Add issuer","assets/certificates/07-certificate.jpg"],
+ ["Certificate 08","Add issuer","assets/certificates/08-certificate.jpg"],
+ ["Certificate 09","Add issuer","assets/certificates/09-certificate.jpg"],
+ ["Certificate 10","Add issuer","assets/certificates/10-certificate.jpg"]
+];
+function renderCerts(){
+ $("#certs").innerHTML=certificates.map((c,i)=>`<article class="cert" onclick="showCert(${i})"><div class="icon">▣</div><h3>${c[0]}</h3><p>${c[1]} · Click to view</p></article>`).join("");
+}
+function showProject(p){ window.currentProject=p;
+ $("#modalContent").innerHTML=`<div class="eyebrow">Project case study</div><h2>${p.title}</h2><div class="modal-body"><p style="font-size:16px;color:var(--nav-ink)">${p.desc}</p><div class="detail-grid"><div class="detail-block"><h4>Overview</h4><p>${p.full}</p></div><div class="detail-block"><h4>Technology</h4><div class="tags">${tags(p.tech)}</div>${p.github?`<p style="margin-top:18px"><a class="btn primary" href="${p.github}" target="_blank">View on GitHub ↗</a></p>`:`<p style="margin-top:18px;color:var(--fine)">GitHub repository link can be added in the project data.</p>`}<p style="margin-top:12px"><button class="btn flow-btn" type="button" onclick="event.stopPropagation();showFlowchart(window.currentProject)">View Flowchart ↗</button></p></div><div class="detail-block"><h4>What this demonstrates</h4><ul>${(p.demonstrates||[]).map(x=>`<li>${x}</li>`).join("")}</ul></div></div></div>`;
+ $("#modal").classList.add("open");
+}
+function showCert(i){
+ const c=certificates[i];
+ $("#modalContent").innerHTML=`<div class="eyebrow">Credential ${String(i+1).padStart(2,"0")}</div><h2>${c[0]}</h2><p style="color:var(--eyebrow)">${c[1]}</p><img class="cert-image" src="${c[2]}" alt="${c[0]}" onerror="this.alt='Certificate image not added yet';this.style.display='none';this.insertAdjacentHTML('afterend','<div style=&quot;padding:50px;text-align:center;border:1px dashed #bbb;border-radius:14px;color:#777&quot;>Add the certificate image at <b>${c[2]}</b></div>')">`;
+ $("#modal").classList.add("open");
+}
+$("#close").onclick=()=>$("#modal").classList.remove("open");
+$("#modal").onclick=e=>{if(e.target.id==="modal")$("#modal").classList.remove("open")};
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("#modal").classList.remove("open")});
+$("#menu").onclick=()=>$("#navlinks").classList.toggle("open");
+document.querySelectorAll("#navlinks a").forEach(a=>a.onclick=()=>$("#navlinks").classList.remove("open"));
+const whatIBuild=[['Generative AI Applications','✦','Build LLM-powered applications for practical real-world use cases.',['LLM Integration','Prompt Engineering','Structured Outputs']],['RAG Systems','⌕','Build context-aware AI applications that retrieve relevant information before generating responses.',['Retrieval','Embeddings','Vector Search','Grounding']],['Agentic AI','◎','Build AI agents capable of reasoning, tool usage, and multi-step task execution.',['Tool Calling','State','Orchestration','Multi-Agent Systems']],['AI Backend Engineering','⌁','Build scalable backend systems that power AI applications and services.',['Python','FastAPI','REST APIs','Async Processing','Microservices']],['FastAPI Development','↗','Build high-performance APIs and backend services for AI-powered applications.',['FastAPI','Pydantic','Async APIs','API Design']],['API & System Integrations','↔','Connect AI applications with external APIs, databases, platforms, and business systems.',['REST APIs','OAuth','Webhooks','Third-Party APIs']],['Zoho Integrations','◇','Integrate backend and AI systems with Zoho platforms to automate business workflows.',['Zoho APIs','OAuth','Webhooks','Business Automation']],['LLM Evaluation','✓','Evaluate and improve the quality, reliability, and consistency of AI-generated responses.',['LLM Evaluation','Tracing','Observability','Prompt Testing']],['Knowledge Systems','▤','Transform unstructured documents and data into searchable and useful AI knowledge.',['Document Processing','Chunking','Embeddings','Semantic Search']],['AI Workflows & Automation','↻','Build automated workflows and pipelines for complex AI and business processes.',['Workflow Orchestration','Background Jobs','Automation','Async Tasks']],['Production AI Systems','□','Build reliable AI applications designed to move beyond prototypes into production.',['Scalability','Caching','Monitoring','Error Handling']],['AI Experimentation','⌘','Experiment with models, prompts, architectures, and AI techniques to improve solutions.',['Model Comparison','Prompt Experiments','Prototyping','Optimization']]]; function renderWhatIBuild(){const t=$('#wibTrack');if(!t)return;const card=(p,i)=>`<article class="wib-card" tabindex="0" role="button" data-wib-index="${i}"><div class="wib-top"><div class="wib-icon">${p[1]}</div><span class="wib-number">${String(i+1).padStart(2,'0')}</span></div><h3>${p[0]}</h3><p class="wib-desc">${p[2]}</p><div class="wib-focus"><span class="wib-focus-label">Focus</span><div class="wib-pills">${p[3].map(x=>`<span class="wib-pill">${x}</span>`).join('')}</div></div><span class="wib-click">Explore ↗</span></article>`;t.innerHTML=whatIBuild.map(card).join('')+whatIBuild.map(card).join('');t.querySelectorAll('.wib-card').forEach(c=>{const o=()=>showWhatIBuild(+c.dataset.wibIndex);c.onclick=o;c.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();o()}}});initWhatIBuildMarquee()} function showWhatIBuild(i){const p=whatIBuild[i];$('#modalContent').innerHTML=`<div class="eyebrow">What I Build · ${String(i+1).padStart(2,'0')}</div><h2>${p[0]}</h2><p class="wib-modal-intro">${p[2]}</p><div class="modal-body"><div class="detail-grid"><div class="detail-block"><h4>What it is</h4><p>${p[2]}</p></div><div class="detail-block"><h4>How I approach it</h4><p>Design the architecture around the problem, build modular components, validate inputs and outputs, and iterate using measurable results and production constraints.</p></div><div class="detail-block"><h4>Key technologies</h4><div class="tags">${p[3].map(x=>`<span class="tag">${x}</span>`).join('')}</div></div><div class="detail-block"><h4>Relevant portfolio projects</h4><ul class="wib-modal-list"><li>AstroMuni.ai</li><li>AutoMail AI</li><li>Meeting Intelligence AI Agent</li></ul></div></div></div>`;$('#modal').classList.add('open')} function initWhatIBuildMarquee(){const w=$('#wibTrackWrap'),t=$('#wibTrack');let x=0,drag=false,sx=0,start=0,last=performance.now();const speed=.035,n=()=>{const h=t.scrollWidth/2;if(h){while(x<=-h)x+=h;while(x>0)x-=h}};function f(now){const dt=Math.min(now-last,50);last=now;if(!drag&&!w.matches(':hover')){x-=speed*dt;n();t.style.transform=`translate3d(${x}px,0,0)`}requestAnimationFrame(f)}requestAnimationFrame(f);w.onpointerdown=e=>{drag=true;sx=e.clientX;start=x;w.setPointerCapture?.(e.pointerId);w.classList.add('is-dragging')};w.onpointermove=e=>{if(drag){x=start+e.clientX-sx;n();t.style.transform=`translate3d(${x}px,0,0)`}};const end=()=>{drag=false;w.classList.remove('is-dragging')};w.onpointerup=end;w.onpointercancel=end;w.onwheel=e=>{if(Math.abs(e.deltaX)>Math.abs(e.deltaY)||e.shiftKey){e.preventDefault();x-=e.deltaX||e.deltaY;n();t.style.transform=`translate3d(${x}px,0,0)`}}}
+renderProjects();renderCerts();renderWhatIBuild();
+</script>
+</body>
+</html>
