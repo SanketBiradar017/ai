@@ -174,7 +174,7 @@ body.theme-dark label{color:#d2cec5}
 
 <section class="container section" id="resume">
  <div class="section-head"><div><div class="eyebrow">05 — Resume</div><h2>My Resume</h2></div><p class="section-intro">A concise overview of my AI engineering experience, projects, skills and technical background.</p></div>
- <div class="contact" style="padding:32px 38px"><div><h2 style="font-size:32px">AI Software Engineer</h2><p>Generative AI · RAG · Agents · FastAPI · Backend Systems</p></div><div class="actions" style="margin-top:0"><a class="btn primary" href="assets/Sanket_Biradar_Resume.pdf" download>Download Resume ↓</a></div></div>
+ <div class="contact" style="padding:32px 38px"><div><h2 style="font-size:32px">AI Software Engineer</h2><p>Generative AI · RAG · Agents · FastAPI · Backend Systems</p></div><div class="actions" style="margin-top:0"><a class="btn primary" href="assets/Sanket Biradar Resume.pdf" download>Download Resume ↓</a></div></div>
 </section>
 
 <section class="container section" id="experience">
@@ -286,17 +286,29 @@ themeTrigger.addEventListener('click',e=>{e.stopPropagation();const open=themeCo
 document.querySelectorAll('.theme-menu button').forEach(b=>b.addEventListener('click',()=>{setTheme(b.dataset.theme);themeControl.classList.remove('open');themeTrigger.setAttribute('aria-expanded','false')}));
 document.addEventListener('click',e=>{if(!themeControl.contains(e.target)){themeControl.classList.remove('open');themeTrigger.setAttribute('aria-expanded','false')}});
 
-const certificates=[
- ["Hugging Face Agent Course Certification","Hugging Face","assets/certificates/01-huggingface-agent.jpg"],
- ["Hugging Face LLM Course Certification","Hugging Face","assets/certificates/02-huggingface-llm.jpg"],
- ["AI Fluency: Framework & Foundation","Anthropic","assets/certificates/03-anthropic-ai-fluency.jpg"],
- ["Python Full Stack Certification","Besant Technologies","assets/certificates/04-python-fullstack.jpg"],
- ["HackerRank Python Certification","HackerRank","assets/certificates/05-hackerrank-python.jpg"],
- ["HackerRank SQL Certification","HackerRank","assets/certificates/06-hackerrank-sql.jpg"],
- ["Certificate 07","Add issuer","assets/certificates/07-certificate.jpg"],
- ["Certificate 08","Add issuer","assets/certificates/08-certificate.jpg"],
- ["Certificate 09","Add issuer","assets/certificates/09-certificate.jpg"],
- ["Certificate 10","Add issuer","assets/certificates/10-certificate.jpg"]
+// const certificates=[
+//  ["Hugging Face Agent Course Certification","Hugging Face","assets/certificates/01-huggingface-agent.jpg"],
+//  ["Hugging Face LLM Course Certification","Hugging Face","assets/certificates/02-huggingface-llm.jpg"],
+//  ["AI Fluency: Framework & Foundation","Anthropic","assets/certificates/03-anthropic-ai-fluency.jpg"],
+//  ["Python Full Stack Certification","Besant Technologies","assets/certificates/04-python-fullstack.jpg"],
+//  ["HackerRank Python Certification","HackerRank","assets/certificates/05-hackerrank-python.jpg"],
+//  ["HackerRank SQL Certification","HackerRank","assets/certificates/06-hackerrank-sql.jpg"],
+//  ["Certificate 07","Add issuer","assets/certificates/07-certificate.jpg"],
+//  ["Certificate 08","Add issuer","assets/certificates/08-certificate.jpg"],
+//  ["Certificate 09","Add issuer","assets/certificates/09-certificate.jpg"],
+//  ["Certificate 10","Add issuer","assets/certificates/10-certificate.jpg"]
+// ];
+const certificates = [
+  ["Hugging Face Agent Course Certification", "Hugging Face", "assets/certificates/01-huggingface-agen.jpeg"],
+  ["Anthropic AI MCP Certification", "Anthropic", "assets/certificates/02-antropic-aiMCP.jpeg"],
+  ["Hugging Face LLM Course Certification", "Hugging Face", "assets/certificates/02-huggingface-llm.jpeg"],
+  ["AI Fluency: Framework & Foundation", "Anthropic", "assets/certificates/03-anthropic-ai-fluency.jpeg"],
+  ["Python Full Stack Certification", "Besant Technologies", "assets/certificates/04-python-fullstack.jpeg"],
+  ["HackerRank CSS Certification", "HackerRank", "assets/certificates/05-hackerrank-css.jpeg"],
+  ["HackerRank Python Certification", "HackerRank", "assets/certificates/05-hackerrank-python.jpeg"],
+  ["HackerRank SQL Certification", "HackerRank", "assets/certificates/05-hackerrank-sql.jpeg"],
+  ["Hugging Face MCP Certification", "Hugging Face", "assets/certificates/05-huggingface-mcp.jpeg"],
+  ["RAPSoL Internship", "RAPSoL", "assets/certificates/06-rapsol-intern.jpeg"]
 ];
 function renderCerts(){
  $("#certs").innerHTML=certificates.map((c,i)=>`<article class="cert" onclick="showCert(${i})"><div class="icon">▣</div><h3>${c[0]}</h3><p>${c[1]} · Click to view</p></article>`).join("");
