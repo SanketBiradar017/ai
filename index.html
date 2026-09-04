@@ -308,7 +308,7 @@ const certificates = [
   ["HackerRank Python Certification", "HackerRank", "assets/certificates/05-hackerrank-python.jpeg"],
   ["HackerRank SQL Certification", "HackerRank", "assets/certificates/05-hackerrank-sql.jpeg"],
   ["Hugging Face MCP Certification", "Hugging Face", "assets/certificates/05-huggingface-mcp.jpeg"],
-  ["RAPSOL Internship", "RAPSOL", "assets/certificates/06-rapsol-intern.jpeg"]
+  ["Rapsol Internship", "Rapsol", "assets/certificates/06-rapsol-intern.jpeg"]
 ];
 function renderCerts(){
  $("#certs").innerHTML=certificates.map((c,i)=>`<article class="cert" onclick="showCert(${i})"><div class="icon">▣</div><h3>${c[0]}</h3><p>${c[1]} · Click to view</p></article>`).join("");
