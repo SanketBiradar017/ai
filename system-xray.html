@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="System X-Ray — Sanket Biradar's connected AI engineering stack and project architecture.">
+<title>System X-Ray — Sanket Biradar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f5f3ee;
+  --surface:#fffdf8;
+  --ink:#141414;
+  --muted:#66635d;
+  --line:#d9d5cc;
+  --accent:#c9ff4a;
+  --nav-ink:#555;
+  --nav-hover:#000;
+  --fine:#888;
+  --panel:#fffdf8;
+  --soft:#ece9e1;
+  --shadow:0 20px 60px rgba(20,20,20,.08);
+}
+body.theme-warm{
+  --bg:#f3eadc;
+  --surface:#fff8ed;
+  --ink:#30251b;
+  --muted:#756452;
+  --line:#d8c8b2;
+  --accent:#d6a84f;
+  --nav-ink:#665545;
+  --nav-hover:#2b2118;
+  --fine:#8a7865;
+  --panel:#fff8ed;
+  --soft:#eee1cf;
+}
+body.theme-dark{
+  --bg:#111211;
+  --surface:#191a18;
+  --ink:#f4f1e9;
+  --muted:#aaa69c;
+  --line:#343530;
+  --accent:#c9ff4a;
+  --nav-ink:#d1cec5;
+  --nav-hover:#fff;
+  --fine:#929087;
+  --panel:#191a18;
+  --soft:#292a27;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Manrope,sans-serif;
+  line-height:1.5;
+}
+button,input{font:inherit}
+a{color:inherit;text-decoration:none}
+.topbar{
+  height:78px;
+  position:sticky;
+  top:0;
+  z-index:50;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+}
+.brand{
+  font-size:21px;
+  font-weight:800;
+  letter-spacing:-.04em;
+}
+.brand-dot{
+  display:inline-block;
+  width:8px;height:8px;
+  border-radius:50%;
+  background:var(--accent);
+  margin-left:4px;
+}
+.top-actions{display:flex;align-items:center;gap:10px}
+.back-btn,.theme-btn,.zoom-btn{
+  border:1px solid var(--line);
+  background:var(--surface);
+  color:var(--ink);
+  border-radius:999px;
+  cursor:pointer;
+  transition:.2s;
+}
+.back-btn{padding:10px 15px;font-size:12px;font-weight:800}
+.back-btn:hover,.theme-btn:hover,.zoom-btn:hover{border-color:var(--ink);transform:translateY(-1px)}
+.theme-wrap{position:relative}
+.theme-btn{width:40px;height:40px}
+.theme-menu{
+  position:absolute;
+  right:0;top:48px;
+  width:180px;
+  display:none;
+  padding:7px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:15px;
+  box-shadow:var(--shadow);
+}
+.theme-menu.open{display:block}
+.theme-menu button{
+  width:100%;
+  display:grid;
+  grid-template-columns:24px 1fr;
+  text-align:left;
+  border:0;
+  background:transparent;
+  color:var(--ink);
+  padding:9px;
+  border-radius:10px;
+  cursor:pointer;
+}
+.theme-menu button:hover,.theme-menu button.active{background:var(--soft)}
+.theme-menu small{grid-column:2;color:var(--muted);font-size:9px}
+
+.hero{
+  width:min(1500px,calc(100% - 40px));
+  margin:auto;
+  padding:70px 0 34px;
+}
+.eyebrow{
+  font:11px "DM Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--fine);
+}
+h1{
+  font-size:clamp(48px,7vw,92px);
+  line-height:.9;
+  letter-spacing:-.075em;
+  margin:9px 0 15px;
+}
+.hero-copy{
+  max-width:760px;
+  color:var(--muted);
+  font-size:15px;
+  margin:0;
+}
+.hero-meta{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:22px;
+}
+.meta-pill{
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:7px 10px;
+  font:9px "DM Mono",monospace;
+  text-transform:uppercase;
+  background:var(--surface);
+}
+.controls{
+  width:min(1500px,calc(100% - 40px));
+  margin:0 auto 18px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+  position:sticky;
+  top:78px;
+  z-index:30;
+  padding:12px 0;
+  background:var(--bg);
+}
+.search{
+  flex:1 1 300px;
+  min-width:220px;
+  padding:11px 14px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--surface);
+  color:var(--ink);
+  outline:none;
+}
+.search:focus{border-color:var(--ink)}
+.filter,.zoom-btn{
+  padding:10px 13px;
+  font:10px "DM Mono",monospace;
+  text-transform:uppercase;
+}
+.filter.active{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.control-group{display:flex;gap:6px;flex-wrap:wrap}
+.zoom-group{margin-left:auto;display:flex;gap:6px}
+
+.viewport{
+  width:min(1500px,calc(100% - 40px));
+  height:calc(100vh - 215px);
+  min-height:700px;
+  margin:0 auto 70px;
+  overflow:auto;
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:
+    linear-gradient(var(--line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line) 1px,transparent 1px),
+    var(--bg);
+  background-size:40px 40px;
+  box-shadow:var(--shadow);
+  cursor:grab;
+  overscroll-behavior:contain;
+}
+.viewport.dragging{cursor:grabbing}
+.canvas{
+  width:2500px;
+  height:2100px;
+  position:relative;
+  transform-origin:0 0;
+}
+.flow-title{
+  position:absolute;
+  left:100px;top:70px;
+  font:12px "DM Mono",monospace;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--fine);
+}
+.section-label{
+  position:absolute;
+  font:10px "DM Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--fine);
+}
+.node{
+  position:absolute;
+  min-width:180px;
+  padding:14px 16px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:var(--surface);
+  color:var(--ink);
+  box-shadow:0 8px 24px rgba(20,20,20,.04);
+  cursor:pointer;
+  user-select:none;
+  transition:.18s;
+  z-index:5;
+}
+.node:hover{transform:translateY(-3px);border-color:var(--ink);box-shadow:var(--shadow)}
+.node.active{
+  border-color:var(--ink);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 70%,transparent),var(--shadow);
+  background:color-mix(in srgb,var(--surface) 86%,var(--accent));
+}
+.node.dimmed{opacity:.18}
+.node .node-type{
+  display:block;
+  margin-bottom:5px;
+  font:8px "DM Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:var(--fine);
+}
+.node strong{font-size:15px;line-height:1.1}
+.node small{display:block;margin-top:5px;color:var(--muted);font-size:10px}
+.node.core{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.node.core .node-type,.node.core small{color:#aaa}
+.node.project{border-radius:19px;min-width:210px}
+.node.project strong{font-size:16px}
+.node.tech{border-radius:13px}
+.node.capability{border-radius:13px}
+.node.data{border-style:dashed}
+.svg-layer{
+  position:absolute;
+  inset:0;
+  width:2500px;
+  height:2100px;
+  overflow:visible;
+  z-index:1;
+  pointer-events:none;
+}
+.link{
+  fill:none;
+  stroke:var(--line);
+  stroke-width:2;
+  opacity:.8;
+  transition:.18s;
+}
+.link.active{stroke:var(--ink);stroke-width:4;opacity:1}
+.link.dimmed{opacity:.08}
+.arrow{fill:var(--line)}
+.arrow.active{fill:var(--ink)}
+.section-box{
+  position:absolute;
+  border:1px dashed var(--line);
+  border-radius:24px;
+  pointer-events:none;
+  z-index:0;
+}
+.section-box span{
+  position:absolute;
+  top:-12px;left:22px;
+  padding:3px 8px;
+  background:var(--bg);
+  font:9px "DM Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--fine);
+}
+.legend{
+  width:min(1500px,calc(100% - 40px));
+  margin:-40px auto 70px;
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  color:var(--muted);
+  font:10px "DM Mono",monospace;
+  text-transform:uppercase;
+}
+.legend-item{display:flex;align-items:center;gap:7px}
+.dot{width:9px;height:9px;border-radius:3px;border:1px solid var(--line);background:var(--surface)}
+.dot.core{background:var(--ink)}
+.dot.project{border-radius:5px}
+.dot.data{border-style:dashed}
+.info{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.58);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:100;
+}
+.info.open{display:flex}
+.info-card{
+  width:min(580px,100%);
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:30px;
+  box-shadow:0 30px 100px rgba(0,0,0,.25);
+  position:relative;
+}
+.info-close{
+  position:absolute;
+  right:16px;top:16px;
+  width:36px;height:36px;
+  border:1px solid var(--line);
+  background:var(--soft);
+  color:var(--ink);
+  border-radius:50%;
+  cursor:pointer;
+}
+.info-kicker{font:9px "DM Mono",monospace;text-transform:uppercase;letter-spacing:.12em;color:var(--fine)}
+.info-card h2{font-size:38px;line-height:1;margin:9px 45px 20px 0;letter-spacing:-.06em}
+.what-is{
+  border-top:1px solid var(--line);
+  padding-top:17px;
+}
+.what-is h3{font:10px "DM Mono",monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--fine);margin:0 0 9px}
+.what-is p{margin:0;color:var(--muted);font-size:15px;line-height:1.65}
+.project-note{
+  display:none;
+}
+.status{
+  position:fixed;
+  right:22px;
+  bottom:20px;
+  z-index:40;
+  padding:9px 12px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--surface);
+  color:var(--muted);
+  font:9px "DM Mono",monospace;
+  text-transform:uppercase;
+}
+@media(max-width:800px){
+  .topbar{padding:0 16px}
+  .hero,.controls,.viewport,.legend{width:min(1500px,calc(100% - 24px))}
+  .hero{padding-top:48px}
+  .viewport{height:calc(100vh - 245px);min-height:600px;border-radius:20px}
+  .zoom-group{margin-left:0}
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <a class="brand" href="index.html">Sanket Biradar<span class="brand-dot"></span></a>
+  <div class="top-actions">
+    <a class="back-btn" href="index.html">← Back to Portfolio</a>
+    <div class="theme-wrap">
+      <button class="theme-btn" id="themeTrigger" aria-label="Change theme">☀️</button>
+      <div class="theme-menu" id="themeMenu">
+        <button data-theme="light"><span>☀️</span><b>Light</b><small>Morning Sun</small></button>
+        <button data-theme="warm"><span>🌅</span><b>Warm</b><small>Evening Sun</small></button>
+        <button data-theme="dark"><span>🌙</span><b>Dark</b><small>Half Moon</small></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">System X-Ray · Architecture Map</div>
+  <h1>AI × BACKEND</h1>
+  <p class="hero-copy">
+    11 projects connected through the engineering foundations, AI capabilities,
+    frameworks, retrieval systems, agents, APIs and application technologies behind them.
+  </p>
+  <div class="hero-meta">
+    <span class="meta-pill">11 Projects</span>
+    <span class="meta-pill">Connected Stack</span>
+    <span class="meta-pill">Interactive Flowchart</span>
+    <span class="meta-pill">Click Technologies</span>
+  </div>
+</section>
+
+<div class="controls">
+  <input class="search" id="search" type="search" placeholder="Search a project or technology…">
+  <div class="control-group" id="filters">
+    <button class="filter active" data-filter="all">All</button>
+    <button class="filter" data-filter="project">Projects</button>
+    <button class="filter" data-filter="tech">Technologies</button>
+    <button class="filter" data-filter="capability">Capabilities</button>
+  </div>
+  <div class="zoom-group">
+    <button class="zoom-btn" id="zoomOut">−</button>
+    <button class="zoom-btn" id="zoomReset">100%</button>
+    <button class="zoom-btn" id="zoomIn">+</button>
+  </div>
+</div>
+
+<div class="viewport" id="viewport">
+  <div class="canvas" id="canvas">
+    <svg class="svg-layer" id="links" viewBox="0 0 2500 2100" aria-hidden="true"></svg>
+
+    <div class="flow-title">01 / Connected engineering architecture</div>
+
+    <div class="section-box" style="left:70px;top:110px;width:2360px;height:235px"><span>Engineering foundations</span></div>
+    <div class="section-box" style="left:70px;top:390px;width:2360px;height:340px"><span>AI capabilities + patterns</span></div>
+    <div class="section-box" style="left:70px;top:775px;width:2360px;height:365px"><span>Frameworks + technologies</span></div>
+    <div class="section-box" style="left:70px;top:1185px;width:2360px;height:815px"><span>Projects + application systems</span></div>
+
+    <!-- CORE -->
+    <div class="node core" id="n-core" style="left:1010px;top:150px;min-width:480px;text-align:center" data-kind="core">
+      <span class="node-type">Core stack</span>
+      <strong>Python · SQL · REST APIs · LLMs · AI Engineering</strong>
+      <small>Foundations shared across the portfolio</small>
+    </div>
+
+    <div class="node tech" id="n-python" style="left:180px;top:245px" data-kind="tech" data-key="Python">
+      <span class="node-type">Foundation</span><strong>Python</strong><small>Primary engineering language</small>
+    </div>
+    <div class="node tech" id="n-sql" style="left:610px;top:245px" data-kind="tech" data-key="SQL">
+      <span class="node-type">Foundation</span><strong>SQL</strong><small>Relational data</small>
+    </div>
+    <div class="node tech" id="n-api" style="left:1040px;top:245px" data-kind="tech" data-key="REST APIs">
+      <span class="node-type">Foundation</span><strong>REST APIs</strong><small>Application interfaces</small>
+    </div>
+    <div class="node tech" id="n-llm" style="left:1470px;top:245px" data-kind="tech" data-key="LLMs">
+      <span class="node-type">Foundation</span><strong>LLMs</strong><small>Language model systems</small>
+    </div>
+    <div class="node tech" id="n-backend" style="left:1900px;top:245px" data-kind="tech" data-key="Backend">
+      <span class="node-type">Foundation</span><strong>Backend</strong><small>Application services</small>
+    </div>
+
+    <!-- CAPABILITIES -->
+    <div class="node capability" id="n-ml" style="left:180px;top:450px" data-kind="capability"><span class="node-type">Capability</span><strong>Machine Learning</strong></div>
+    <div class="node capability" id="n-nlp" style="left:180px;top:575px" data-kind="capability"><span class="node-type">Capability</span><strong>NLP</strong></div>
+    <div class="node capability" id="n-qa" style="left:180px;top:670px" data-kind="capability"><span class="node-type">Question Answering</span><strong>QA Systems</strong></div>
+
+    <div class="node capability" id="n-llmapps" style="left:620px;top:450px" data-kind="capability"><span class="node-type">Capability</span><strong>LLM Applications</strong></div>
+    <div class="node capability" id="n-summarize" style="left:620px;top:575px" data-kind="capability"><span class="node-type">Capability</span><strong>Summarization</strong></div>
+    <div class="node capability" id="n-research" style="left:620px;top:670px" data-kind="capability"><span class="node-type">Capability</span><strong>Research & Reports</strong></div>
+
+    <div class="node capability" id="n-rag" style="left:1070px;top:450px" data-kind="capability"><span class="node-type">Pattern</span><strong>RAG</strong></div>
+    <div class="node capability" id="n-retrieval" style="left:1070px;top:575px" data-kind="capability"><span class="node-type">Pattern</span><strong>Retrieval</strong></div>
+    <div class="node capability" id="n-ground" style="left:1070px;top:670px" data-kind="capability"><span class="node-type">Pattern</span><strong>Grounding & Validation</strong></div>
+
+    <div class="node capability" id="n-agents" style="left:1520px;top:450px" data-kind="capability"><span class="node-type">Capability</span><strong>Agents</strong></div>
+    <div class="node capability" id="n-multi" style="left:1520px;top:575px" data-kind="capability"><span class="node-type">Capability</span><strong>Multi-Agent Systems</strong></div>
+    <div class="node capability" id="n-auto" style="left:1520px;top:670px" data-kind="capability"><span class="node-type">Capability</span><strong>Automation</strong></div>
+
+    <div class="node capability" id="n-apiarch" style="left:1950px;top:450px" data-kind="capability"><span class="node-type">Backend</span><strong>API Architecture</strong></div>
+    <div class="node capability" id="n-integration" style="left:1950px;top:575px" data-kind="capability"><span class="node-type">Backend</span><strong>System Integrations</strong></div>
+    <div class="node capability" id="n-workflow" style="left:1950px;top:670px" data-kind="capability"><span class="node-type">Backend</span><strong>Workflow Orchestration</strong></div>
+
+    <!-- TECHNOLOGIES -->
+    <div class="node tech" id="n-fastapi" style="left:130px;top:835px" data-kind="tech" data-key="FastAPI"><span class="node-type">Framework</span><strong>FastAPI</strong></div>
+    <div class="node tech" id="n-langchain" style="left:390px;top:835px" data-kind="tech" data-key="LangChain"><span class="node-type">Framework</span><strong>LangChain</strong></div>
+    <div class="node tech" id="n-langgraph" style="left:650px;top:835px" data-kind="tech" data-key="LangGraph"><span class="node-type">Framework</span><strong>LangGraph</strong></div>
+    <div class="node tech" id="n-autogen" style="left:910px;top:835px" data-kind="tech" data-key="AutoGen"><span class="node-type">Framework</span><strong>AutoGen</strong></div>
+    <div class="node tech" id="n-crewai" style="left:1170px;top:835px" data-kind="tech" data-key="CrewAI"><span class="node-type">Framework</span><strong>CrewAI</strong></div>
+    <div class="node tech" id="n-transformers" style="left:1430px;top:835px" data-kind="tech" data-key="Hugging Face Transformers"><span class="node-type">ML / NLP</span><strong>Transformers</strong></div>
+    <div class="node tech" id="n-distilbert" style="left:1690px;top:835px" data-kind="tech" data-key="DistilBERT"><span class="node-type">Model</span><strong>DistilBERT</strong></div>
+    <div class="node tech" id="n-pytorch" style="left:1950px;top:835px" data-kind="tech" data-key="PyTorch"><span class="node-type">ML</span><strong>PyTorch</strong></div>
+
+    <div class="node tech" id="n-gemini" style="left:130px;top:970px" data-kind="tech" data-key="Gemini"><span class="node-type">LLM</span><strong>Gemini</strong></div>
+    <div class="node tech" id="n-openai" style="left:390px;top:970px" data-kind="tech" data-key="OpenAI"><span class="node-type">LLM</span><strong>OpenAI</strong></div>
+    <div class="node tech" id="n-chroma" style="left:650px;top:970px" data-kind="tech" data-key="ChromaDB"><span class="node-type">Vector DB</span><strong>ChromaDB</strong></div>
+    <div class="node tech" id="n-bm25" style="left:910px;top:970px" data-kind="tech" data-key="BM25"><span class="node-type">Retrieval</span><strong>BM25</strong></div>
+    <div class="node tech" id="n-rerank" style="left:1170px;top:970px" data-kind="tech" data-key="Reranking"><span class="node-type">Retrieval</span><strong>Reranking</strong></div>
+    <div class="node tech" id="n-beautiful" style="left:1430px;top:970px" data-kind="tech" data-key="BeautifulSoup"><span class="node-type">Parsing</span><strong>BeautifulSoup</strong></div>
+    <div class="node tech" id="n-gmail" style="left:1690px;top:970px" data-kind="tech" data-key="Gmail API"><span class="node-type">Integration</span><strong>Gmail API</strong></div>
+    <div class="node tech" id="n-ap" style="left:1950px;top:970px" data-kind="tech" data-key="APScheduler"><span class="node-type">Automation</span><strong>APScheduler</strong></div>
+
+    <div class="node tech" id="n-sqlite" style="left:390px;top:1080px" data-kind="tech" data-key="SQLite"><span class="node-type">Database</span><strong>SQLite</strong></div>
+    <div class="node tech" id="n-react" style="left:910px;top:1080px" data-kind="tech" data-key="React"><span class="node-type">Frontend</span><strong>React</strong></div>
+    <div class="node tech" id="n-vite" style="left:1170px;top:1080px" data-kind="tech" data-key="Vite"><span class="node-type">Frontend</span><strong>Vite</strong></div>
+    <div class="node tech" id="n-docker" style="left:1430px;top:1080px" data-kind="tech" data-key="Docker"><span class="node-type">Infrastructure</span><strong>Docker</strong></div>
+    <div class="node tech" id="n-tavily" style="left:1690px;top:1080px" data-kind="tech" data-key="Tavily"><span class="node-type">Research</span><strong>Tavily</strong></div>
+
+    <!-- PROJECTS -->
+    <div class="node project" id="p-sourcevault" style="left:95px;top:1260px" data-kind="project" data-project="sourcevault"><span class="node-type">01 · Self project</span><strong>SourceVault AI</strong><small>Hybrid RAG · grounded knowledge</small></div>
+    <div class="node project" id="p-research" style="left:370px;top:1260px" data-kind="project" data-project="research"><span class="node-type">02 · Self project</span><strong>ResearchFlow AI</strong><small>Agentic research · reports</small></div>
+    <div class="node project" id="p-automail" style="left:645px;top:1260px" data-kind="project" data-project="automail"><span class="node-type">03 · Self project</span><strong>AutoMail AI</strong><small>Email generation · automation</small></div>
+    <div class="node project" id="p-crewai" style="left:920px;top:1260px" data-kind="project" data-project="crewai"><span class="node-type">04 · Self project</span><strong>CrewAI Multi-Agent</strong><small>Collaborative agent workflow</small></div>
+    <div class="node project" id="p-autogen" style="left:1195px;top:1260px" data-kind="project" data-project="autogen"><span class="node-type">05 · Self project</span><strong>AutoGen Multi-Agent</strong><small>Multi-agent conversation</small></div>
+    <div class="node project" id="p-meeting" style="left:1470px;top:1260px" data-kind="project" data-project="meeting"><span class="node-type">06 · Self project</span><strong>Meeting Intelligence AI</strong><small>LLM · NLP · summarization</small></div>
+    <div class="node project" id="p-langgraph" style="left:1745px;top:1260px" data-kind="project" data-project="langgraph"><span class="node-type">07 · Self project</span><strong>LangGraph Chatbot</strong><small>Stateful LLM workflow</small></div>
+    <div class="node project" id="p-langchain" style="left:2020px;top:1260px" data-kind="project" data-project="langchain"><span class="node-type">08 · Self project</span><strong>LangChain Summarizer</strong><small>LLM summarization</small></div>
+
+    <div class="node project" id="p-qa" style="left:300px;top:1510px" data-kind="project" data-project="qa"><span class="node-type">09 · Self project</span><strong>Contextual QA</strong><small>Transformers · DistilBERT · PyTorch</small></div>
+    <div class="node project" id="p-spelling" style="left:950px;top:1510px" data-kind="project" data-project="spelling"><span class="node-type">10 · Self project</span><strong>Spelling Correction</strong><small>NLP · text processing</small></div>
+    <div class="node project" id="p-student" style="left:1600px;top:1510px" data-kind="project" data-project="student"><span class="node-type">11 · Self project</span><strong>Student Exam Prediction</strong><small>ML · preprocessing · regression</small></div>
+
+    <!-- detailed application branches -->
+    <div class="node data" style="left:95px;top:1790px" data-kind="capability"><span class="node-type">SourceVault pipeline</span><strong>Web + PDF + DOCX + TXT + Markdown</strong><small>Ingestion → parsing → chunking → metadata</small></div>
+    <div class="node data" style="left:770px;top:1790px" data-kind="capability"><span class="node-type">AutoMail pipeline</span><strong>Generate → Preview → Schedule → Follow-up → Gmail</strong><small>AI-assisted email automation</small></div>
+    <div class="node data" style="left:1445px;top:1790px" data-kind="capability"><span class="node-type">Agentic pipeline</span><strong>Research → Plan → Execute → Synthesize</strong><small>LangGraph · CrewAI · AutoGen patterns</small></div>
+
+    <div class="node core" style="left:965px;top:1970px;min-width:570px;text-align:center">
+      <span class="node-type">Portfolio system view</span>
+      <strong>11 projects · shared skills · reusable AI patterns · connected technologies</strong>
+    </div>
+  </div>
+</div>
+
+<div class="legend">
+  <span class="legend-item"><i class="dot core"></i> Core / system</span>
+  <span class="legend-item"><i class="dot"></i> Technology</span>
+  <span class="legend-item"><i class="dot project"></i> Project</span>
+  <span class="legend-item"><i class="dot data"></i> Detailed pipeline</span>
+  <span class="legend-item">Click technology → what it is</span>
+  <span class="legend-item">Click project → highlight its stack</span>
+</div>
+
+<div class="status" id="status">11 projects · all connections</div>
+
+<div class="info" id="info">
+  <div class="info-card">
+    <button class="info-close" id="infoClose" aria-label="Close">×</button>
+    <div class="info-kicker">What it is</div>
+    <h2 id="infoTitle"></h2>
+    <div class="what-is">
+      <h3>Definition</h3>
+      <p id="infoText"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+const definitions = {
+  "Python":"Python is a popular, high-level programming language known for its simple syntax, readability, and broad ecosystem for software development, data science, machine learning, and AI.",
+  "SQL":"SQL is a standard language used to store, query, update, and manage structured data in relational database systems.",
+  "REST APIs":"REST APIs are web interfaces that use HTTP methods and resource-oriented endpoints to let applications communicate with backend services.",
+  "LLMs":"Large Language Models are AI models trained on large text datasets to understand and generate human-like language.",
+  "Backend":"Backend development covers the server-side logic, data access, integrations, APIs, and services that power an application.",
+  "FastAPI":"FastAPI is a modern Python web framework for building high-performance APIs with automatic validation, documentation, and support for asynchronous operations.",
+  "LangChain":"LangChain is a framework for building applications around language models, including prompt pipelines, tool use, retrieval, and model interactions.",
+  "LangGraph":"LangGraph is a framework for building stateful, multi-step LLM applications and agent workflows with controlled execution and persistent state.",
+  "AutoGen":"AutoGen is a framework for building applications where AI agents can communicate and collaborate to complete tasks.",
+  "CrewAI":"CrewAI is a framework for orchestrating collaborative AI agents that work through defined roles, tasks, and workflows.",
+  "Hugging Face Transformers":"Hugging Face Transformers is a library that provides implementations, pretrained models, and tools for natural language processing and other machine-learning tasks.",
+  "DistilBERT":"DistilBERT is a smaller, faster transformer language model derived from BERT while retaining much of its language-understanding capability.",
+  "PyTorch":"PyTorch is an open-source machine-learning framework used to build, train, and run neural networks and other tensor-based models.",
+  "Gemini":"Gemini is Google's family of multimodal generative AI models designed to understand and generate text, code, images, and other types of information.",
+  "OpenAI":"OpenAI is an AI research and deployment organization that develops generative AI models and APIs for building AI applications.",
+  "ChromaDB":"ChromaDB is an open-source vector database designed to store embeddings and perform similarity search over unstructured data.",
+  "BM25":"BM25 is a keyword-based information-retrieval ranking algorithm that scores documents according to how relevant their terms are to a search query.",
+  "Reranking":"Reranking is a retrieval technique that reorders an initial set of search results using a more precise relevance model to place the most relevant results first.",
+  "BeautifulSoup":"BeautifulSoup is a Python library for parsing HTML and XML documents and extracting structured information from web pages.",
+  "Gmail API":"The Gmail API is a Google service interface that lets applications programmatically work with Gmail messages, threads, labels, and mailbox operations.",
+  "APScheduler":"APScheduler is a Python scheduling library for running jobs at specified times, intervals, or schedules within an application.",
+  "SQLite":"SQLite is a lightweight, file-based relational database engine that stores an entire database in a single local file.",
+  "React":"React is a JavaScript library for building component-based user interfaces and interactive web applications.",
+  "Vite":"Vite is a modern frontend build tool and development server designed for fast web development and optimized production builds.",
+  "Docker":"Docker is a containerization platform used to package applications and their dependencies into portable, isolated runtime environments.",
+  "Tavily":"Tavily is a search and research API designed to provide web-search capabilities for AI applications and agent workflows.",
+  "Pandas":"Pandas is a Python library for data manipulation and analysis using structures such as DataFrames and Series.",
+  "NumPy":"NumPy is a Python library for numerical computing that provides efficient multidimensional arrays and mathematical operations."
+};
+
+const projectTech = {
+  sourcevault:["Python","FastAPI","React","Vite","RAG","ChromaDB","BM25","Reranking","Gemini","BeautifulSoup"],
+  research:["Python","LangGraph","Tavily","Gemini","FastAPI","Docker"],
+  automail:["Python","FastAPI","Gemini","Gmail API","APScheduler","SQLite","REST APIs"],
+  crewai:["Python","CrewAI","Gemini"],
+  autogen:["Python","AutoGen","LLMs"],
+  meeting:["Python","LLMs","NLP","Summarization"],
+  langgraph:["Python","LangGraph","Gemini","LLMs"],
+  langchain:["Python","LangChain","OpenAI","LLMs","Summarization"],
+  qa:["Python","Hugging Face Transformers","DistilBERT","PyTorch","NLP","Question Answering"],
+  spelling:["Python","NLP"],
+  student:["Python","Pandas","NumPy","Machine Learning"]
+};
+
+const projectIds = {
+  sourcevault:"p-sourcevault", research:"p-research", automail:"p-automail",
+  crewai:"p-crewai", autogen:"p-autogen", meeting:"p-meeting",
+  langgraph:"p-langgraph", langchain:"p-langchain", qa:"p-qa",
+  spelling:"p-spelling", student:"p-student"
+};
+
+const links = [
+  ["n-core","n-python"],["n-core","n-sql"],["n-core","n-api"],["n-core","n-llm"],["n-core","n-backend"],
+  ["n-python","n-ml"],["n-python","n-nlp"],["n-python","n-llmapps"],
+  ["n-llm","n-llmapps"],["n-llm","n-agents"],["n-llm","n-rag"],
+  ["n-backend","n-apiarch"],["n-backend","n-integration"],["n-backend","n-workflow"],
+  ["n-ml","n-qa"],["n-nlp","n-qa"],["n-llmapps","n-summarize"],["n-llmapps","n-research"],
+  ["n-rag","n-retrieval"],["n-rag","n-ground"],["n-agents","n-multi"],["n-agents","n-auto"],
+  ["n-fastapi","p-sourcevault"],["n-fastapi","p-research"],["n-fastapi","p-automail"],
+  ["n-langgraph","p-research"],["n-langgraph","p-langgraph"],
+  ["n-autogen","p-autogen"],["n-crewai","p-crewai"],
+  ["n-transformers","p-qa"],["n-distilbert","p-qa"],["n-pytorch","p-qa"],
+  ["n-gemini","p-sourcevault"],["n-gemini","p-research"],["n-gemini","p-automail"],["n-gemini","p-crewai"],["n-gemini","p-langgraph"],
+  ["n-openai","p-langchain"],["n-chroma","p-sourcevault"],["n-bm25","p-sourcevault"],["n-rerank","p-sourcevault"],
+  ["n-beautiful","p-sourcevault"],["n-gmail","p-automail"],["n-ap","p-automail"],["n-sqlite","p-automail"],
+  ["n-react","p-sourcevault"],["n-vite","p-sourcevault"],["n-docker","p-research"],["n-tavily","p-research"],
+  ["n-sql","p-automail"],["n-api","p-sourcevault"],["n-api","p-automail"],
+  ["n-llm","p-autogen"],["n-llm","p-meeting"],["n-llm","p-langgraph"],["n-llm","p-langchain"],
+  ["n-nlp","p-meeting"],["n-nlp","p-spelling"],["n-nlp","p-qa"],
+  ["n-summarize","p-meeting"],["n-summarize","p-langchain"],
+  ["n-ml","p-student"],["n-python","p-student"],["n-python","p-spelling"],["n-python","p-qa"],
+  ["n-rag","p-sourcevault"],["n-retrieval","p-sourcevault"],["n-ground","p-sourcevault"],
+  ["n-multi","p-crewai"],["n-multi","p-autogen"],["n-multi","p-research"],
+  ["n-auto","p-automail"],["n-workflow","p-research"],["n-apiarch","p-automail"],["n-integration","p-automail"],
+  ["p-sourcevault","n-source-detail"],["p-automail","n-automail-detail"],["p-research","n-agent-detail"]
+];
+
+const extraIds = {
+  "n-source-detail":{x:95,y:1790},
+  "n-automail-detail":{x:770,y:1790},
+  "n-agent-detail":{x:1445,y:1790}
+};
+
+const canvas = document.getElementById("canvas");
+const svg = document.getElementById("links");
+const viewport = document.getElementById("viewport");
+const status = document.getElementById("status");
+
+function addExtraConnections(){
+  for(const [id,pos] of Object.entries(extraIds)){
+    const el = document.createElement("div");
+    el.className = "node data";
+    el.id = id;
+    el.style.left = pos.x+"px";
+    el.style.top = pos.y+"px";
+    el.innerHTML = id==="n-source-detail"
+      ? `<span class="node-type">SourceVault pipeline</span><strong>Web + PDF + DOCX + TXT + Markdown</strong><small>Ingestion → parsing → chunking → metadata</small>`
+      : id==="n-automail-detail"
+      ? `<span class="node-type">AutoMail pipeline</span><strong>Generate → Preview → Schedule → Follow-up → Gmail</strong><small>AI-assisted email automation</small>`
+      : `<span class="node-type">Agentic pipeline</span><strong>Research → Plan → Execute → Synthesize</strong><small>LangGraph · CrewAI · AutoGen patterns</small>`;
+    canvas.appendChild(el);
+  }
+}
+addExtraConnections();
+
+const allNodes = [...document.querySelectorAll(".node")];
+
+function centerOf(el){
+  return {
+    x:parseFloat(el.style.left||0) + el.offsetWidth/2,
+    y:parseFloat(el.style.top||0) + el.offsetHeight/2
+  };
+}
+function drawLinks(){
+  svg.innerHTML = `
+    <defs>
+      <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+        <path class="arrow" d="M0,0 L9,4.5 L0,9 z"></path>
+      </marker>
+    </defs>`;
+  for(const [a,b] of links){
+    const A=document.getElementById(a), B=document.getElementById(b);
+    if(!A||!B) continue;
+    const p1=centerOf(A), p2=centerOf(B);
+    const midY=(p1.y+p2.y)/2;
+    const path=document.createElementNS("http://www.w3.org/2000/svg","path");
+    path.classList.add("link");
+    path.dataset.a=a; path.dataset.b=b;
+    path.setAttribute("d",`M ${p1.x} ${p1.y} C ${p1.x} ${midY}, ${p2.x} ${midY}, ${p2.x} ${p2.y}`);
+    path.setAttribute("marker-end","url(#arrow)");
+    svg.appendChild(path);
+  }
+}
+requestAnimationFrame(drawLinks);
+window.addEventListener("resize",drawLinks);
+
+let activeFilter="all";
+let activeProject=null;
+
+function nodeMatchesFilter(el){
+  return activeFilter==="all" || el.dataset.kind===activeFilter;
+}
+function setDimmed(predicate){
+  allNodes.forEach(n=>n.classList.toggle("dimmed",!predicate(n)));
+}
+function clearHighlight(){
+  allNodes.forEach(n=>n.classList.remove("active","dimmed"));
+  svg.querySelectorAll(".link").forEach(l=>l.classList.remove("active","dimmed"));
+  activeProject=null;
+  status.textContent="11 projects · all connections";
+}
+function highlightProject(projectKey){
+  const connected = new Set([projectIds[projectKey]]);
+  (projectTech[projectKey]||[]).forEach(name=>{
+    const node=allNodes.find(n=>n.dataset.key===name);
+    if(node) connected.add(node.id);
+  });
+  // Add relevant capabilities and foundations.
+  const capabilityMap={
+    sourcevault:["n-rag","n-retrieval","n-ground","n-apiarch","n-integration","n-nlp","n-llmapps"],
+    research:["n-agents","n-multi","n-research","n-workflow","n-llmapps"],
+    automail:["n-auto","n-apiarch","n-integration","n-workflow","n-llmapps"],
+    crewai:["n-agents","n-multi"],
+    autogen:["n-agents","n-multi"],
+    meeting:["n-nlp","n-summarize","n-llmapps"],
+    langgraph:["n-agents","n-workflow","n-llmapps"],
+    langchain:["n-llmapps","n-summarize"],
+    qa:["n-nlp","n-qa"],
+    spelling:["n-nlp"],
+    student:["n-ml"]
+  };
+  (capabilityMap[projectKey]||[]).forEach(x=>connected.add(x));
+  allNodes.forEach(n=>n.classList.toggle("active",connected.has(n.id)));
+  allNodes.forEach(n=>n.classList.toggle("dimmed",!connected.has(n.id)));
+  svg.querySelectorAll(".link").forEach(l=>{
+    const on=connected.has(l.dataset.a)&&connected.has(l.dataset.b);
+    l.classList.toggle("active",on);
+    l.classList.toggle("dimmed",!on);
+  });
+  activeProject=projectKey;
+  status.textContent=`${projectKey.replace(/^\w/,c=>c.toUpperCase())} · connected stack`;
+}
+
+function openTechnology(name){
+  const text=definitions[name];
+  if(!text) return;
+  document.getElementById("infoTitle").textContent=name;
+  document.getElementById("infoText").textContent=text;
+  document.getElementById("info").classList.add("open");
+}
+
+allNodes.forEach(node=>{
+  node.addEventListener("click",e=>{
+    e.stopPropagation();
+    if(node.dataset.kind==="tech" && node.dataset.key){
+      openTechnology(node.dataset.key);
+    }else if(node.dataset.kind==="project" && node.dataset.project){
+      highlightProject(node.dataset.project);
+    }
+  });
+});
+
+document.getElementById("infoClose").onclick=()=>document.getElementById("info").classList.remove("open");
+document.getElementById("info").addEventListener("click",e=>{
+  if(e.target.id==="info") e.currentTarget.classList.remove("open");
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape") document.getElementById("info").classList.remove("open");
+});
+
+document.querySelectorAll(".filter").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));
+    btn.classList.add("active");
+    activeFilter=btn.dataset.filter;
+    clearHighlight();
+    const query=document.getElementById("search").value.trim().toLowerCase();
+    applySearch(query);
+  });
+});
+
+function applySearch(query){
+  if(!query){
+    allNodes.forEach(n=>n.classList.toggle("dimmed",!nodeMatchesFilter(n)));
+    if(!activeProject) status.textContent="11 projects · all connections";
+    return;
+  }
+  const matched=allNodes.filter(n=>{
+    const text=n.innerText.toLowerCase();
+    return nodeMatchesFilter(n) && text.includes(query);
+  });
+  const ids=new Set(matched.map(x=>x.id));
+  allNodes.forEach(n=>n.classList.toggle("dimmed",!ids.has(n.id)));
+  svg.querySelectorAll(".link").forEach(l=>{
+    const on=ids.has(l.dataset.a)||ids.has(l.dataset.b);
+    l.classList.toggle("active",on);
+    l.classList.toggle("dimmed",!on);
+  });
+  status.textContent=`${matched.length} matching nodes`;
+}
+document.getElementById("search").addEventListener("input",e=>applySearch(e.target.value.trim().toLowerCase()));
+
+const zoomReset=document.getElementById("zoomReset");
+let zoom=1;
+function applyZoom(){
+  canvas.style.transform=`scale(${zoom})`;
+  zoomReset.textContent=Math.round(zoom*100)+"%";
+}
+document.getElementById("zoomIn").onclick=()=>{zoom=Math.min(1.55,zoom+.1);applyZoom()};
+document.getElementById("zoomOut").onclick=()=>{zoom=Math.max(.55,zoom-.1);applyZoom()};
+zoomReset.onclick=()=>{zoom=1;applyZoom()};
+
+// Mouse / touch-friendly canvas panning.
+let dragging=false,startX=0,startY=0,startLeft=0,startTop=0;
+viewport.addEventListener("pointerdown",e=>{
+  if(e.target.closest(".node") || e.target.closest("button") || e.target.closest("input")) return;
+  dragging=true;
+  viewport.classList.add("dragging");
+  startX=e.clientX; startY=e.clientY;
+  startLeft=viewport.scrollLeft; startTop=viewport.scrollTop;
+  viewport.setPointerCapture(e.pointerId);
+});
+viewport.addEventListener("pointermove",e=>{
+  if(!dragging)return;
+  viewport.scrollLeft=startLeft-(e.clientX-startX);
+  viewport.scrollTop=startTop-(e.clientY-startY);
+});
+viewport.addEventListener("pointerup",()=>{
+  dragging=false;viewport.classList.remove("dragging");
+});
+viewport.addEventListener("pointercancel",()=>{
+  dragging=false;viewport.classList.remove("dragging");
+});
+
+// Theme persistence matches the main portfolio exactly.
+const themes={
+  light:{icon:"☀️"},
+  warm:{icon:"🌅"},
+  dark:{icon:"🌙"}
+};
+function setTheme(theme,save=true){
+  if(!themes[theme]) theme="light";
+  document.body.classList.remove("theme-warm","theme-dark");
+  if(theme!=="light") document.body.classList.add("theme-"+theme);
+  document.getElementById("themeTrigger").textContent=themes[theme].icon;
+  document.querySelectorAll(".theme-menu button").forEach(b=>b.classList.toggle("active",b.dataset.theme===theme));
+  if(save)localStorage.setItem("portfolio-theme",theme);
+}
+setTheme(localStorage.getItem("portfolio-theme")||"light",false);
+
+document.getElementById("themeTrigger").onclick=e=>{
+  e.stopPropagation();
+  document.getElementById("themeMenu").classList.toggle("open");
+};
+document.querySelectorAll(".theme-menu button").forEach(b=>{
+  b.onclick=()=>{
+    setTheme(b.dataset.theme);
+    document.getElementById("themeMenu").classList.remove("open");
+  };
+});
+document.addEventListener("click",e=>{
+  if(!e.target.closest(".theme-wrap"))document.getElementById("themeMenu").classList.remove("open");
+});
+
+</script>
+</body>
+</html>
