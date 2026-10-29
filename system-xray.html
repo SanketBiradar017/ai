@@ -809,37 +809,163 @@ function applySearch(query){
 }
 document.getElementById("search").addEventListener("input",e=>applySearch(e.target.value.trim().toLowerCase()));
 
-const zoomReset=document.getElementById("zoomReset");
-let zoom=1;
-function applyZoom(){
-  canvas.style.transform=`scale(${zoom})`;
-  zoomReset.textContent=Math.round(zoom*100)+"%";
-}
-document.getElementById("zoomIn").onclick=()=>{zoom=Math.min(1.55,zoom+.1);applyZoom()};
-document.getElementById("zoomOut").onclick=()=>{zoom=Math.max(.55,zoom-.1);applyZoom()};
-zoomReset.onclick=()=>{zoom=1;applyZoom()};
 
-// Mouse / touch-friendly canvas panning.
-let dragging=false,startX=0,startY=0,startLeft=0,startTop=0;
-viewport.addEventListener("pointerdown",e=>{
-  if(e.target.closest(".node") || e.target.closest("button") || e.target.closest("input")) return;
-  dragging=true;
-  viewport.classList.add("dragging");
-  startX=e.clientX; startY=e.clientY;
-  startLeft=viewport.scrollLeft; startTop=viewport.scrollTop;
+const zoomReset = document.getElementById("zoomReset");
+
+const MIN_ZOOM = 0.5;
+const MAX_ZOOM = 1.5;
+let zoom = 0.5; // Default zoom: 50%
+
+function applyZoom() {
+  canvas.style.transform = `scale(${zoom})`;
+  canvas.style.transformOrigin = "top left";
+  zoomReset.textContent = Math.round(zoom * 100) + "%";
+}
+
+// Initialize at 50%
+applyZoom();
+
+// Zoom in button
+document.getElementById("zoomIn").onclick = () => {
+  zoom = Math.min(MAX_ZOOM, +(zoom + 0.1).toFixed(2));
+  applyZoom();
+};
+
+// Zoom out button
+document.getElementById("zoomOut").onclick = () => {
+  zoom = Math.max(MIN_ZOOM, +(zoom - 0.1).toFixed(2));
+  applyZoom();
+};
+
+// Reset button returns to 50%
+zoomReset.onclick = () => {
+  zoom = 0.5;
+  applyZoom();
+};
+
+// Ctrl + mouse wheel zoom
+viewport.addEventListener("wheel", e => {
+  if (!e.ctrlKey && !e.metaKey) return;
+
+  e.preventDefault();
+
+  zoom = Math.max(
+    MIN_ZOOM,
+    Math.min(MAX_ZOOM, zoom + (e.deltaY < 0 ? 0.05 : -0.05))
+  );
+
+  applyZoom();
+}, { passive: false });
+
+// Mouse and touch pan + pinch zoom
+let pointers = new Map();
+let dragging = false;
+let startX = 0;
+let startY = 0;
+let startLeft = 0;
+let startTop = 0;
+let lastPinchDistance = 0;
+
+viewport.style.touchAction = "none";
+
+function getPinchDistance() {
+  const points = [...pointers.values()];
+
+  if (points.length < 2) return 0;
+
+  return Math.hypot(
+    points[0].x - points[1].x,
+    points[0].y - points[1].y
+  );
+}
+
+viewport.addEventListener("pointerdown", e => {
+  if (
+    e.target.closest(".node") ||
+    e.target.closest("button") ||
+    e.target.closest("input")
+  ) return;
+
+  pointers.set(e.pointerId, {
+    x: e.clientX,
+    y: e.clientY
+  });
+
+  if (pointers.size === 1) {
+    dragging = true;
+
+    startX = e.clientX;
+    startY = e.clientY;
+    startLeft = viewport.scrollLeft;
+    startTop = viewport.scrollTop;
+
+    viewport.classList.add("dragging");
+  } else if (pointers.size === 2) {
+    dragging = false;
+    lastPinchDistance = getPinchDistance();
+  }
+
   viewport.setPointerCapture(e.pointerId);
 });
-viewport.addEventListener("pointermove",e=>{
-  if(!dragging)return;
-  viewport.scrollLeft=startLeft-(e.clientX-startX);
-  viewport.scrollTop=startTop-(e.clientY-startY);
+
+viewport.addEventListener("pointermove", e => {
+  if (!pointers.has(e.pointerId)) return;
+
+  pointers.set(e.pointerId, {
+    x: e.clientX,
+    y: e.clientY
+  });
+
+  // Pinch with two fingers to zoom
+  if (pointers.size === 2) {
+    const distance = getPinchDistance();
+
+    if (lastPinchDistance > 0) {
+      const difference = distance - lastPinchDistance;
+
+      zoom = Math.max(
+        MIN_ZOOM,
+        Math.min(MAX_ZOOM, zoom + difference * 0.003)
+      );
+
+      applyZoom();
+    }
+
+    lastPinchDistance = distance;
+    return;
+  }
+
+  // Drag canvas with mouse or one finger
+  if (dragging && pointers.size === 1) {
+    viewport.scrollLeft = startLeft - (e.clientX - startX);
+    viewport.scrollTop = startTop - (e.clientY - startY);
+  }
 });
-viewport.addEventListener("pointerup",()=>{
-  dragging=false;viewport.classList.remove("dragging");
-});
-viewport.addEventListener("pointercancel",()=>{
-  dragging=false;viewport.classList.remove("dragging");
-});
+
+function finishPointer(e) {
+  pointers.delete(e.pointerId);
+
+  if (pointers.size < 2) {
+    lastPinchDistance = 0;
+  }
+
+  if (pointers.size === 1) {
+    const point = [...pointers.values()][0];
+
+    dragging = true;
+    startX = point.x;
+    startY = point.y;
+    startLeft = viewport.scrollLeft;
+    startTop = viewport.scrollTop;
+  } else {
+    dragging = false;
+    viewport.classList.remove("dragging");
+  }
+}
+
+viewport.addEventListener("pointerup", finishPointer);
+viewport.addEventListener("pointercancel", finishPointer);
+
 
 // Theme persistence matches the main portfolio exactly.
 const themes={

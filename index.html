@@ -4313,65 +4313,383 @@ const flowMap={
 
   intro:"Application workflow from user-provided email details to Gemini generation, human review and Gmail delivery.",
 
-  render:()=>pfLinear([
+  render:()=>`
 
-    [
-      "Email Details",
-      "Recipient · subject · date · context",
-      "blue",
-      "♙"
-    ],
+    ${pfLinear([
+      [
+        "AUTOMAIL AI",
+        "Intelligent email automation platform",
+        "blue",
+        "◆"
+      ],
+      [
+        "React / Vite Frontend",
+        "Email workspace, inbox, composer and automation dashboard",
+        "green",
+        "▣"
+      ],
+      [
+        "REST API",
+        "Frontend-to-backend communication",
+        "purple",
+        "↗"
+      ],
+      [
+        "FastAPI Backend",
+        "API routing, business logic and workflow orchestration",
+        "yellow",
+        "⚙"
+      ]
+    ])}
 
-    [
-      "FastAPI",
-      "Backend REST endpoint receives the request",
-      "green",
-      "↗"
-    ],
+    ${pfBranch([
+      [
+        [
+          "Authentication",
+          "User registration, login and session management",
+          "blue",
+          "♙"
+        ],
+        [
+          "Google OAuth 2.0",
+          "Secure Gmail authorization and token management",
+          "green",
+          "🔑"
+        ],
+        [
+          "Gmail Connection",
+          "Connect, reconnect and manage mailbox access",
+          "purple",
+          "✉"
+        ]
+      ],
+      [
+        [
+          "User & Subscription",
+          "Plans, entitlements and account limits",
+          "yellow",
+          "◈"
+        ],
+        [
+          "Usage & Billing",
+          "Email quotas, usage tracking and subscription status",
+          "blue",
+          "▤"
+        ]
+      ]
+    ])}
 
-    [
-      "Gemini + LangChain",
-      "Generate a professional email",
-      "purple",
-      "◈"
-    ],
+    ${pfLinear([
+      [
+        "Email Automation Orchestrator",
+        "Routes requests to the appropriate email workflow",
+        "purple",
+        "◎"
+      ]
+    ])}
 
-    [
-      "Generated Email",
-      "Draft ready for user review",
-      "yellow",
-      "✦"
-    ],
+    ${pfBranch([
+      [
+        [
+          "AI Email Composer",
+          "Generate personalized emails from user instructions",
+          "blue",
+          "✦"
+        ],
+        [
+          "Context Builder",
+          "Recipient, subject, tone, date and additional context",
+          "green",
+          "▤"
+        ],
+        [
+          "Prompt Engineering",
+          "Construct structured generation instructions",
+          "yellow",
+          "⌘"
+        ],
+        [
+          "LLM Integration",
+          "Generate professional email content",
+          "purple",
+          "◈"
+        ],
+        [
+          "Draft Preview & Editing",
+          "Review, regenerate and edit before sending",
+          "cyan",
+          "✎"
+        ]
+      ],
+      [
+        [
+          "Inbox Synchronization",
+          "Retrieve and synchronize Gmail messages",
+          "blue",
+          "↻"
+        ],
+        [
+          "Gmail API",
+          "Fetch messages, threads and message metadata",
+          "green",
+          "✉"
+        ],
+        [
+          "Thread Management",
+          "Maintain conversation and message relationships",
+          "purple",
+          "◈"
+        ],
+        [
+          "Reply Detection",
+          "Identify replies and update conversation state",
+          "yellow",
+          "✓"
+        ]
+      ],
+      [
+        [
+          "Follow-up Automation",
+          "Track conversations awaiting a response",
+          "blue",
+          "↗"
+        ],
+        [
+          "Follow-up Rules",
+          "Configure delays, conditions and attempt limits",
+          "green",
+          "⚙"
+        ],
+        [
+          "Reply-aware Decisions",
+          "Stop follow-ups when a reply is detected",
+          "purple",
+          "⇄"
+        ]
+      ],
+      [
+        [
+          "Email Scheduling",
+          "Schedule emails for a future date and time",
+          "yellow",
+          "◷"
+        ],
+        [
+          "Timezone Handling",
+          "Respect the user's configured timezone",
+          "blue",
+          "◴"
+        ],
+        [
+          "Background Workers",
+          "Execute scheduled jobs and due follow-ups",
+          "green",
+          "⚙"
+        ]
+      ]
+    ])}
 
-    [
-      "Preview / Edit / Review",
-      "User can review and modify the draft",
-      "red",
-      "▤"
-    ],
+    ${pfLinear([
+      [
+        "Pre-execution Validation",
+        "Validate recipient, content, permissions and workflow state",
+        "blue",
+        "✓"
+      ],
+      [
+        "Quota & Policy Checks",
+        "Check subscription limits, send permissions and duplicate jobs",
+        "yellow",
+        "▤"
+      ]
+    ])}
 
-    [
-      "Google OAuth 2.0",
-      "Secure authorization for Gmail",
-      "purple",
-      "⌕"
-    ],
+    ${pfBranch([
+      [
+        [
+          "Approved",
+          "All required validations pass",
+          "green",
+          "✓"
+        ],
+        [
+          "Send Coordinator",
+          "Prepare the authorized email send operation",
+          "purple",
+          "↗"
+        ],
+        [
+          "Gmail Send API",
+          "Send email using the connected Gmail account",
+          "blue",
+          "✉"
+        ],
+        [
+          "Delivery State Tracking",
+          "Record provider response and send status",
+          "cyan",
+          "▤"
+        ]
+      ],
+      [
+        [
+          "Rejected / Deferred",
+          "Quota, permission or validation failure",
+          "red",
+          "!"
+        ],
+        [
+          "Retry & Failure Handling",
+          "Retry eligible transient failures safely",
+          "yellow",
+          "↻"
+        ],
+        [
+          "Failure Notification",
+          "Surface actionable errors to the user",
+          "red",
+          "⚠"
+        ]
+      ]
+    ])}
 
-    [
-      "Gmail API",
-      "Send through the authenticated account",
-      "blue",
-      "↗"
-    ],
+    ${pfLinear([
+      [
+        "Persistence Layer",
+        "Store users, drafts, email jobs and automation state",
+        "purple",
+        "▤"
+      ]
+    ])}
 
-    [
-      "Email Sent",
-      "Delivery completed",
-      "green",
-      "✓"
-    ]
+    ${pfBranch([
+      [
+        [
+          "PostgreSQL / MySQL",
+          "Users, OAuth metadata, drafts, jobs and subscriptions",
+          "blue",
+          "▤"
+        ]
+      ],
+      [
+        [
+          "Redis",
+          "Caching, job coordination and temporary state",
+          "red",
+          "◈"
+        ],
+        [
+          "Celery / Background Jobs",
+          "Schedule, execute and retry asynchronous tasks",
+          "green",
+          "⚙"
+        ]
+      ]
+    ])}
 
-  ])
+    ${pfLinear([
+      [
+        "Automation State Engine",
+        "Maintain the lifecycle of scheduled emails and follow-ups",
+        "purple",
+        "◎"
+      ]
+    ])}
+
+    ${pfBranch([
+      [
+        [
+          "Waiting",
+          "Awaiting recipient response",
+          "blue",
+          "◷"
+        ],
+        [
+          "Due",
+          "Follow-up deadline reached",
+          "yellow",
+          "!"
+        ],
+        [
+          "Sent",
+          "Email or follow-up successfully submitted",
+          "green",
+          "✓"
+        ]
+      ],
+      [
+        [
+          "Replied",
+          "Recipient response detected",
+          "cyan",
+          "↩"
+        ],
+        [
+          "Stopped / Cancelled",
+          "Automation intentionally halted",
+          "purple",
+          "⊘"
+        ],
+        [
+          "Failed",
+          "Execution failed after applicable retries",
+          "red",
+          "⚠"
+        ]
+      ]
+    ])}
+
+    ${pfLinear([
+      [
+        "Observability & Security",
+        "Operational visibility, protected credentials and audit events",
+        "blue",
+        "◈"
+      ]
+    ])}
+
+    ${pfBranch([
+      [
+        [
+          "Application Logging",
+          "Track API calls, job execution and errors",
+          "green",
+          "▤"
+        ],
+        [
+          "Usage Analytics",
+          "Monitor email volume, AI usage and feature adoption",
+          "purple",
+          "◴"
+        ]
+      ],
+      [
+        [
+          "Credential Security",
+          "Protect OAuth tokens and sensitive configuration",
+          "yellow",
+          "🔒"
+        ],
+        [
+          "Error Monitoring",
+          "Detect API failures, retries and synchronization issues",
+          "red",
+          "⚠"
+        ]
+      ]
+    ])}
+
+    ${pfLinear([
+      [
+        "React / Vite Dashboard",
+        "Display inbox, drafts, scheduled emails, follow-ups and execution status",
+        "cyan",
+        "▣"
+      ]
+    ])}
+
+  `
+  
 
 },
 
@@ -4383,72 +4701,192 @@ const flowMap={
 
   intro:"LangGraph-based research workflow using a Researcher Agent, Tavily web research, Gemini synthesis and a Writer Agent.",
 
-  render:()=>pfLinear([
+  render:()=>`
 
+  ${pfLinear([
     [
-      "Research Topic",
-      "User submits the topic to investigate",
+      "AI RESEARCH AGENT",
+      "Autonomous multi-agent research and report generation",
       "blue",
-      "♙"
+      "◆"
     ],
-
     [
-      "FastAPI",
-      "REST API receives the research request",
+      "React / Vite Frontend",
+      "Research workspace and report viewer",
       "green",
+      "▣"
+    ],
+    [
+      "FastAPI Backend",
+      "Request validation and API orchestration",
+      "purple",
       "↗"
     ],
-
     [
       "LangGraph Workflow",
-      "Orchestrate the agentic workflow",
-      "purple",
-      "◎"
-    ],
-
-    [
-      "Researcher Agent",
-      "Coordinate real-time web research",
+      "Stateful agent orchestration and control flow",
       "yellow",
-      "⌕"
-    ],
+      "◎"
+    ]
+  ])}
 
+  ${pfBranch([
     [
-      "Tavily Web Search",
-      "Retrieve current research information",
+      [
+        "Research Planner Agent",
+        "Break the topic into research questions and subtasks",
+        "blue",
+        "⌘"
+      ],
+      [
+        "Research Strategy",
+        "Define search queries and required evidence",
+        "green",
+        "◎"
+      ]
+    ],
+    [
+      [
+        "Resource Profiler",
+        "Identify relevant sources and research requirements",
+        "purple",
+        "▤"
+      ],
+      [
+        "Source Strategy",
+        "Prioritize suitable research sources",
+        "yellow",
+        "⌕"
+      ]
+    ]
+  ])}
+
+  ${pfLinear([
+    [
+      "Research Task Distribution",
+      "Dispatch independent subtasks to research workers",
+      "purple",
+      "↗"
+    ]
+  ])}
+
+  ${pfBranch([
+    [
+      [
+        "Web Research Agent",
+        "Investigate assigned questions using live web search",
+        "blue",
+        "⌕"
+      ],
+      [
+        "Tavily Search",
+        "Retrieve relevant web pages and search results",
+        "green",
+        "↗"
+      ]
+    ],
+    [
+      [
+        "Focused Research Agent",
+        "Explore additional queries and supporting evidence",
+        "yellow",
+        "⌕"
+      ],
+      [
+        "Source Collection",
+        "Collect relevant pages and extracted findings",
+        "purple",
+        "▤"
+      ]
+    ]
+  ])}
+
+  ${pfLinear([
+    [
+      "Research Findings",
+      "Combine findings from research tasks",
       "blue",
-      "⌕"
-    ],
-
-    [
-      "Research Information",
-      "Collected findings for synthesis",
-      "green",
       "▤"
     ],
-
     [
-      "Gemini Synthesis",
-      "Synthesize the gathered information",
-      "purple",
-      "◈"
+      "Evidence Processing",
+      "Extract key facts, references and supporting details",
+      "green",
+      "⚙"
     ],
-
     [
-      "Writer Agent",
-      "Turn the synthesis into a structured report",
+      "Evidence Validation",
+      "Check relevance, consistency and source support",
       "yellow",
-      "✦"
-    ],
+      "✓"
+    ]
+  ])}
 
+  ${pfBranch([
+    [
+      [
+        "Evidence Sufficient",
+        "Research has adequate support for the topic",
+        "green",
+        "✓"
+      ],
+      [
+        "Gemini Synthesis",
+        "Synthesize validated findings into key insights",
+        "purple",
+        "◈"
+      ],
+      [
+        "Writer Agent",
+        "Create a structured, readable research report",
+        "blue",
+        "✦"
+      ]
+    ],
+    [
+      [
+        "Evidence Insufficient",
+        "Important questions remain unanswered",
+        "red",
+        "!"
+      ],
+      [
+        "Research Refinement",
+        "Generate additional queries and identify evidence gaps",
+        "yellow",
+        "↻"
+      ],
+      [
+        "Additional Web Research",
+        "Gather missing information before synthesis",
+        "blue",
+        "⌕"
+      ]
+    ]
+  ])}
+
+  ${pfLinear([
+    [
+      "Report Validation",
+      "Check structure, factual support and source references",
+      "yellow",
+      "✓"
+    ],
     [
       "Structured Research Report",
-      "Final report output",
+      "Deliver the final research findings and citations",
       "cyan",
       "▤"
+    ],
+    [
+      "React / Vite Report Viewer",
+      "Display the report, findings and source links",
+      "green",
+      "▣"
     ]
+  ])}
 
-  ])
+`
 
 },
 
