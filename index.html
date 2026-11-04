@@ -2683,16 +2683,18 @@ body.theme-dark .pf-node-sub{
    SELF PROJECTS
    ORDER:
    01 SourceVault
-   02 ResearchFlow
+   02 DataPilot AI
    03 AutoMail
-   04 CrewAI
-   05 AutoGen
-   06 Meeting Intelligence
-   07 LangGraph
-   08 LangChain
-   09 Contextual QA
-   10 Spelling
-   11 Student Prediction
+   04 ResearchFlow
+   05 CrewAI
+   06 AutoGen
+   07 Meeting Intelligence
+   08 LangGraph
+   09 LangChain
+   10 Contextual QA
+   11 Spelling
+   12 Student Prediction
+
 ========================================================= */
 
 const selfProjects = [
@@ -2728,31 +2730,33 @@ const selfProjects = [
   },
 
   {
-    title:"ResearchFlow AI — Agentic AI Research & Report Generation",
+    title:"DataPilot AI — Autonomous AI-Powered Data Analyst",
 
-    desc:"Agentic research system that searches the web, synthesizes findings and generates structured reports.",
+    desc:"AI analytics platform that turns raw datasets into evidence-backed business insights through automated profiling, multi-agent investigations, natural-language SQL, interactive dashboards and downloadable reports.",
 
     tech:[
-      "LangGraph",
-      "Tavily",
-      "Gemini",
       "FastAPI",
+      "React",
+      "LangGraph",
+      "Pandas",
+      "PostgreSQL",
       "Docker"
     ],
 
-    full:"Built a LangGraph workflow with Researcher and Writer agents, Tavily for real-time web research, Gemini for synthesis, FastAPI REST APIs, a web interface and Docker support.",
+    full:"DataPilot AI transforms raw datasets into actionable business insights through automated analytics, intelligent investigations and multi-agent AI workflows. Users upload CSV, Excel and other supported datasets; the platform profiles and cleans data (missing values, duplicates, outliers, schema issues), runs exploratory analysis, and lets an autonomous analyst plan investigations, identify patterns, validate findings and produce evidence-backed insights. Specialized LangGraph agents handle planning, analysis, SQL generation, visualization, validation and reporting. Business questions are converted into executable read-only SQL, and an AI data chat answers contextual questions grounded in the dataset. Results appear in interactive charts and KPI dashboards, including a global revenue map with country- and state-level drill-down, plus anomaly detection, business recommendations, saved analysis history and downloadable PDF and Excel reports. The interface is built with React and Vite on a FastAPI backend.",
 
     demonstrates:[
-      "Agentic AI",
-      "LangGraph",
-      "Multi-Agent Systems",
-      "Web Research",
-      "LLM Orchestration",
-      "FastAPI",
-      "Docker"
+      "Multi-agent architecture with LangGraph",
+      "Autonomous investigation workflows",
+      "Natural language to read-only SQL",
+      "Automated data profiling and cleaning",
+      "Exploratory data analysis",
+      "Anomaly detection",
+      "Interactive visualization dashboards",
+      "PDF and Excel report generation"
     ],
 
-    github:"https://github.com/SanketBiradar017/ResearchFlow-AI"
+    github:"https://github.com/SanketBiradar017/data_pilot"
   },
 
   {
@@ -2780,6 +2784,34 @@ const selfProjects = [
     ],
 
     github:"https://github.com/SanketBiradar017/automail"
+  },
+
+  {
+    title:"ResearchFlow AI — Agentic AI Research & Report Generation",
+
+    desc:"Agentic research system that searches the web, synthesizes findings and generates structured reports.",
+
+    tech:[
+      "LangGraph",
+      "Tavily",
+      "Gemini",
+      "FastAPI",
+      "Docker"
+    ],
+
+    full:"Built a LangGraph workflow with Researcher and Writer agents, Tavily for real-time web research, Gemini for synthesis, FastAPI REST APIs, a web interface and Docker support.",
+
+    demonstrates:[
+      "Agentic AI",
+      "LangGraph",
+      "Multi-Agent Systems",
+      "Web Research",
+      "LLM Orchestration",
+      "FastAPI",
+      "Docker"
+    ],
+
+    github:"https://github.com/SanketBiradar017/ResearchFlow-AI"
   },
 
   {
@@ -2980,7 +3012,6 @@ const selfProjects = [
 
     github:"https://github.com/SanketBiradar017/Student-exam-score-prediction-"
   }
-
 ];
 
 /* =========================================================
@@ -3931,6 +3962,834 @@ const flowMap={
 
   `
 
+},
+
+/* =========================
+   DATAPILOT
+========================= */
+
+"DataPilot AI — Autonomous AI-Powered Data Analyst":{
+
+  intro:"Dataset ingestion through profiling, multi-agent investigation, SQL, validation, visualization and reporting.",
+
+  render:()=>`
+
+  ${pfLinear([
+
+    [
+      "DATAPILOT AI",
+      "Autonomous AI-powered data analytics platform",
+      "blue",
+      "◆"
+    ],
+
+    [
+      "React / Vite Frontend",
+      "Analytics dashboard, datasets, AI chat and visualizations",
+      "green",
+      "▣"
+    ],
+
+    [
+      "REST API",
+      "Frontend-to-backend communication",
+      "purple",
+      "↗"
+    ],
+
+    [
+      "FastAPI Backend",
+      "Application APIs, business logic and orchestration",
+      "yellow",
+      "⚙"
+    ]
+
+  ])}
+
+  ${pfBranch([
+
+    [
+
+      [
+        "Authentication",
+        "Registration, login, JWT and session management",
+        "blue",
+        "♙"
+      ],
+
+      [
+        "User Management",
+        "Profiles, permissions and account settings",
+        "green",
+        "♧"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Dataset Management",
+        "Upload, preview, rename, delete and manage datasets",
+        "purple",
+        "▤"
+      ],
+
+      [
+        "Analysis Workspace",
+        "Projects, analysis history and saved investigations",
+        "yellow",
+        "◈"
+      ]
+
+    ],
+
+    [
+
+      [
+        "AI Data Chat",
+        "Natural language questions and contextual conversations",
+        "cyan",
+        "✦"
+      ]
+
+    ]
+
+  ])}
+
+  ${pfLinear([
+
+    [
+      "Data Ingestion",
+      "Import data from files and supported external sources",
+      "blue",
+      "↓"
+    ]
+
+  ])}
+
+  ${pfBranch([
+
+    [
+
+      [
+        "CSV / Excel",
+        "CSV, XLS, XLSX file uploads",
+        "green",
+        "▤"
+      ],
+
+      [
+        "File Processing",
+        "Read, parse and validate uploaded files",
+        "blue",
+        "↗"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Database Sources",
+        "Supported external database connections",
+        "purple",
+        "▣"
+      ],
+
+      [
+        "Database Connector",
+        "Connect and retrieve authorized data",
+        "yellow",
+        "↗"
+      ]
+
+    ]
+
+  ])}
+
+  ${pfLinear([
+
+    [
+      "Data Preview",
+      "Display rows, columns, schema and dataset structure",
+      "cyan",
+      "▥"
+    ],
+
+    [
+      "Data Profiling",
+      "Detect data types, distributions and column statistics",
+      "blue",
+      "⌕"
+    ]
+
+  ])}
+
+  ${pfBranch([
+
+    [
+
+      [
+        "Missing Value Detection",
+        "Identify null and incomplete records",
+        "yellow",
+        "!"
+      ],
+
+      [
+        "Missing Value Handling",
+        "Recommend or apply appropriate imputation",
+        "green",
+        "✓"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Duplicate Detection",
+        "Identify repeated records",
+        "purple",
+        "⌕"
+      ],
+
+      [
+        "Duplicate Removal",
+        "Remove duplicates with controlled cleaning",
+        "green",
+        "✓"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Outlier Detection",
+        "Identify unusual numerical observations",
+        "red",
+        "!"
+      ],
+
+      [
+        "Outlier Handling",
+        "Review, flag or handle abnormal values",
+        "yellow",
+        "⚙"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Schema Validation",
+        "Check column types and inconsistent values",
+        "blue",
+        "▤"
+      ],
+
+      [
+        "Data Quality Score",
+        "Evaluate dataset completeness and consistency",
+        "cyan",
+        "◈"
+      ]
+
+    ]
+
+  ])}
+
+  ${pfLinear([
+
+    [
+      "Cleaned Dataset",
+      "Prepared and validated data for analysis",
+      "green",
+      "✓"
+    ],
+
+    [
+      "Exploratory Data Analysis",
+      "Automated statistical and analytical exploration",
+      "purple",
+      "▥"
+    ]
+
+  ])}
+
+  ${pfBranch([
+
+    [
+
+      [
+        "Statistical Analysis",
+        "Mean, median, mode, variance and standard deviation",
+        "blue",
+        "∑"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Correlation Analysis",
+        "Identify relationships between variables",
+        "purple",
+        "◎"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Distribution Analysis",
+        "Understand numerical and categorical distributions",
+        "yellow",
+        "▥"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Trend Analysis",
+        "Discover patterns and changes over time",
+        "green",
+        "↗"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Feature Analysis",
+        "Identify important columns and contributing factors",
+        "cyan",
+        "⌕"
+      ]
+
+    ]
+
+  ])}
+
+  ${pfLinear([
+
+    [
+      "EDA Results",
+      "Statistical summaries, patterns and analytical findings",
+      "blue",
+      "▤"
+    ],
+
+    [
+      "LangGraph Orchestrator",
+      "Coordinate autonomous multi-agent analysis workflows",
+      "purple",
+      "✦"
+    ],
+
+    [
+      "Planner Agent",
+      "Understand user objectives and create investigation plans",
+      "yellow",
+      "◈"
+    ]
+
+  ])}
+
+  ${pfBranch([
+
+    [
+
+      [
+        "Data Analyst Agent",
+        "Perform deeper statistical and business analysis",
+        "blue",
+        "▥"
+      ],
+
+      [
+        "Pandas / NumPy",
+        "Execute analytical computations on datasets",
+        "green",
+        "⚙"
+      ]
+
+    ],
+
+    [
+
+      [
+        "SQL Agent",
+        "Translate natural language into SQL queries",
+        "purple",
+        "⌕"
+      ],
+
+      [
+        "SQL Execution Engine",
+        "Execute validated read-only queries",
+        "cyan",
+        "▣"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Anomaly Detection Agent",
+        "Identify unusual patterns and potential risks",
+        "red",
+        "!"
+      ],
+
+      [
+        "Anomaly Analysis",
+        "Evaluate abnormal values and fluctuations",
+        "yellow",
+        "⌕"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Research Agent",
+        "Retrieve supporting external business information when required",
+        "blue",
+        "↗"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Visualization Agent",
+        "Select suitable charts and KPI visualizations",
+        "green",
+        "▤"
+      ]
+
+    ]
+
+  ])}
+
+  ${pfLinear([
+
+    [
+      "Agent Result Aggregation",
+      "Collect and organize results from analytical agents",
+      "purple",
+      "◎"
+    ],
+
+    [
+      "Validation Agent",
+      "Verify calculations, SQL outputs and evidence",
+      "red",
+      "✓"
+    ]
+
+  ])}
+
+  ${pfBranch([
+
+    [
+
+      [
+        "Valid Findings",
+        "Results are supported by actual dataset evidence",
+        "green",
+        "✓"
+      ],
+
+      [
+        "Insight Generation",
+        "Generate explanations and business conclusions",
+        "purple",
+        "✦"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Invalid / Insufficient Evidence",
+        "Findings fail validation or lack sufficient support",
+        "red",
+        "!"
+      ],
+
+      [
+        "Re-analysis",
+        "Return to the relevant agent for correction",
+        "yellow",
+        "↻"
+      ]
+
+    ]
+
+  ])}
+
+  ${pfLinear([
+
+    [
+      "Business Intelligence Engine",
+      "Convert validated analytical results into business insights",
+      "blue",
+      "◈"
+    ]
+
+  ])}
+
+  ${pfBranch([
+
+    [
+
+      [
+        "Revenue Analysis",
+        "Revenue, profit and loss analysis",
+        "green",
+        "₹"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Sales Intelligence",
+        "Product and sales performance analysis",
+        "blue",
+        "↗"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Customer Intelligence",
+        "Customer segmentation and behavior analysis",
+        "purple",
+        "♙"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Regional Intelligence",
+        "Country and state-level business performance",
+        "cyan",
+        "◎"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Business Recommendations",
+        "Suggest evidence-based actions and opportunities",
+        "yellow",
+        "✦"
+      ]
+
+    ]
+
+  ])}
+
+  ${pfLinear([
+
+    [
+      "Global Revenue Intelligence",
+      "Interactive geographical business analytics",
+      "blue",
+      "◎"
+    ]
+
+  ])}
+
+  ${pfBranch([
+
+    [
+
+      [
+        "World Map",
+        "Global revenue and loss visualization",
+        "green",
+        "🌍"
+      ],
+
+      [
+        "Country Drill-down",
+        "Explore individual country performance",
+        "blue",
+        "⌕"
+      ],
+
+      [
+        "State Drill-down",
+        "Explore regional revenue and losses",
+        "purple",
+        "▤"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Geographical Comparison",
+        "Compare performance across regions",
+        "yellow",
+        "⇄"
+      ],
+
+      [
+        "Regional KPI Analysis",
+        "Revenue, profit, loss and growth metrics",
+        "cyan",
+        "▥"
+      ]
+
+    ]
+
+  ])}
+
+  ${pfLinear([
+
+    [
+      "Interactive Analytics Dashboard",
+      "Centralized view of datasets, findings and business KPIs",
+      "green",
+      "▣"
+    ]
+
+  ])}
+
+  ${pfBranch([
+
+    [
+
+      [
+        "Chart Visualization",
+        "Bar, line, pie, scatter, histogram and heatmap",
+        "blue",
+        "▥"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Dynamic Filtering",
+        "Filter by date, category, product and region",
+        "purple",
+        "⌕"
+      ]
+
+    ],
+
+    [
+
+      [
+        "KPI Dashboard",
+        "Display revenue, profit, loss and performance metrics",
+        "yellow",
+        "◈"
+      ]
+
+    ],
+
+    [
+
+      [
+        "AI Data Chat",
+        "Ask follow-up questions and explore analytical results",
+        "cyan",
+        "✦"
+      ]
+
+    ]
+
+  ])}
+
+  ${pfLinear([
+
+    [
+      "Automated Reporting",
+      "Generate structured analytical reports",
+      "purple",
+      "▤"
+    ]
+
+  ])}
+
+  ${pfBranch([
+
+    [
+
+      [
+        "PDF Reports",
+        "Executive summaries, findings, charts and recommendations",
+        "red",
+        "▤"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Excel Reports",
+        "Download analytical results and processed datasets",
+        "green",
+        "▥"
+      ]
+
+    ]
+
+  ])}
+
+  ${pfLinear([
+
+    [
+      "Analysis History",
+      "Save, retrieve and revisit previous investigations",
+      "blue",
+      "◈"
+    ],
+
+    [
+      "PostgreSQL Database",
+      "Store users, dataset metadata, analysis records and reports",
+      "purple",
+      "▣"
+    ],
+
+    [
+      "File / Object Storage",
+      "Store uploaded datasets and generated report files",
+      "yellow",
+      "▤"
+    ]
+
+  ])}
+
+  ${pfBranch([
+
+    [
+
+      [
+        "Security & Access Control",
+        "Authentication, authorization and user ownership",
+        "red",
+        "♙"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Read-only SQL Security",
+        "Restrict analytical queries and protect source databases",
+        "blue",
+        "✓"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Logging & Monitoring",
+        "Track API activity, agent execution and errors",
+        "green",
+        "◉"
+      ]
+
+    ],
+
+    [
+
+      [
+        "Deployment",
+        "Docker-based deployment and AWS infrastructure",
+        "yellow",
+        "⚙"
+      ]
+
+    ]
+
+  ])}
+
+   ${pfBranch([
+
+    [
+      [
+        "Security & Access Control",
+        "Authentication, authorization and user ownership",
+        "red",
+        "♙"
+      ]
+    ],
+
+    [
+      [
+        "Read-only SQL Security",
+        "Restrict analytical queries and protect source databases",
+        "blue",
+        "✓"
+      ]
+    ],
+
+    [
+      [
+        "Logging & Monitoring",
+        "Track API activity, agent execution and errors",
+        "green",
+        "◉"
+      ]
+    ],
+
+    [
+      [
+        "Deployment",
+        "Docker-based deployment and AWS infrastructure",
+        "yellow",
+        "⚙"
+      ]
+    ]
+
+  ])}
+
+  ${pfLinear([
+
+    [
+      "DataPilot AI Platform",
+      "Secure, deployed and autonomous data analytics system",
+      "cyan",
+      "✦"
+    ]
+
+  ])}
+`
 },
 
 /* =========================
