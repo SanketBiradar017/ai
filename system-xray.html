@@ -1111,6 +1111,7 @@ $("search").addEventListener("input",e=>{
 $("search").addEventListener("keydown",e=>{
   if(e.key==="Enter"){
     const m=nodes.filter(n=>n.match);
+    if(state.query&&on3D&&on3D.hqMatch&&on3D.hqMatch(state.query)&&state.view!=="list"){on3D.focusHQ();return}
     if(state.query&&m.length){
       m.sort((a,b)=>(b.kind==="project")-(a.kind==="project")||b.deg-a.deg);
       select(m[0]);
@@ -1553,6 +1554,7 @@ function init3D(){
   const BW=44,BD=48,BASEY=.3,RW=8;
   const V3=(x,y,z)=>new THREE.Vector3(x,y,z);
   const BLK={found:{cx:-52,cz:-28},cap:{cx:52,cz:-28},fw:{cx:-52,cz:28},data:{cx:52,cz:28},projN:{cx:0,cz:-28},projS:{cx:0,cz:28}};
+  const HQS={x:-10,z:-70.5};   // Headquarters site: its own landscaped plot inside the city, mirroring the Reading Garden (north side)
   const DISTRICTS=[
     {key:"found",name:"Foundations",blocks:["found"],c:[-52,-28],z:2.0,label:[-52,-28]},
     {key:"cap",name:"AI Capabilities",blocks:["cap"],c:[52,-28],z:1.9,label:[52,-28]},
@@ -1776,7 +1778,19 @@ function init3D(){
   function heroParts(n,rng){
     const P=[];let top=BASEY;
     if(n.style==="hq"){
-      n.r=12;top=tower(P,{shape:"chamfer",w:12,d:12,h:36,podium:{ex:6,h:4.2},tiers:[[1,1,.72],[.78,.78,.28]],fins:true,crown:"hq"},rng);
+      n.r=10;n.fx="punched";top=tower(P,{shape:"rect",w:12,d:12,h:40,podium:{ex:3,h:4.2},tiers:[[1,1,.52],[.88,.88,.28],[.8,.8,.2]],fins:false},rng);
+      {// rooftop heliport: parapet, service housings, raised landing deck on legs, rim + safety railing
+        const ry=top;n.roofY=ry;parapet(P,9.6,9.6,ry);
+        P.push(bx(1.7,2.3,1.7,3.7,ry,-3.7,"R"),bx(1.1,1.5,.14,3.7,ry,-2.8,"D"),bx(1.5,.15,1.5,3.7,ry+2.3,-3.7,"A"));
+        [[-3.7,-3.7],[-3.7,3.7]].forEach(([x,z])=>{P.push(bx(1.5,1.1,1.5,x,ry,z,"A"),cyl(.5,.12,16,x,ry+1.1,z,"R"))});
+        P.push(cyl(.05,5.2,6,3.7,ry+2.3,-3.7,"A"),cyl(.05,3.6,6,-3.7,ry+1.1,3.9,"A"));
+        for(let k=0;k<8;k++){const a=k*Math.PI/4+Math.PI/8;P.push(cyl(.2,1.0,8,Math.cos(a)*3.8,ry,Math.sin(a)*3.8,"R"))}
+        P.push(cyl(1.6,1.0,16,0,ry,0,"R"),cyl(4.6,.3,56,0,ry+1.0,0,"R"));
+        P.push(part(new THREE.TorusGeometry(4.58,.07,6,56),"A",0,ry+1.34,0,0,Math.PI/2,0));
+        for(let k=0;k<14;k++){const a=k*Math.PI*2/14;P.push(cyl(.035,.62,6,Math.cos(a)*4.7,ry+1.3,Math.sin(a)*4.7,"A"))}
+        P.push(part(new THREE.TorusGeometry(4.7,.03,6,56),"A",0,ry+1.9,0,0,Math.PI/2,0));
+        top=ry+1.3+6}
+
       // grand entrance: deep portico on marble columns, steps, glass double doors, sign backing
       P.push(bx(11,.45,4.8,0,BASEY+3.9,11.4,"R"),bx(11.2,.12,5,0,BASEY+3.84,11.4,"A"),bx(10.8,1.25,.2,0,BASEY+4.4,13.86,"A"));
       [-4.2,-1.4,1.4,4.2].forEach(x=>{P.push(cyl(.38,3.7,20,x,BASEY,13.3,"R"),cyl(.5,.16,20,x,BASEY,13.3,"A"),cyl(.46,.16,20,x,BASEY+3.74,13.3,"A"))});
@@ -1880,7 +1894,7 @@ function init3D(){
     });
     ["projN","projS"].forEach(k=>park.push({x:BLK[k].cx,z:BLK[k].cz,w:37,d:6.2,type:"plaza"}));
     nodes.forEach(n=>{
-      const sk=n.kind==="core"?"hq":n.kind==="project"?"tower":n.dist==="found"?"campus":n.dist==="cap"?"lab":(n.dist==="data"&&DC_KEYS.has(n.key))?"datacenter":"midrise";
+      const sk=n.kind==="core"?"campus":n.kind==="project"?"tower":n.dist==="found"?"campus":n.dist==="cap"?"lab":(n.dist==="data"&&DC_KEYS.has(n.key))?"datacenter":"midrise";
       n.style=sk;n.vi=counters[sk]=(counters[sk]===undefined?0:counters[sk]+1);
       n.fx=sk==="hq"||sk==="tower"||sk==="midrise"?"glass":sk==="datacenter"?"louver":"ribbon";
       n.neutral=sk==="datacenter"?"metal":(sk==="campus"||sk==="lab")?"stone":"glass";
@@ -1922,7 +1936,10 @@ function init3D(){
   }
   const cPick_=[];
   nodes.forEach(n=>{finishNode(n,heroParts(n,mulb(n.i*7919+13)))});
-  const HQN=nodes.find(n=>n.style==="hq");
+  // Headquarters: a standalone building (not a data node) with its own site; clicking it opens the Executive Wing
+  const HQN={id:"hq-building",label:"Headquarters",kind:"hq",style:"hq",c:V3(HQS.x,0,HQS.z),fx:"punched",neutral:"glass",tint:.3,vi:0,r:10};
+  finishNode(HQN,heroParts(HQN,mulb(20240601)));
+  const hqPick=cPick.filter(m=>m.userData.node===HQN);hqPick.forEach(m=>{cPick.splice(cPick.indexOf(m),1);m.userData.node=null});
   HQN.cg.rotation.y=Math.PI/2;                                   // entrance now faces the open plaza and the avenue (east)
   {const sign=(w,h,x,y,z)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:plaqueTex("SANKET BIRADAR – HEADQUARTERS","",1500,Math.round(1500*h/w),true),toneMapped:false}));m.position.set(x,y,z);HQN.cg.add(m);return m};
    sign(10.4,.95,0,BASEY+4.42,13.97);sign(8.8,.8,0,BASEY+22.6,6.08);}
@@ -2018,6 +2035,135 @@ function init3D(){
    [[-3,-5.4],[-3,5.4],[3.4,-5.4],[3.4,5.4]].forEach(([dx,dz])=>{const bx2=boxT(1.3,.55,1.3,fx+dx,BASEY+.3,fz+dz,walkMat,2);bx2.castShadow=true;
      const bl=new THREE.Mesh(noisyBlob(.7,dx*3+dz,1,.8),gm);bl.position.set(fx+dx,BASEY+.95,fz+dz);bl.castShadow=true;city.add(bl)});}
 
+  // headquarters site: paved campus slab, lawn borders, tree line, hedges, lamps and a walkway to the ring road
+  {const hr=mulb(5151),sz=HQS.z;
+   boxT(48,.26,17,0,.13,sz,walkMat,6);
+   [-7.2,7.2].forEach(dz=>boxT(47,.05,2.2,0,.28,sz+dz,lawnMat,1.7));
+   [[48.6,.3,-8.65],[48.6,.3,8.65]].forEach(([w,d,dz])=>boxT(w,.34,d,0,.17,sz+dz,walkMat,3));
+   [-24.15,24.15].forEach(x=>boxT(.3,.34,17.6,x,.17,sz,walkMat,3));
+   const wx=HQS.x+14.7;boxT(3.2,.2,4,wx,.14,sz+8.5+2.1+.8,walkMat,3);
+   for(let x=-22;x<=22.1;x+=5.5){if(x>HQS.x-11&&x<HQS.x+25&&Math.abs(x-wx)<3.2)continue;trees.push([x,.3,sz+7.8,.8+hr()*.3,0]);trees.push([x,.3,sz-7.8,.8+hr()*.3,0])}
+   [-23.2,23.2].forEach(x=>[-4,0,4].forEach(dz=>trees.push([x,.3,sz+dz,.9,0])));
+   for(let x=-21;x<=21;x+=4.6)if(x<HQS.x-11||x>HQS.x+22)hedges.push([x,sz+5.9,4,0]);
+   lamps.push([HQS.x+10,sz-6.3,0],[HQS.x+10,sz+6.3,0],[HQS.x+20,sz-6.3,0],[HQS.x+20,sz+6.3,0]);}
+
+  /* ---------- Headquarters rooftop helipad + executive helicopter (autonomous flight cycle) ---------- */
+  const HP={x:HQS.x,y:HQN.roofY+1.32,z:HQS.z};
+  const lin=h=>new THREE.Color(h).convertSRGBToLinear();
+  const hpTex=(()=>{const [c,g]=mkC(1024);g.fillStyle="#3a3e43";g.fillRect(0,0,1024,1024);speck(g,1024,7000,34,70);
+    g.translate(512,512);g.lineCap="butt";
+    g.lineWidth=36;g.strokeStyle="#e9b824";g.beginPath();g.arc(0,0,452,0,6.2832);g.stroke();
+    g.lineWidth=7;g.strokeStyle="#f2f1ea";g.beginPath();g.arc(0,0,404,0,6.2832);g.stroke();
+    g.lineWidth=16;g.strokeStyle="#f2f1ea";for(let k=0;k<32;k++){const a=k*6.2832/32;g.beginPath();g.arc(0,0,372,a,a+.1);g.stroke()}
+    g.fillStyle="#f6f5ee";g.fillRect(-176,-216,74,432);g.fillRect(102,-216,74,432);g.fillRect(-176,-36,352,72);
+    g.fillStyle="#e9b824";[0,1,2,3].forEach(k=>{g.save();g.rotate(k*Math.PI/2);g.beginPath();g.moveTo(0,-318);g.lineTo(34,-282);g.lineTo(-34,-282);g.closePath();g.fill();g.restore()});
+    g.fillStyle="#f2f1ea";g.font="700 40px 'DM Mono', monospace";g.textAlign="center";g.fillText("HQ  ·  4.5 t",0,296);
+    const t=toTex(c);t.wrapS=t.wrapT=THREE.ClampToEdgeWrapping;return t})();
+  const hpMat=new THREE.MeshStandardMaterial({map:hpTex,emissiveMap:hpTex,emissive:0xffffff,emissiveIntensity:.3,roughness:.85,metalness:0});
+  const hpPad=new THREE.Mesh(new THREE.CircleGeometry(4.5,64),hpMat);hpPad.rotation.x=-Math.PI/2;hpPad.rotation.z=Math.PI/2;hpPad.position.set(HP.x,HP.y,HP.z);hpPad.receiveShadow=true;city.add(hpPad);
+  const hpLightN=20,hpLights=new THREE.InstancedMesh(new THREE.SphereGeometry(.1,8,6),new THREE.MeshBasicMaterial({color:0xffffff,toneMapped:false}),hpLightN);
+  for(let i=0;i<hpLightN;i++){const a=i*Math.PI*2/hpLightN;D.position.set(HP.x+Math.cos(a)*4.58,HP.y+.14,HP.z+Math.sin(a)*4.58);D.rotation.set(0,0,0);D.scale.set(1,1,1);D.updateMatrix();hpLights.setMatrixAt(i,D.matrix);hpLights.setColorAt(i,new THREE.Color(1,.78,.4))}
+  hpLights.frustumCulled=false;hpLights.instanceColor.needsUpdate=true;city.add(hpLights);
+  // wind sock (empty corner of the roof)
+  const sockG=new THREE.Group();sockG.position.set(HP.x-3.7,HQN.roofY,HP.z+3.7);
+  {const pole=new THREE.Mesh(new THREE.CylinderGeometry(.035,.05,2.6,6),stdMat({color:lin(0xcfd2d4),roughness:.4,metalness:.6},1));pole.position.y=1.3;sockG.add(pole);
+   const sock=new THREE.Group();sock.position.y=2.55;const cone=new THREE.Mesh(new THREE.CylinderGeometry(.26,.1,1.2,10,1,true),new THREE.MeshStandardMaterial({color:lin(0xf06a1e),roughness:.8,side:THREE.DoubleSide}));cone.rotation.z=-Math.PI/2;cone.position.x=.6;sock.add(cone);sockG.add(sock);sockG.userData.sock=sock;city.add(sockG)}
+
+  const hmB=stdMat({color:lin(0xe8e5de),roughness:.26,metalness:.3},1.4),hmA=stdMat({color:lin(0x1c2b46),roughness:.38,metalness:.5},1.2),
+        hmG=stdMat({color:lin(0x15202b),roughness:.05,metalness:.75,transparent:true,opacity:.8},1.9),hmD=stdMat({color:lin(0x17191d),roughness:.5,metalness:.3},.8);
+  function mergeParts(list){
+    const pos=[],nor=[];
+    list.forEach(o=>{const g=o.g.index?o.g.toNonIndexed():o.g.clone();
+      g.applyMatrix4(new THREE.Matrix4().compose(V3(o.x||0,o.y||0,o.z||0),new THREE.Quaternion().setFromEuler(new THREE.Euler(o.rx||0,o.ry||0,o.rz||0)),V3(o.sx||1,o.sy||1,o.sz||1)));
+      const pa=g.attributes.position.array,na=g.attributes.normal.array;for(let i=0;i<pa.length;i++){pos.push(pa[i]);nor.push(na[i])}});
+    const G=new THREE.BufferGeometry();G.setAttribute("position",new THREE.Float32BufferAttribute(pos,3));G.setAttribute("normal",new THREE.Float32BufferAttribute(nor,3));return G}
+  const hOuter=new THREE.Group(),hInner=new THREE.Group();hOuter.add(hInner);city.add(hOuter);
+  const hox=1.4,Sp=(r,a,b)=>new THREE.SphereGeometry(r,a||22,b||16),Cy=(rt,rb,h,s)=>new THREE.CylinderGeometry(rt,rb,h,s||10),Bo=(w,h,d)=>new THREE.BoxGeometry(w,h,d);
+  const hBody=mergeParts([
+    {g:Sp(1),x:hox,y:.95,sx:1.6,sy:.78,sz:.74},{g:Sp(1),x:hox-.25,y:1.72,sx:1.05,sy:.4,sz:.62},
+    {g:Cy(.14,.34,3.2,12),x:hox-2.9,y:1.15,rz:Math.PI/2},{g:Bo(.5,.05,1.25),x:hox-4.05,y:1.17}]);
+  const hAcc=mergeParts([
+    {g:Sp(1),x:hox,y:.55,sx:1.58,sy:.4,sz:.72},{g:Bo(.75,1.15,.07),x:hox-4.28,y:1.72,rz:.38},{g:Bo(.55,.18,.5),x:hox-3.4,y:1.2}]);
+  const hGlass=mergeParts([{g:Sp(1),x:hox+.85,y:1.08,sx:.9,sy:.6,sz:.68},{g:Bo(1.0,.5,1.5),x:hox-.35,y:1.2,sx:1,sy:1,sz:1}]);
+  const hDark=mergeParts([
+    {g:Cy(.045,.045,3.3,8),x:hox+.2,y:.075,z:.72,rz:Math.PI/2},{g:Cy(.045,.045,3.3,8),x:hox+.2,y:.075,z:-.72,rz:Math.PI/2},
+    {g:Cy(.035,.035,.85,6),x:hox+.9,y:.5,z:.66,rx:.16},{g:Cy(.035,.035,.85,6),x:hox+.9,y:.5,z:-.66,rx:-.16},{g:Cy(.035,.035,.85,6),x:hox-.55,y:.5,z:.66,rx:.16},{g:Cy(.035,.035,.85,6),x:hox-.55,y:.5,z:-.66,rx:-.16},
+    {g:Cy(.09,.09,.55,8),x:hox-.1,y:2.28},{g:Cy(.2,.2,.14,12),x:hox-.1,y:2.58},{g:Cy(.05,.05,.3,6),x:hox-4.3,y:1.5,z:.12,rx:Math.PI/2}]);
+  [[hBody,hmB],[hAcc,hmA],[hDark,hmD]].forEach(([g,m])=>{const mm=new THREE.Mesh(g,m);mm.castShadow=true;hInner.add(mm)});
+  {const mg=new THREE.Mesh(hGlass,hmG);mg.renderOrder=3;hInner.add(mg)}
+  const hBladeMat=new THREE.MeshStandardMaterial({color:lin(0x14161a),roughness:.55,metalness:.2,transparent:true,opacity:.96});
+  const hRotor=new THREE.Group();hRotor.position.set(hox-.1,2.66,0);
+  hRotor.add(new THREE.Mesh(mergeParts([{g:Bo(5.5,.03,.2)},{g:Bo(5.5,.03,.2),ry:Math.PI/2},{g:Bo(.5,.025,.2),x:0},{g:Cy(.6,.6,.03,8)}].slice(0,2)),hBladeMat));
+  const hBlurMat=new THREE.MeshBasicMaterial({color:0x2b2f35,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide,toneMapped:false});
+  const hBlur=new THREE.Mesh(new THREE.CircleGeometry(2.78,36),hBlurMat);hBlur.rotation.x=-Math.PI/2;hBlur.position.copy(hRotor.position);hBlur.position.y+=.01;hBlur.renderOrder=4;hInner.add(hRotor,hBlur);
+  const hTail=new THREE.Group();hTail.position.set(hox-4.3,1.5,.16);
+  hTail.add(new THREE.Mesh(mergeParts([{g:Bo(.04,.95,.09)},{g:Bo(.04,.95,.09),rz:Math.PI/2}]),hBladeMat));hInner.add(hTail);
+  const hTBlur=new THREE.Mesh(new THREE.CircleGeometry(.5,20),hBlurMat);hTBlur.position.copy(hTail.position);hTBlur.position.z+=.01;hTBlur.renderOrder=4;hInner.add(hTBlur);
+  const hNavG=new THREE.Mesh(new THREE.SphereGeometry(.085,8,6),new THREE.MeshBasicMaterial({color:0x35ff7a,toneMapped:false})),hNavR=hNavG.clone(),hStr=hNavG.clone(),hBea=hNavG.clone();
+  hNavG.position.set(hox+.3,1.0,.74);hNavR.material=new THREE.MeshBasicMaterial({color:0xff2a2a,toneMapped:false});hNavR.position.set(hox+.3,1.0,-.74);
+  hStr.material=new THREE.MeshBasicMaterial({color:0xffffff,toneMapped:false});hStr.position.set(hox-4.5,1.15,0);
+  hBea.material=new THREE.MeshBasicMaterial({color:0xff3030,toneMapped:false});hBea.position.set(hox-.3,2.14,0);hBea.scale.setScalar(1.15);
+  hInner.add(hNavG,hNavR,hStr,hBea);
+
+  // predefined 3D flight route: lift-off above the pad, one lap over the city (clear of every roof), return from the west and hover over the pad
+  const HELI={WAIT:30,RAMP_DN:5,SPOOL:4,LIFT:6,DESC:8,VMAX:20,TA:7,TD:9,IDLE:.5,LIFTH:16,HOVH:12,t0:performance.now()/1000,ang:0};
+  const hCruise=Math.max(40,...nodes.map(n=>n.topY))+16;
+  const hRoute=(()=>{
+    const W=[[28,-78,1],[66,-74,4],[100,-52,6],[114,-14,3],[108,28,5],[84,64,6],[44,88,4],[0,94,2],[-44,88,4],[-84,64,6],[-110,26,4],[-112,-18,6],[-96,-56,4],[-62,-72,2],[-34,-71,-2]];
+    const pts=[V3(HP.x,HP.y+HELI.LIFTH,HP.z),...W.map(w=>V3(w[0],hCruise+w[2],w[1])),V3(HP.x,HP.y+HELI.HOVH,HP.z)];
+    const c=new THREE.CatmullRomCurve3(pts,false,"centripetal");c.arcLengthDivisions=1200;return c})();
+  HELI.L=hRoute.getLength();HELI.TC=HELI.L/HELI.VMAX-(HELI.TA+HELI.TD)/2;HELI.TR=HELI.TA+HELI.TC+HELI.TD;HELI.TOT=HELI.WAIT+HELI.LIFT+HELI.TR+HELI.DESC;
+  const sm=u=>u<=0?0:u>=1?1:u*u*(3-2*u);
+  const hDist=t=>{const V=HELI.VMAX,ta=HELI.TA,td=HELI.TD,tc=HELI.TC;
+    if(t<=0)return 0;if(t>=HELI.TR)return HELI.L;
+    if(t<ta){const u=t/ta;return V*ta*(u*u*u-u*u*u*u/2)}
+    if(t<ta+tc)return .5*V*ta+V*(t-ta);
+    const w=(t-ta-tc)/td;return .5*V*ta+V*tc+V*td*(w-(w*w*w-w*w*w*w/2))};
+  const hSpeed=t=>{const V=HELI.VMAX,ta=HELI.TA,td=HELI.TD,tc=HELI.TC;if(t<=0||t>=HELI.TR)return 0;if(t<ta)return V*sm(t/ta);if(t<ta+tc)return V;return V*(1-sm((t-ta-tc)/td))};
+  const hHead=u=>{const t=hRoute.getTangentAt(Math.max(0,Math.min(1,u)));return Math.atan2(-t.z,t.x)};
+  const hAng=(a,b)=>{let d=b-a;while(d>Math.PI)d-=2*Math.PI;while(d<-Math.PI)d+=2*Math.PI;return d};
+  const hPt=new THREE.Vector3(),H0=hHead(0),H1=hHead(1);
+  function heliState(e,o){
+    const cyc=Math.floor(e/HELI.TOT),ct=e-cyc*HELI.TOT;let rpm=1;
+    o.x=HP.x;o.y=HP.y;o.z=HP.z;o.yaw=H0;o.roll=0;o.pitch=0;o.phase="parked";
+    if(ct<HELI.WAIT){
+      rpm=HELI.IDLE;
+      if(ct<HELI.RAMP_DN&&cyc>0)rpm=1-(1-HELI.IDLE)*sm(ct/HELI.RAMP_DN);
+      else if(ct>HELI.WAIT-HELI.SPOOL){rpm=HELI.IDLE+(1-HELI.IDLE)*sm((ct-(HELI.WAIT-HELI.SPOOL))/HELI.SPOOL);o.phase="spool"}
+    }else{
+      let t=ct-HELI.WAIT;
+      if(t<HELI.LIFT){o.phase="lift";o.y=HP.y+HELI.LIFTH*sm(t/HELI.LIFT);o.pitch=0}
+      else if((t-=HELI.LIFT)<HELI.TR){
+        o.phase="tour";const s=hDist(t),u=s/HELI.L;hRoute.getPointAt(u,hPt);o.x=hPt.x;o.y=hPt.y;o.z=hPt.z;
+        const h0=hHead(hDist(t-.5)/HELI.L),h1=hHead(hDist(t+.5)/HELI.L),w=hAng(h0,h1),k=hSpeed(t)/HELI.VMAX;
+        o.yaw=hHead(u);o.roll=Math.max(-.35,Math.min(.35,-w*1.1*k));o.pitch=-.13*k;
+      }else{
+        t-=HELI.TR;const k=sm(t/HELI.DESC),e2=Math.min(1,t/HELI.DESC);o.phase="land";
+        o.y=HP.y+HELI.HOVH*(1-k);o.yaw=H1+hAng(H1,H0)*sm(Math.min(1,t/(HELI.DESC*.6)));
+        o.pitch=0;
+      }
+    }
+    o.rpm=rpm;return o}
+  const hs={},hFr=new THREE.Frustum(),hPM=new THREE.Matrix4(),hSph=new THREE.Sphere(),hWp=new THREE.Vector3(),hCol=new THREE.Color();
+  function updateHeli(dt,time,lit){
+    const e=reduce?0:performance.now()/1000-HELI.t0;heliState(e,hs);
+    hOuter.position.set(hs.x,hs.y,hs.z);hOuter.rotation.y=hs.yaw;hInner.rotation.x=hs.roll;hInner.rotation.z=hs.pitch;
+    hPM.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse);hFr.setFromProjectionMatrix(hPM);
+    const sc=city.scale.x;
+    hWp.set(hs.x,hs.y,hs.z).applyMatrix4(city.matrixWorld);hSph.set(hWp,9*sc);const hv=hFr.intersectsSphere(hSph);hOuter.visible=hv;
+    hWp.set(HP.x,HP.y,HP.z).applyMatrix4(city.matrixWorld);hSph.set(hWp,10*sc);const pv=hv||hFr.intersectsSphere(hSph);
+    if(!pv)return;
+    hpMat.emissiveIntensity=.3+.9*lit;
+    for(let i=0;i<hpLightN;i++){const b=.3+.7*(.5+.5*Math.sin(time*4.5-i*.62));hpLights.setColorAt(i,hCol.setRGB(1*b,.78*b,.4*b))}hpLights.instanceColor.needsUpdate=true;
+    sockG.userData.sock.rotation.y=.5*Math.sin(time*.7)+.25*Math.sin(time*1.9);sockG.userData.sock.rotation.z=-.18+.1*Math.sin(time*2.3);
+    if(!hv)return;
+    if(!reduce)HELI.ang+=dt*hs.rpm*30;
+    hRotor.rotation.y=HELI.ang;hTail.rotation.z=HELI.ang*4.6;
+    const fast=sm((hs.rpm-.45)/.5);hBlurMat.opacity=.2*fast;hBladeMat.opacity=.96-.5*fast;
+    const bl=(time*1.1)%1;hBea.visible=bl<.18;const st=(time*1.4)%1;hStr.visible=st<.07||(st>.16&&st<.23);
+    hNavG.visible=hNavR.visible=true;
+  }
+
   /* ---------- context neighbourhoods beyond the ring road ---------- */
   const FILLER_MATS={};
   const fmFor=(fx,nu)=>{const k=fx+nu;if(!FILLER_MATS[k])FILLER_MATS[k]={nu,S:facadeMat(fx),R:concMat(),A:accMat(),G:facadeMat("store"),D:glassMat(),L:greenMat()};return FILLER_MATS[k]};
@@ -2051,7 +2197,7 @@ function init3D(){
   const lowN=lowPower?1:2;
   // north / south strips (rows run along x); west / east strips (rows run along z)
   for(const sg of[-1,1]){
-    for(let r=0;r<lowN;r++)placeRow("x",sg*(74+r*20),-122,122,sg<0?0:Math.PI,(sg===1&&r===0)?[-27,27]:null);
+    for(let r=0;r<lowN;r++)placeRow("x",sg*(74+r*20),-122,122,sg<0?0:Math.PI,r===0?[-27,27]:null);
     for(let r=0;r<lowN;r++)placeRow("z",sg*(92+r*20),-56,56,sg<0?0:Math.PI);
   }
   // local streets between context rows
@@ -2082,7 +2228,7 @@ function init3D(){
   /* ---------- contact shadows (soft AO decals under every footprint) ---------- */
   {const dm=new THREE.MeshBasicMaterial({map:T.shadow,transparent:true,opacity:.5,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-2});
    dm.color.set(0x000000);
-   const decals=[];nodes.forEach(n=>decals.push([n.c.x,n.c.z,n.r*2+6]));
+   const decals=[];nodes.forEach(n=>decals.push([n.c.x,n.c.z,n.r*2+6]));decals.push([HQN.c.x,HQN.c.z,HQN.r*2+6]);
    fInst.forEach((arr,vi)=>arr.forEach(it=>decals.push([it[0],it[1],Math.max(FV[vi].w,FV[vi].d)+6])));
    const gg=new THREE.PlaneGeometry(1,1);gg.rotateX(-Math.PI/2);
    const im=new THREE.InstancedMesh(gg,dm,decals.length);
@@ -2627,9 +2773,9 @@ function init3D(){
     d.textContent=n.label;d.style.setProperty("--dot",dotColor(n));labelsEl.appendChild(d);
     n.el=d;n.short=SHORT[n.label]||n.label;n.shown=false;n.pr=-1;n.curTxt=n.label;
   });
-  const distLabels=[...DISTRICTS,{key:"garden",name:"The Reading Garden",label:[0,GZ]}].map(D=>{
+  const distLabels=[...DISTRICTS,{key:"garden",name:"The Reading Garden",label:[0,GZ]},{key:"hq",name:"Headquarters",label:[HQS.x,HQS.z]}].map(D=>{
     const d=document.createElement("div");d.className="lbl dist";
-    d.textContent=D.key==="garden"?D.name:D.name+" · "+nodes.filter(n=>n.dist===D.key).length;labelsEl.appendChild(d);
+    d.textContent=D.key==="garden"||D.key==="hq"?D.name:D.name+" · "+nodes.filter(n=>n.dist===D.key).length;labelsEl.appendChild(d);
     return {D,el:d,w:100,h:28};
   });
   const ringLabels=RINGS.map(rg=>{
@@ -2697,7 +2843,7 @@ function init3D(){
   DISTRICTS.forEach(D=>mkChip(D.key,D.name,()=>{
     Object.assign(camT,{tx:D.c[0],ty:3,tz:D.c[1],z:D.z,ph:.95,th:D.key==="found"||D.key==="fw"?.55:D.key==="proj"?.3:-.5});
   }));
-  mkChip("wing","Executive Wing",()=>enterWing());
+  mkChip("wing","Headquarters",()=>enterWing());
   mkChip("garden","Reading Garden",()=>Object.assign(camT,{tx:0,ty:2,tz:GZ,z:baseD("city")/78,ph:1.0,th:GA}));
   setActiveChip("overview");
 
@@ -2734,6 +2880,13 @@ function init3D(){
     const r=canvas.getBoundingClientRect();
     mouse.set(((cx-r.left)/r.width)*2-1,-((cy-r.top)/r.height)*2+1);ray.setFromCamera(mouse,camera);
     return bookHitTest(ray);
+  }
+  function hqHit(cx,cy){
+    if(mixT<=.5||reading||cine||X.active)return false;
+    const r=canvas.getBoundingClientRect();
+    mouse.set(((cx-r.left)/r.width)*2-1,-((cy-r.top)/r.height)*2+1);ray.setFromCamera(mouse,camera);
+    const h=ray.intersectObjects(hqPick,false);if(!h.length)return false;
+    const b=ray.intersectObjects(cPick,false);return !b.length||b[0].distance>=h[0].distance;
   }
   function openBook(){
     if(reading||cine)return;
@@ -3492,10 +3645,10 @@ function init3D(){
   canvas.addEventListener("pointermove",e=>{
     if(!ptrs.has(e.pointerId)){
       if(e.pointerType==="mouse"){
-        const bh=bookHit(e.clientX,e.clientY);bk.hoverT=bh?1:0;
-        const n=bh?null:pick(e.clientX,e.clientY);
+        const bh=bookHit(e.clientX,e.clientY);bk.hoverT=bh?1:0;const hh=!bh&&hqHit(e.clientX,e.clientY);
+        const n=bh||hh?null:pick(e.clientX,e.clientY);
         if(n!==state.hover){state.hover=n;}
-        canvas.classList.toggle("hover",!!n||bh)
+        canvas.classList.toggle("hover",!!n||bh||hh)
       }
       return;
     }
@@ -3526,6 +3679,7 @@ function init3D(){
       canvas.classList.remove("dragging");
       if(was&&drag&&moved<6&&performance.now()-downAt<600&&e.type==="pointerup"){
         if(bookHit(downPos.x,downPos.y)){openBook();drag=null;return}
+        if(hqHit(downPos.x,downPos.y)){enterWing();drag=null;return}
         const n=pick(downPos.x,downPos.y);
         select(n===state.selected?null:n);
       }
@@ -3644,6 +3798,7 @@ function init3D(){
     clouds.forEach(c=>{c.m.color.copy(cur["r"+c.i]);c.m.opacity=.17-.07*Math.min(1,kc.lit)});
     if(uni.visible&&!reduce)updateOrbiters(time);
     if(city.visible&&scy>.2)updateGarden(dt,time,lit);
+    if(city.visible&&scy>.2)updateHeli(dt,time,lit);
 
     // links + pulses
     const inCity=mixT>.5;
@@ -3707,7 +3862,7 @@ function init3D(){
     const overlap=(x,y,w,h)=>{for(const p of placed){if(x<p.x+p.w+3&&x+w+3>p.x&&y<p.y+p.h+2&&y+h+2>p.y)return true}return false};
     distLabels.forEach(dl=>{
       const D=dl.D;
-      const gk=D.key==="garden";cpos.set(D.label[0],gk?6:D.key==="proj"?4:15,D.label[1]-(gk||D.key==="proj"?0:BD/2-4)).multiplyScalar(scy);
+      const gk=D.key==="garden"||D.key==="hq";cpos.set(D.label[0],D.key==="hq"?HQN.topY+2.5:gk?6:D.key==="proj"?4:15,D.label[1]-(gk||D.key==="proj"?0:BD/2-4)).multiplyScalar(scy);
       cpos.project(camera);
       const x=(cpos.x*.5+.5)*W-dl.w/2,y=(-cpos.y*.5+.5)*H-dl.h;
       const vis=inCity&&!reading&&scy>.8&&cpos.z<1&&x>2&&x+dl.w<W-2&&y>2&&y+dl.h<H-2;
@@ -3766,9 +3921,11 @@ function init3D(){
   }
   requestAnimationFrame(frame);
 
-  if(location.hash==="#debug-traffic")window.__xray={camT,cam,viewCam,setView:setView3D,enterWing,exitWing,wing:{X,go:wGoto,walk:wWalk,about:wAbout,portrait:wPortrait,say,tour:autoTour,cancel:wCancelTour},openBook,closeBook,bookW,state:()=>({reading,cine:!!cine}),count:()=>{let m=0,c=0,inst=0;scene.traverse(o=>{if(o.isMesh||o.isPoints||o.isLine){if(o.visible){let v=true,p=o.parent;while(p){if(!p.visible){v=false;break}p=p.parent}if(v){m++;if(o.castShadow)c++;if(o.isInstancedMesh)inst++}}}});return {m,cast:c,inst}},info:()=>({calls:renderer.info.render.calls,tris:renderer.info.render.triangles,geo:renderer.info.memory.geometries,tex:renderer.info.memory.textures})};
+  if(location.hash==="#debug-traffic")window.__xray={heliSeek:(sec)=>{HELI.t0=performance.now()/1000-sec},heliInfo:()=>({...hs,TOT:HELI.TOT,TR:HELI.TR,L:HELI.L,cruise:hCruise}),camT,cam,viewCam,setView:setView3D,enterWing,exitWing,wing:{X,go:wGoto,walk:wWalk,about:wAbout,portrait:wPortrait,say,tour:autoTour,cancel:wCancelTour},openBook,closeBook,bookW,state:()=>({reading,cine:!!cine}),count:()=>{let m=0,c=0,inst=0;scene.traverse(o=>{if(o.isMesh||o.isPoints||o.isLine){if(o.visible){let v=true,p=o.parent;while(p){if(!p.visible){v=false;break}p=p.parent}if(v){m++;if(o.castShadow)c++;if(o.isInstancedMesh)inst++}}}});return {m,cast:c,inst}},info:()=>({calls:renderer.info.render.calls,tris:renderer.info.render.triangles,geo:renderer.info.memory.geometries,tex:renderer.info.memory.textures})};
   setTimeout(()=>(window.requestIdleCallback?(f=>window.requestIdleCallback(f,{timeout:2500})):(f=>setTimeout(f,600)))(()=>buildWing()),3500);
-  return {readPalette,refresh,setView:setView3D,focus,openBook,closeBook,enterWing,exitWing};
+  const HQ_TERMS="headquarters head quarters hq executive wing sanket biradar certificate hall";
+  function focusHQ(){if(mixT<=.5)setView("city");select(null);Object.assign(camT,{tx:HQS.x+6,ty:5,tz:HQS.z,z:baseD("city")/62,ph:1.0,th:2.0});setActiveChip("wing")}
+  return {readPalette,refresh,setView:setView3D,focus,openBook,closeBook,enterWing,exitWing,focusHQ,hqMatch:q=>q.length>=2&&HQ_TERMS.includes(q)};
 }
 
 /* ---------- boot ---------- */
