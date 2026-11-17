@@ -490,6 +490,9 @@ a{color:inherit;text-decoration:none}
 .wing-head span{display:block;font-size:11.5px;color:var(--muted);margin-top:1px;line-height:1.35}
 .wing-bar{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:calc(100% - 24px)}
 @media(min-width:721px){.wing.aboutOpen .wing-bar{left:calc((100% - min(440px,46%))/2 - 8px)}}
+.speech{position:absolute;left:0;top:0;max-width:min(300px,72%);padding:10px 15px;border-radius:16px;background:var(--surface);color:var(--ink);border:1px solid var(--line);box-shadow:0 8px 28px rgba(0,0,0,.24);font:700 12.5px/1.4 Manrope,sans-serif;opacity:0;pointer-events:none;transition:opacity .3s;text-align:center;z-index:3}
+.speech::after{content:"";position:absolute;left:50%;bottom:-7px;width:12px;height:12px;background:var(--surface);border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:translateX(-50%) rotate(45deg)}
+.speech.show{opacity:1}
 .wing-step{font:500 11px "DM Mono",monospace;color:var(--ink);padding:0 4px}
 .wing-labels{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .xl{
@@ -521,8 +524,9 @@ a{color:inherit;text-decoration:none}
 .certbox img{max-width:100%;max-height:calc(100vh - 220px);object-fit:contain;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5);background:#fff}
 .certbox figcaption{color:#efe9da;font:700 13px Manrope,sans-serif;text-align:center}
 @media(max-width:720px){
-  .wing-top{left:10px;right:10px;top:10px;flex-direction:column;gap:6px}
-  .wing-head{max-width:100%;padding:7px 12px}
+  .wing-top{left:10px;right:10px;top:10px;flex-wrap:wrap;gap:6px}
+  .wing-head{flex:1 1 100%;max-width:100%;padding:7px 12px}
+  .wbtn{padding:0 11px}
   .wing-head span{font-size:11px}
   .wing-bar{bottom:10px;gap:6px}
   .wbtn{height:38px;padding:0 13px}
@@ -531,6 +535,59 @@ a{color:inherit;text-decoration:none}
   .about .rs-grip{display:block}
   .about.min{transform:translateY(calc(100% - 78px))}
 }
+
+.ab-body{padding-top:0}
+.ab-hero{position:relative;margin:0 -26px;padding:0 26px 4px}
+.ab-banner{height:92px;margin:0 -26px;background:
+  radial-gradient(120% 140% at 85% 0%,color-mix(in srgb,var(--gold) 55%,transparent),transparent 60%),
+  linear-gradient(120deg,#1c1b18,color-mix(in srgb,#1c1b18 62%,var(--gold)))}
+.ab-avatar{
+  --s:92px;width:var(--s);height:var(--s);border-radius:50%;margin:-46px 0 0;border:4px solid var(--surface);
+  box-shadow:0 0 0 2px var(--gold),0 10px 24px rgba(0,0,0,.25);
+  background:#222 url("assets/sanket-seated-original.png") no-repeat;background-size:438px auto;background-position:-203px -52px;
+}
+.ab-id{margin-top:10px}
+.ab-id h2{margin:0;font-size:clamp(24px,3vw,32px);letter-spacing:-.045em;line-height:1}
+.ab-id p{margin:5px 0 0;color:var(--muted);font-size:13px;font-weight:600}
+.ab-quick{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.ab-quick a{font-size:11.5px;font-weight:700;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);text-decoration:none;transition:border-color .2s,background .2s}
+.ab-quick a:hover{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 18%,var(--bg))}
+.ab-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0 6px}
+.ab-stats>div{border:1px solid var(--line);border-radius:14px;padding:11px 12px;background:var(--bg);transition:transform .25s,border-color .25s}
+.ab-stats>div:hover{transform:translateY(-2px);border-color:var(--gold)}
+.ab-stats b{display:block;font-size:24px;letter-spacing:-.04em;line-height:1}
+.ab-stats b span{font-size:inherit!important;color:inherit!important;font-weight:inherit!important;margin:0!important;display:inline!important}
+.ab-stats>div>span{display:block;margin-top:4px;font-size:10.5px;color:var(--muted);font-weight:700;line-height:1.25}
+.ab-tabs{display:flex;gap:4px;margin:18px 0 12px;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--bg);position:sticky;top:0;z-index:2}
+.ab-tabs button{flex:1;height:32px;border:0;border-radius:999px;background:transparent;color:var(--muted);font:700 12px Manrope,sans-serif;cursor:pointer;transition:background .25s,color .25s}
+.ab-tabs button:hover{color:var(--ink)}
+.ab-tabs button[aria-selected=true]{background:var(--ink);color:var(--bg)}
+.ab-tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+.ab-panel.in{animation:abIn .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes abIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.ab-panel h3{margin:18px 0 9px;font:500 10px "DM Mono",monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.ab-panel h3.first{margin-top:2px}
+.ab-panel p{margin:0 0 8px;font-size:13.5px;opacity:.88}
+.ab-lead{font-weight:800;font-size:16px!important;opacity:1!important;letter-spacing:-.02em;line-height:1.35}
+.ab-chips{display:flex;flex-wrap:wrap;gap:6px}
+.ab-chips i{font-style:normal;font-weight:700;font-size:11.5px;padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:var(--bg);transition:background .2s,border-color .2s}
+.ab-chips i:hover{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 16%,var(--bg))}
+.sk-row{padding:10px 0;border-bottom:1px solid var(--line)}
+.sk-row:last-child{border-bottom:0}
+.sk-row b{display:block;font:500 10px "DM Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.sk-row span{display:flex;flex-wrap:wrap;gap:5px}
+.sk-row i{font-style:normal;font-weight:700;font-size:11.5px;padding:4px 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line)}
+.tl{list-style:none;margin:0;padding:0 0 0 18px;position:relative}
+.tl::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--gold),var(--line))}
+.tl-item{position:relative;padding:0 0 18px 14px}
+.tl-dot{position:absolute;left:-18px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:3px solid var(--surface);box-shadow:0 0 0 1px var(--gold)}
+.tl-dot.alt{background:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.tl-item h4{margin:0;font-size:14.5px;letter-spacing:-.02em}
+.tl-item p{margin:2px 0 0;font-size:12.5px;opacity:.88}
+.tl-org{color:var(--muted);font-weight:600;opacity:1!important}
+.tl-when{font:500 11px "DM Mono",monospace;color:var(--muted);opacity:1!important;margin-bottom:5px!important}
+.ab-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+@media(max-width:720px){.ab-hero{margin:0 -18px;padding:0 18px 4px}.ab-banner{margin:0 -18px;height:76px}.ab-avatar{--s:80px;margin-top:-40px;background-size:380px auto;background-position:-176px -45px}.ab-stats b{font-size:21px}}
 
 @media(max-width:720px){
   .hero h1{font-size:clamp(34px,11vw,52px)}
@@ -664,10 +721,13 @@ a{color:inherit;text-decoration:none}
   <div class="wing" id="wing" aria-hidden="true">
     <div class="wing-top">
       <button class="wbtn" id="wingExit" type="button">← Exit to city</button>
+      <button class="wbtn" id="wingReplay" type="button" aria-label="Replay the guided entrance">↺ Intro</button>
+      <button class="wbtn" id="wingVoice" type="button" aria-pressed="false" aria-label="Receptionist voice">🔇 Voice</button>
       <div class="wing-head"><b id="wingTitle">Grand Certificate Hall</b><span id="wingSub"></span></div>
     </div>
-    <div class="wing-labels" id="wingLabels"></div>
+    <div class="wing-labels" id="wingLabels"><div class="speech" id="speech" role="status" aria-live="polite"></div></div>
     <div class="wing-bar" role="group" aria-label="Tour controls">
+      <button id="wingSkip" class="wbtn gold" type="button" hidden>Skip intro ▸</button>
       <button id="wingPrev" class="wbtn" type="button" aria-label="Previous stop">◀ Prev</button>
       <button id="wingNext" class="wbtn" type="button" aria-label="Next stop">Next ▶</button>
       <button id="wingAct" class="wbtn gold" type="button" hidden></button>
@@ -676,22 +736,7 @@ a{color:inherit;text-decoration:none}
       <button id="wingUp" class="wbtn sq" type="button" aria-label="Walk forward">▲</button>
       <button id="wingDown" class="wbtn sq" type="button" aria-label="Walk back">▼</button>
     </div>
-    <aside class="about" id="aboutCard" role="dialog" aria-labelledby="aboutName" aria-hidden="true">
-      <div class="rs-bar"><div class="rs-grip" id="aboutGrip"></div><small>About Me</small>
-        <div class="rs-actions"><button class="rs-btn rs-min" id="aboutMin" type="button" aria-label="Minimise About Me" aria-expanded="true">⌄</button><button class="rs-btn" id="aboutClose" type="button" aria-label="Close About Me">Close ✕</button></div></div>
-      <div class="rs-body">
-        <h2 class="rs-name" id="aboutName">Sanket Biradar</h2>
-        <p class="rs-role">AI Software Engineer</p>
-        <div class="ab-stats"><div><b>1.7+</b><span>Years of experience</span></div><div><b>Gen&nbsp;AI</b><span>Production systems</span></div></div>
-        <section class="rs-sec"><h3>Introduction</h3>
-          <p class="ab-lead">I build AI systems that are designed to be useful, reliable, and production-ready.</p>
-          <p>As an AI Software Engineer, I work across Generative AI, RAG, Agentic AI, LLM applications, multi-agent workflows, and backend engineering. I use technologies such as Python, FastAPI, LangChain, LangGraph, and vector databases to turn ideas into practical systems.</p></section>
-        <section class="rs-sec"><h3>Core Expertise</h3><div class="ab-chips"><i>Generative AI</i><i>LLM Applications</i><i>RAG</i><i>Multi-Agent Systems</i><i>Python</i><i>FastAPI</i></div></section>
-        <section class="rs-sec"><h3>Interests</h3><p>Solving the engineering problems behind AI — designing structured workflows and APIs, and integrating models, tools, retrieval systems, and asynchronous processing.</p></section>
-        <section class="rs-sec"><h3>Professional Goals</h3><p>AI engineering with a strong backend foundation — building useful, reliable software around modern language models.</p></section>
-        <div class="ab-actions"><button class="rs-btn gold" id="aboutProfile" type="button">Explore my complete profile</button><a class="rs-btn" href="index.html#about">Open portfolio ↗</a></div>
-      </div>
-    </aside>
+    <aside class="about" id="aboutCard" role="dialog" aria-labelledby="aboutName" aria-hidden="true"></aside>
     <div class="certbox" id="certBox" role="dialog" aria-modal="true" aria-hidden="true">
       <figure><img id="certImg" alt=""><figcaption id="certCap"></figcaption></figure>
       <button class="rs-btn" id="certClose" type="button">Close ✕</button>
@@ -1118,6 +1163,18 @@ document.addEventListener("click",e=>{
 /* =========================================================
    RESUME OVERLAY  (content from "Sanket Biradar Resume.pdf")
 ========================================================= */
+const CERTS=[
+  ["Hugging Face Agent Course Certification","Hugging Face","assets/certificates/01-huggingface-agen.jpeg"],
+  ["Anthropic AI MCP Certification","Anthropic","assets/certificates/02-antropic-aiMCP.jpeg"],
+  ["Hugging Face LLM Course Certification","Hugging Face","assets/certificates/02-huggingface-llm.jpeg"],
+  ["AI Fluency: Framework & Foundation","Anthropic","assets/certificates/03-anthropic-ai-fluency.jpeg"],
+  ["Python Full Stack Certification","Besant Technologies","assets/certificates/04-python-fullstack.jpeg"],
+  ["HackerRank CSS Certification","HackerRank","assets/certificates/05-hackerrank-css.jpeg"],
+  ["HackerRank Python Certification","HackerRank","assets/certificates/05-hackerrank-python.jpeg"],
+  ["HackerRank SQL Certification","HackerRank","assets/certificates/05-hackerrank-sql.jpeg"],
+  ["Hugging Face MCP Certification","Hugging Face","assets/certificates/05-huggingface-mcp.jpeg"],
+  ["Rapsol Internship","Rapsol","assets/certificates/06-rapsol-intern.jpeg"]
+];
 const RESUME={
   name:"Sanket Biradar",
   role:"AI Software Engineer",
@@ -1212,6 +1269,79 @@ function buildResume(){
   bindSheetDrag(resumeEl,"#rsGrip",()=>$("rsMin"));
 }
 buildResume();
+
+/* ---------- premium "About Me" profile card ---------- */
+function buildAbout(){
+  const R=RESUME,el=$("aboutCard");
+  const tl=R.experience.map(e=>`<li class="tl-item"><span class="tl-dot"></span><div><h4>${esc(e.title)}</h4><p class="tl-org">${esc(e.org)}</p><p class="tl-when">${esc(e.when)}</p><p>${esc(e.bullets[0])}</p><p>${esc(e.bullets[1]||"")}</p></div></li>`).join("");
+  const ed=R.education.map(e=>`<li class="tl-item"><span class="tl-dot alt"></span><div><h4>${esc(e.title)}</h4><p class="tl-org">${esc(e.org)}</p><p class="tl-when">${esc(e.when)} · ${esc(e.extra)}</p></div></li>`).join("");
+  const sk=R.skills.map(([k,v])=>`<div class="sk-row"><b>${esc(k)}</b><span>${v.map(x=>`<i>${esc(x)}</i>`).join("")}</span></div>`).join("");
+  el.innerHTML=`
+    <div class="rs-bar"><div class="rs-grip" id="aboutGrip"></div><small>Profile</small>
+      <div class="rs-actions"><button class="rs-btn rs-min" id="aboutMin" type="button" aria-label="Minimise About Me" aria-expanded="true">⌄</button><button class="rs-btn" id="aboutClose" type="button" aria-label="Close About Me">Close ✕</button></div></div>
+    <div class="rs-body ab-body" id="aboutBody">
+      <header class="ab-hero">
+        <div class="ab-banner" aria-hidden="true"></div>
+        <div class="ab-avatar" role="img" aria-label="Portrait of Sanket Biradar"></div>
+        <div class="ab-id">
+          <h2 id="aboutName">${esc(R.name)}</h2>
+          <p>${esc(R.role)} · Bangalore, India</p>
+          <div class="ab-quick">
+            <a href="mailto:sanketbiradar007@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/sanket-biradar/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="assets/Sanket%20Biradar%20Resume.pdf" download="Sanket Biradar Resume.pdf">Resume PDF</a>
+          </div>
+        </div>
+      </header>
+      <div class="ab-stats">
+        <div><b><span data-count="1.7" data-dec="1" data-suf="+">1.7+</span></b><span>Years of experience</span></div>
+        <div><b><span data-count="${CERTS.length}">${CERTS.length}</span></b><span>Certifications</span></div>
+        <div><b><span data-count="12">12</span></b><span>Portfolio projects</span></div>
+      </div>
+      <div class="ab-tabs" role="tablist" aria-label="Profile sections">
+        <button role="tab" id="tab-ov" aria-controls="pn-ov" aria-selected="true" data-tab="ov">Overview</button>
+        <button role="tab" id="tab-sk" aria-controls="pn-sk" aria-selected="false" data-tab="sk" tabindex="-1">Skills</button>
+        <button role="tab" id="tab-jr" aria-controls="pn-jr" aria-selected="false" data-tab="jr" tabindex="-1">Journey</button>
+        <button role="tab" id="tab-gl" aria-controls="pn-gl" aria-selected="false" data-tab="gl" tabindex="-1">Goals</button>
+      </div>
+      <div class="ab-panel" id="pn-ov" role="tabpanel" aria-labelledby="tab-ov">
+        <p class="ab-lead">I build AI systems that are designed to be useful, reliable, and production-ready.</p>
+        <p>As an AI Software Engineer, I work across Generative AI, RAG, Agentic AI, LLM applications, multi-agent workflows, and backend engineering. I use technologies such as Python, FastAPI, LangChain, LangGraph, and vector databases to turn ideas into practical systems.</p>
+        <h3>Core expertise</h3>
+        <div class="ab-chips"><i>Generative AI</i><i>LLM Applications</i><i>RAG</i><i>Multi-Agent Systems</i><i>Python</i><i>FastAPI</i></div>
+        <h3>Interests</h3>
+        <p>Solving the engineering problems behind AI — designing structured workflows and APIs, and integrating models, tools, retrieval systems, and asynchronous processing.</p>
+      </div>
+      <div class="ab-panel" id="pn-sk" role="tabpanel" aria-labelledby="tab-sk" hidden>${sk}</div>
+      <div class="ab-panel" id="pn-jr" role="tabpanel" aria-labelledby="tab-jr" hidden><ul class="tl">${tl}${ed}</ul></div>
+      <div class="ab-panel" id="pn-gl" role="tabpanel" aria-labelledby="tab-gl" hidden>
+        <h3 class="first">Professional goals</h3>
+        <p>AI engineering with a strong backend foundation — building useful, reliable software around modern language models.</p>
+        <h3>Certifications</h3>
+        <div class="ab-chips">${CERTS.map(c=>`<i title="${esc(c[1])}">${esc(c[0])}</i>`).join("")}</div>
+      </div>
+      <div class="ab-actions">
+        <button class="rs-btn gold" id="aboutProfile" type="button">Explore my complete profile</button>
+        <button class="rs-btn" id="aboutCerts" type="button">Back to certificates</button>
+        <a class="rs-btn" href="index.html#about">Open portfolio ↗</a>
+      </div>
+    </div>`;
+  const tabs=[...el.querySelectorAll("[role=tab]")];
+  const show=id=>tabs.forEach(t=>{const on=t.dataset.tab===id;t.setAttribute("aria-selected",on);t.tabIndex=on?0:-1;const p=$("pn-"+t.dataset.tab);p.hidden=!on;if(on){p.classList.remove("in");void p.offsetWidth;p.classList.add("in")}});
+  tabs.forEach((t,i)=>{t.addEventListener("click",()=>show(t.dataset.tab));
+    t.addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key==="ArrowLeft"){const n=tabs[(i+(e.key==="ArrowRight"?1:tabs.length-1))%tabs.length];show(n.dataset.tab);n.focus();e.preventDefault()}})});
+  window.aboutReset=()=>show("ov");
+}
+function aboutAnimate(){
+  const el=$("aboutCard");if(window.aboutReset)window.aboutReset();
+  const b=$("aboutBody");if(b)b.scrollTop=0;
+  el.querySelectorAll("[data-count]").forEach(n=>{
+    const t=parseFloat(n.dataset.count),dec=+(n.dataset.dec||0),suf=n.dataset.suf||"";
+    if(reduce){n.textContent=t.toFixed(dec)+suf;return}
+    const t0=performance.now();(function f(now){const p=Math.min(1,(now-t0)/1100),e=1-Math.pow(1-p,3);n.textContent=(t*e).toFixed(dec)+suf;if(p<1)requestAnimationFrame(f)})(t0);
+  });
+}
+buildAbout();
 let resumeFocus=null;
 function showResume(){
   resumeFocus=document.activeElement;
@@ -2622,18 +2752,6 @@ function init3D(){
      The seated portrait is the supplied photograph, cut out
      (alpha only) — the face and clothing pixels are untouched.
   ========================================================= */
-  const CERTS=[
-    ["Hugging Face Agent Course Certification","Hugging Face","assets/certificates/01-huggingface-agen.jpeg"],
-    ["Anthropic AI MCP Certification","Anthropic","assets/certificates/02-antropic-aiMCP.jpeg"],
-    ["Hugging Face LLM Course Certification","Hugging Face","assets/certificates/02-huggingface-llm.jpeg"],
-    ["AI Fluency: Framework & Foundation","Anthropic","assets/certificates/03-anthropic-ai-fluency.jpeg"],
-    ["Python Full Stack Certification","Besant Technologies","assets/certificates/04-python-fullstack.jpeg"],
-    ["HackerRank CSS Certification","HackerRank","assets/certificates/05-hackerrank-css.jpeg"],
-    ["HackerRank Python Certification","HackerRank","assets/certificates/05-hackerrank-python.jpeg"],
-    ["HackerRank SQL Certification","HackerRank","assets/certificates/05-hackerrank-sql.jpeg"],
-    ["Hugging Face MCP Certification","Hugging Face","assets/certificates/05-huggingface-mcp.jpeg"],
-    ["Rapsol Internship","Rapsol","assets/certificates/06-rapsol-intern.jpeg"]
-  ];
   const PORTRAIT_SRC="assets/sanket-seated-original.png";
   const X={active:false,built:false,building:false,mode:"walk",walkZ:.9,vp:0,yaw:0,pitch:0,hover:null,vps:[],labels:[],pick:[],lights:{},fadeT:0};
   const wingEl=$("wing"),fadeEl=$("wingFade");
@@ -2646,6 +2764,11 @@ function init3D(){
       for(let i=0;i<40;i++){g.strokeStyle=`rgba(150,140,125,${.05+rT()*.08})`;g.lineWidth=.5+rT()*1.6;g.beginPath();let x=rT()*512,y=rT()*512;g.moveTo(x,y);for(let k=0;k<5;k++){x+=(rT()-.5)*120;y+=(rT()-.2)*90;g.lineTo(x,y)}g.stroke()}
       speck(g,512,2400,215,246,2);g.fillStyle=G8(190);g.fillRect(0,0,512,3);g.fillRect(0,0,3,512);g.fillRect(0,256,512,2);g.fillRect(256,0,2,512);
       W2.tile={map:toTex(c),bump:toTex(c,false)}}
+    {const [c,g]=mkC(512);g.fillStyle=G8(240);g.fillRect(0,0,512,512);
+      for(let i=0;i<26;i++){g.strokeStyle=`rgba(${110+rT()*40|0},${100+rT()*40|0},${90+rT()*30|0},${.08+rT()*.16})`;g.lineWidth=.6+rT()*2.2;g.beginPath();let x=rT()*512,y=rT()*512;g.moveTo(x,y);
+        for(let k=0;k<7;k++){x+=(rT()-.4)*110;y+=(rT()-.5)*110;g.quadraticCurveTo(x+(rT()-.5)*60,y+(rT()-.5)*60,x,y)}g.stroke()}
+      speck(g,512,2600,226,250,2);g.fillStyle=G8(205);g.fillRect(0,0,512,2);g.fillRect(0,0,2,512);g.fillRect(0,255,512,2);g.fillRect(255,0,2,512);
+      W2.marble={map:toTex(c)}}
     {const [c,g]=mkC(512);g.fillStyle=G8(226);g.fillRect(0,0,512,512);
       for(let r=0;r<8;r++){const y=r*64;for(let k=0;k<3;k++){const x=((r*83)%170)+k*170-85,v=205+rT()*35;g.fillStyle=G8(v);g.fillRect(x+1,y+1,168,62);
         for(let q=0;q<26;q++){g.fillStyle=`rgba(90,60,35,${.04+rT()*.07})`;g.fillRect(x+rT()*168,y+1+rT()*60,20+rT()*90,1)}}}
@@ -2699,7 +2822,7 @@ function init3D(){
     if(X.built||X.building)return;X.building=true;
     const imgs=await loadImages(),WT=wingTextures();
     const sc=new THREE.Scene();X.scene=sc;
-    sc.fog=new THREE.Fog(0xd9d2c4,18,70);
+    sc.fog=new THREE.Fog(0xd9d2c4,45,160);
     const cam=new THREE.PerspectiveCamera(46,1,.05,140);X.cam=cam;
     const mats=(o,env=.3)=>{const m=new THREE.MeshStandardMaterial(o);m.envMapIntensity=env;return m};
     const lin=h=>new THREE.Color(h).convertSRGBToLinear();
@@ -2741,8 +2864,6 @@ function init3D(){
       B(.06,.04,HALL_L-1,s*(HW-.1),HALL_H-.13,-HALL_L/2,ledM);                // wall-wash cove light
     });
     [-2.1,2.1].forEach(x=>{B(.22,.05,HALL_L-2,x,HALL_H-.02,-HALL_L/2,charM);B(.14,.03,HALL_L-2.4,x,HALL_H-.05,-HALL_L/2,ledM)});
-    B(HALL_W,HALL_H,.3,0,HALL_H/2,.15,wallM,sc,3);                              // entrance wall
-    B(HALL_W-.6,.5,.06,0,3.6,-.02,woodM);
     const sign=new THREE.Mesh(new THREE.PlaneGeometry(4.4,.72),new THREE.MeshBasicMaterial({map:plaqueTex("GRAND CERTIFICATE HALL","Sanket Biradar · Verified credentials",900,150,true),toneMapped:false}));
     sign.position.set(0,3.62,-.06);sign.rotation.y=Math.PI;sc.add(sign);
     // end wall with the executive-office doors
@@ -2782,10 +2903,121 @@ function init3D(){
       const bar=B(Math.min(1.1,w*.5),.045,.07,0,h/2+fr+.32,.2,brassM,g);B(Math.min(1.0,w*.46),.02,.05,0,h/2+fr+.285,.2,ledM,g);
       const wash=new THREE.Mesh(new THREE.PlaneGeometry(w+3.4,h+3.2),new THREE.MeshBasicMaterial({map:washTex,color:0xffd29a,transparent:true,opacity:.34,blending:THREE.AdditiveBlending,depthWrite:false}));
       wash.position.set(0,.1,.012);g.add(wash);
-      X.certs.push({i,title:c[0],issuer:c[1],src:c[2],side,z,w,h,pos:new THREE.Vector3(side*HW,2.15,z),normal:new THREE.Vector3(-side,0,0)});
+      X.certs.push({i,title:c[0],issuer:c[1],src:c[2],fromImage:!!cv,side,z,w,h,pos:new THREE.Vector3(side*HW,2.15,z),normal:new THREE.Vector3(-side,0,0)});
     });
     // ceiling downlights above each frame row
     ZC.forEach(z=>[-1,1].forEach(s=>{const d=add(new THREE.CylinderGeometry(.09,.09,.04,16),ledM,s*(HW-1.15),HALL_H-.0,z);}));
+
+
+    /* ---- grand entrance, forecourt and reception lobby (visitors walk west; the hall is the doorway on the right) ---- */
+    const LX0=-10,LX1=16,LZ1=14,LH=7,DZ0=5.3,DZ1=8.7,LC=(LX0+LX1)/2;
+    const marbleM=mats({map:WT.marble.map,color:lin(0xf3eee2),roughness:.1},1.5);
+    const marbleDkM=mats({map:WT.marble.map,color:lin(0x3b3834),roughness:.14},1.3);
+    const aluM=mats({color:lin(0x3a3d40),metalness:.85,roughness:.32},1.0);
+    const facGlassM=mats({color:lin(0xdfe9ee),roughness:.04,metalness:.1,transparent:true,opacity:.14,depthWrite:false,side:THREE.DoubleSide},2.2);
+    const lobbyWallM=mats({map:T.conc.map,color:lin(0xe4d9c6),roughness:.9},.25);
+    const sofaM=mats({color:lin(0x34363a),roughness:.55},.5),cushM=mats({color:lin(0xd9cfbd),roughness:.8},.15);
+    const extFloorM=mats({map:T.pave.map,color:lin(0xcfc8ba),roughness:.85},.2);
+    X.groundM=mats({color:lin(0xb9b7a9),roughness:1},.05);
+    B(420,.1,420,0,-.18,0,X.groundM,sc,20);
+    const plantL=(x,z,s)=>{const gp=new THREE.Group();gp.position.set(x,0,z);gp.scale.setScalar(s);sc.add(gp);
+      add(new THREE.CylinderGeometry(.24,.19,.46,20),potM,0,.23,0,gp,true);
+      for(let k=0;k<9;k++){const a=k/9*6.28,lf=add(noisyBlob(.28,k+3,1,.5),leafM,Math.cos(a)*.18,.55+(k%3)*.28,Math.sin(a)*.18,gp,true);lf.scale.set(1,1.6,1)}
+      add(noisyBlob(.36,21,1,.7),leafM,0,1.15,0,gp,true)};
+    // shell
+    B(LX1-LX0,.1,LZ1,LC,-.05,LZ1/2,marbleM,sc,3.2);
+    B(LX1-LX0-1,.012,3.0,LC,.006,7,marbleDkM,sc,2);B(2.6,.012,LZ1-.6,0,.007,LZ1/2+.1,marbleDkM,sc,2);
+    [5.5,8.5].forEach(z=>B(LX1-LX0-1,.014,.04,LC,.009,z,brassM));[-1.3,1.3].forEach(x=>B(.04,.014,LZ1-.6,x,.009,LZ1/2+.1,brassM));
+    B(LX1-LX0+.8,.3,LZ1+.8,LC,LH+.15,LZ1/2,ceilM,sc,3);
+    B(.3,LH,LZ1,LX0-.15,LH/2,LZ1/2,lobbyWallM,sc,3);
+    B(LX1-LX0+.6,LH,.3,LC,LH/2,LZ1+.15,lobbyWallM,sc,3);
+    B(-1.8-LX0,LH,.3,(LX0-1.8)/2,LH/2,0,lobbyWallM,sc,3);B(LX1-1.8,LH,.3,(LX1+1.8)/2,LH/2,0,lobbyWallM,sc,3);B(3.6,LH-3.75,.3,0,3.75+(LH-3.75)/2,0,lobbyWallM,sc,3);
+    B(.04,.06,LZ1,LX0+.02,LH-.5,LZ1/2,ledM);B(LX1-LX0,.06,.04,LC,LH-.5,LZ1-.02,ledM);
+    for(let x=-7.2;x<15;x+=4.6)for(let z=2;z<13;z+=4.2)B(1.9,.04,1.9,x,LH-.02,z,ledM);                  // ceiling light coffers
+    // the doorway to the Certificate Hall, on the right-hand wall
+    [-1,1].forEach(sd=>{B(.16,3.75,.36,sd*1.88,1.875,0,woodDarkM);B(.03,3.7,.38,sd*1.8,1.85,0,brassM)});
+    B(3.92,.16,.36,0,3.83,0,woodDarkM);B(3.62,.03,.38,0,3.75,0,brassM);B(3.6,.02,.5,0,.012,0,brassM);
+    const hallSign=new THREE.Mesh(new THREE.PlaneGeometry(4.6,.82),new THREE.MeshBasicMaterial({map:plaqueTex("GRAND CERTIFICATE HALL","This way · 10 verified certifications",1000,176,true),toneMapped:false}));
+    hallSign.position.set(0,4.75,.2);sc.add(hallSign);B(4.8,.06,.1,0,5.25,.22,brassM);B(4.4,.02,.06,0,5.21,.22,ledM);
+    // pillars
+    [[-4,3],[4.2,3],[12,3],[-4,11],[4.2,11]].forEach(([x,z])=>{add(new THREE.CylinderGeometry(.44,.46,LH,32),marbleM,x,LH/2,z,sc,true);add(new THREE.CylinderGeometry(.58,.58,.14,32),brassM,x,.07,z);add(new THREE.CylinderGeometry(.54,.54,.2,32),brassM,x,LH-.1,z)});
+    // double-height glass facade (east) with grand glass doors
+    B(.35,.6,LZ1,LX1,LH-.3,LZ1/2,aluM);B(.35,.14,LZ1,LX1,.07,LZ1/2,aluM);
+    for(let z=0;z<=LZ1+.01;z+=1.6){if(z>DZ0-.01&&z<DZ1+.01)continue;B(.12,LH,.1,LX1,LH/2,z,aluM)}
+    [[0,DZ0],[DZ1,LZ1]].forEach(([a,b])=>{const g=new THREE.Mesh(new THREE.PlaneGeometry(b-a,LH-.7),facGlassM);g.rotation.y=Math.PI/2;g.position.set(LX1,LH/2,(a+b)/2);sc.add(g)});
+    {const tr=new THREE.Mesh(new THREE.PlaneGeometry(DZ1-DZ0,LH-3.9),facGlassM);tr.rotation.y=Math.PI/2;tr.position.set(LX1,3.9+(LH-3.9)/2,7);sc.add(tr)}
+    B(.4,.16,DZ1-DZ0+.3,LX1,3.85,7,aluM);[DZ0-.1,DZ1+.1].forEach(z=>B(.4,3.9,.2,LX1,1.95,z,aluM));
+    X.doors=[];
+    [[DZ0,1,-1],[DZ1,-1,1]].forEach(([pz,dir,sgn])=>{
+      const g=new THREE.Group();g.position.set(LX1,0,pz);sc.add(g);
+      B(.05,3.6,1.64,0,1.8,dir*.82,facGlassM,g);
+      B(.1,3.7,.09,0,1.85,dir*.045,aluM,g);B(.1,3.7,.09,0,1.85,dir*1.64,aluM,g);B(.1,.12,1.7,0,3.64,dir*.85,aluM,g);B(.1,.12,1.7,0,.06,dir*.85,aluM,g);
+      B(.06,.9,.05,-.07,1.1,dir*1.45,brassM,g);B(.06,.9,.05,.07,1.1,dir*1.45,brassM,g);
+      X.doors.push({g,sgn});
+    });
+    // portico, columns, steps and the headquarters sign
+    B(5.2,.4,LZ1+2,LX1+2.6,6.6,7,marbleM,sc,3);B(.25,1.2,LZ1+2.2,LX1+5.2,6.5,7,marbleDkM,sc,2);B(5.1,.1,LZ1+2.1,LX1+2.6,6.36,7,aluM);
+    [1.2,4.6,9.4,12.8].forEach(z=>{add(new THREE.CylinderGeometry(.5,.52,6.4,36),marbleM,LX1+4.7,3.4,z,sc,true);add(new THREE.CylinderGeometry(.66,.66,.16,36),brassM,LX1+4.7,.28,z);add(new THREE.CylinderGeometry(.62,.62,.2,36),brassM,LX1+4.7,6.5,z)});
+    B(6.4,.26,LZ1+3,LX1+3.2,.0,7,marbleM,sc,3);B(1.5,.13,LZ1+3,LX1+6.9,-.07,7,marbleM,sc,3);
+    B(34,.1,46,LX1+24,-.1,7,extFloorM,sc,3.2);
+    const hqSign=new THREE.Mesh(new THREE.PlaneGeometry(10.6,.98),new THREE.MeshBasicMaterial({map:plaqueTex("SANKET BIRADAR – AI SOFTWARE ENGINEER","",1800,167,true),toneMapped:false}));
+    hqSign.position.set(LX1+5.35,6.5,7);hqSign.rotation.y=Math.PI/2;sc.add(hqSign);B(.08,.06,10.2,LX1+5.25,5.86,7,ledM);
+    [[LX1+9,1.8],[LX1+9,12.2]].forEach(([x,z])=>{B(1.5,.6,1.5,x,.3,z,marbleDkM,sc,2,true);plantL(x,z,1.2)});
+    [[LX1+8,-1.5],[LX1+8,15.5]].forEach(([x,z])=>{B(.12,5,.12,x,2.5,z,aluM);add(new THREE.SphereGeometry(.28,14,10),ledM,x,5.1,z)});
+    // reception desk, brand wall and receptionist
+    B(.14,LH-.4,12.4,LX0+.07,(LH-.4)/2,7,woodDarkM,sc,1.4);
+    for(let z=.9;z<13.2;z+=.5)B(.05,LH-.6,.05,LX0+.16,(LH-.4)/2,z,woodM);
+    const brand=(()=>{const [c,g]=mkC(1400);c.height=400;g.fillStyle="#16181a";g.fillRect(0,0,1400,400);
+      const gr=g.createLinearGradient(0,0,1400,0);gr.addColorStop(0,"rgba(169,185,86,.22)");gr.addColorStop(1,"rgba(216,184,106,.1)");g.fillStyle=gr;g.fillRect(0,0,1400,400);
+      g.fillStyle="#a9b956";g.beginPath();g.arc(215,200,125,0,7);g.fill();g.fillStyle="#16181a";g.font="800 130px Manrope, sans-serif";g.textAlign="center";g.fillText("SB",215,246);
+      g.textAlign="left";g.fillStyle="#a9b956";g.font="700 42px Manrope, sans-serif";g.fillText("Welcome",400,112);
+      g.fillStyle="#f4f0e4";g.font="800 104px Manrope, sans-serif";g.fillText("SANKET BIRADAR",396,228);
+      g.fillStyle="#d8b86a";g.font="500 36px 'DM Mono', monospace";g.fillText("AI ENGINEERING  ·  HEADQUARTERS",402,300);
+      g.fillStyle="rgba(255,255,255,.18)";g.fillRect(402,326,880,2);
+      const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.anisotropy=aniso;return t})();
+    const bw=new THREE.Mesh(new THREE.PlaneGeometry(7.8,2.23),new THREE.MeshBasicMaterial({map:brand,toneMapped:false}));bw.position.set(LX0+.2,3.4,7);bw.rotation.y=Math.PI/2;sc.add(bw);
+    B(.1,.1,8.1,LX0+.17,4.62,7,brassM);B(.1,.1,8.1,LX0+.17,2.18,7,brassM);[-4.02,4.02].forEach(dz=>B(.1,2.5,.1,LX0+.17,3.4,7+dz,brassM));
+    const rsign=new THREE.Mesh(new THREE.PlaneGeometry(3.2,.56),new THREE.MeshBasicMaterial({map:plaqueTex("RECEPTION","Check-in & enquiries",640,112,true),toneMapped:false}));rsign.position.set(LX0+.22,5.5,7);rsign.rotation.y=Math.PI/2;sc.add(rsign);
+    {const rd=new THREE.Group();rd.position.set(-6.3,0,7);sc.add(rd);
+     B(1.15,1.06,5.6,0,.53,0,woodDarkM,rd,1.3,true);B(1.42,.07,5.9,.04,1.1,0,marbleM,rd,2,true);B(.04,.72,5.0,.6,.56,0,marbleM,rd,2);
+     B(.03,.03,5.2,.62,.1,0,ledM,rd);B(.03,.03,5.2,.62,.95,0,brassM,rd);
+     const dp=new THREE.Mesh(new THREE.PlaneGeometry(1.9,.38),new THREE.MeshBasicMaterial({map:plaqueTex("WELCOME","Please check in with reception",760,152,true),toneMapped:false}));dp.position.set(.625,.56,0);dp.rotation.y=Math.PI/2;rd.add(dp);
+     B(.04,.3,.5,-.1,1.28,-.9,charM,rd);B(.2,.02,.3,-.1,1.145,-.9,charM,rd);B(.1,.02,.1,.2,1.145,1.1,brassM,rd);}
+    {const rc=new THREE.Group();rc.position.set(-7.4,0,7);rc.rotation.y=Math.PI/2;sc.add(rc);X.recep=rc;
+     const sk=mats({color:lin(0xe3b48f),roughness:.65},.15),hr=mats({color:lin(0x2a1b14),roughness:.5},.2),bl=mats({color:lin(0x2d3033),roughness:.8},.1),sh=mats({color:lin(0xf0ece2),roughness:.85},.1);
+     const rs=(r,sx,sy,sz,m,x,y,z,p=rc)=>{const o=add(new THREE.SphereGeometry(r,18,12),m,x,y,z,p,true);o.scale.set(sx,sy,sz);return o};
+     const tor=add(new THREE.CylinderGeometry(.2,.17,.55,22),bl,0,1.2,0,rc,true);tor.scale.z=.66;
+     rs(.205,1,.42,.66,bl,0,1.47,0);rs(.06,1,.9,.5,sh,0,1.5,.08);
+     add(new THREE.CylinderGeometry(.05,.055,.12,14),sk,0,1.6,0,rc);
+     const head=new THREE.Group();head.position.set(0,1.66,0);rc.add(head);X.recepHead=head;
+     rs(.105,.92,1.08,1,sk,0,.06,0,head);
+     const cap=add(new THREE.SphereGeometry(.112,22,14,0,Math.PI*2,0,Math.PI*.62),hr,0,.075,-.012,head,true);cap.scale.set(1,1.05,1.05);cap.rotation.x=-.2;
+     rs(.062,1,1,1,hr,0,.14,-.1,head);
+     [-1,1].forEach(q=>{rs(.012,1.2,1,.6,hr,q*.04,.085,.098,head);rs(.011,1,1.3,.8,sk,q*.0,.0,0,head).visible=false});
+     rs(.015,1,.8,.8,sk,0,.035,.107,head);rs(.02,1,.28,.4,hr,0,-.012,.098,head);
+     B(.07,.03,.012,.12,1.38,.135,brassM,rc);                                    // name badge
+     const arm=sx=>{const g=new THREE.Group();g.position.set(sx*.22,1.46,0);rc.add(g);
+       add(new THREE.CylinderGeometry(.046,.04,.3,12),bl,0,-.15,0,g,true);
+       const el=new THREE.Group();el.position.set(0,-.3,0);g.add(el);
+       add(new THREE.CylinderGeometry(.038,.032,.28,12),bl,0,-.14,0,el,true);rs(.04,1,1.2,.8,sk,0,-.3,0,el);
+       g.rotation.x=-.55;el.rotation.x=-.9;return {g,el}};
+     X.armL=arm(-1);X.armR=arm(1);}
+    // waiting lounge
+    const sofa=(x,z,ry,len)=>{const g=new THREE.Group();g.position.set(x,0,z);g.rotation.y=ry;sc.add(g);
+      B(len,.4,.95,0,.38,0,sofaM,g,1.2,true);B(len,.58,.22,0,.8,-.37,sofaM,g,1.2,true);[-1,1].forEach(sd=>B(.22,.64,.95,sd*(len/2-.11),.52,0,sofaM,g,1.2,true));
+      B(len-.5,.14,.72,0,.64,.08,cushM,g,1.2);[-1,1].forEach(sd=>[-1,1].forEach(sz=>add(new THREE.CylinderGeometry(.03,.025,.16,8),brassM,sd*(len/2-.12),.08,sz*.36,g)))};
+    sofa(9.5,13.1,Math.PI,3.2);sofa(12.9,10.6,-Math.PI/2,2.8);sofa(6.2,10.6,Math.PI/2,2.8);
+    add(new THREE.CylinderGeometry(.7,.7,.06,40),marbleM,9.5,.45,10.6,sc,true);add(new THREE.CylinderGeometry(.08,.3,.42,20),brassM,9.5,.21,10.6);
+    B(5.4,.012,4.8,9.5,.008,11.2,mats({map:WT.carpet.map,color:lin(0xcfc4ae),roughness:1},.05),sc,1.6);
+    [[-8.7,1.3],[-8.7,12.7],[14.6,1.3],[14.6,12.8],[3.1,1.2],[-1.8,12.8]].forEach(([x,z])=>plantL(x,z,1.15));
+    [[9.5,10.6],[-4.5,7],[1.8,6.5],[10,4.5]].forEach(([x,z])=>[0,1,2].forEach(k=>{B(.012,2.1+k*.7,.012,x+(k-1)*.45,LH-(1.05+k*.35),z+(k-1)*.3,aluM);add(new THREE.SphereGeometry(.26-k*.03,16,12),ledM,x+(k-1)*.45,LH-2.2-k*.7,z+(k-1)*.3)}));
+    // directional signage + floor arrow towards the right-hand doorway
+    const dirS=new THREE.Mesh(new THREE.PlaneGeometry(3.6,.76),new THREE.MeshBasicMaterial({map:plaqueTex("CERTIFICATE HALL  →","& Executive Wing",760,160,true),toneMapped:false,side:THREE.DoubleSide}));
+    dirS.position.set(7.2,4.6,3.4);dirS.rotation.y=Math.PI/2;sc.add(dirS);[-1.5,1.5].forEach(d=>B(.012,2.4,.012,7.2,LH-1.2,3.4+d,aluM));
+    {const [c,g]=mkC(256);g.clearRect(0,0,256,256);g.fillStyle="rgba(214,178,100,.95)";g.shadowColor="rgba(255,200,110,.9)";g.shadowBlur=24;
+     g.beginPath();g.moveTo(128,20);g.lineTo(210,120);g.lineTo(158,120);g.lineTo(158,236);g.lineTo(98,236);g.lineTo(98,120);g.lineTo(46,120);g.closePath();g.fill();
+     const ar=new THREE.Mesh(new THREE.PlaneGeometry(1.5,1.5),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthWrite:false,toneMapped:false}));
+     ar.rotation.x=-Math.PI/2;ar.position.set(0,.03,4.1);sc.add(ar)}
 
     /* ---- office ---- */
     const OL=Math.abs(OFF_Z1-OFF_Z0),OC=(OFF_Z0+OFF_Z1)/2;
@@ -2803,6 +3035,9 @@ function init3D(){
     X.sky={day:skylineTex("day"),gold:skylineTex("gold"),night:skylineTex("night")};
     const skyM=new THREE.MeshBasicMaterial({map:X.sky.day,toneMapped:false,fog:false});X.skyM=skyM;
     const skyP=new THREE.Mesh(new THREE.PlaneGeometry(84,31),skyM);skyP.position.set(HW+36,12,OC);skyP.rotation.y=-Math.PI/2;sc.add(skyP);
+    {const skyE=new THREE.Mesh(new THREE.PlaneGeometry(150,44),skyM);skyE.position.set(100,14,7);skyE.rotation.y=-Math.PI/2;sc.add(skyE);
+     const skyN=new THREE.Mesh(new THREE.PlaneGeometry(260,44),skyM);skyN.position.set(30,14,-70);sc.add(skyN);
+     const skyS=new THREE.Mesh(new THREE.PlaneGeometry(260,44),skyM);skyS.position.set(30,14,80);skyS.rotation.y=Math.PI;sc.add(skyS);}
     [OFF_Z0-.7,OFF_Z1+.9].forEach(z=>{const cur2=new THREE.Mesh(new THREE.PlaneGeometry(1.1,OFF_H-.4),mats({color:lin(0xe6dccb),roughness:1,transparent:true,opacity:.72,side:THREE.DoubleSide},.1));cur2.position.set(HW-.25,OFF_H/2,z);cur2.rotation.y=-Math.PI/2;sc.add(cur2)});
     // back wall: walnut panelling with warm LED shelving, framed to match the photograph's setting
     B(HALL_W+.2,OFF_H,.3,0,OFF_H/2,wz-.15,officeWallM,sc,3);
@@ -2894,17 +3129,28 @@ function init3D(){
      const ptex=new THREE.CanvasTexture(pcv||placeholderCanvas("Sanket Biradar"));ptex.encoding=THREE.sRGBEncoding;ptex.anisotropy=aniso;
      const ar=pim?pim.height/pim.width:.75,pw=2.5,ph=pw*ar,py=1.88;
      const fg=new THREE.Group();fg.position.set(0,py,wz+.1);sc.add(fg);
-     B(pw+.4,ph+.4,.1,0,0,.05,woodDarkM,fg,.8,true);B(pw+.12,ph+.12,.108,0,0,.05,brassM,fg);
+     const rectShadow=(()=>{const [c,g]=mkC(256);g.clearRect(0,0,256,256);g.shadowColor="#000";g.shadowBlur=30;g.fillStyle="#000";g.fillRect(56,56,144,144);return new THREE.CanvasTexture(c)})();
+     // raised walnut surround + recessed reveal → the picture sits in the wall, not on it
+     B(pw+1.15,ph+1.05,.05,0,0,-.07,woodDarkM,fg,.9,true);B(pw+.82,ph+.72,.02,0,0,-.04,charM,fg,1);
+     const dsh=new THREE.Mesh(new THREE.PlaneGeometry(pw+1.1,ph+1.0),new THREE.MeshBasicMaterial({map:rectShadow,color:0x000000,transparent:true,opacity:.62,depthWrite:false}));
+     dsh.position.set(.07,-.12,-.012);fg.add(dsh);
+     B(pw+.4,ph+.4,.1,0,0,.05,woodDarkM,fg,.8,true);B(pw+.12,ph+.12,.108,0,0,.05,brassM,fg);B(pw+.05,ph+.05,.1085,0,0,.05,charM,fg);
      const pm=new THREE.MeshBasicMaterial({map:ptex,toneMapped:false,fog:false});X.portraitM=pm;
-     const person=new THREE.Mesh(new THREE.PlaneGeometry(pw,ph),pm);person.position.set(0,0,.108);person.userData.person=true;fg.add(person);X.pick.push(person);X.person=person;
+     const person=new THREE.Mesh(new THREE.PlaneGeometry(pw,ph),pm);person.position.set(0,0,.1095);person.userData.person=true;fg.add(person);X.pick.push(person);X.person=person;
+     // inner shadow cast by the frame lip + faint glass sheen (the photograph's own pixels stay untouched)
+     const inner=new THREE.Mesh(new THREE.PlaneGeometry(pw,ph),new THREE.MeshBasicMaterial({map:(()=>{const [c,g]=mkC(256);g.clearRect(0,0,256,256);const gr=g.createLinearGradient(0,0,0,256);gr.addColorStop(0,"rgba(0,0,0,.34)");gr.addColorStop(.09,"rgba(0,0,0,0)");gr.addColorStop(1,"rgba(0,0,0,0)");g.fillStyle=gr;g.fillRect(0,0,256,256);const gl=g.createLinearGradient(0,0,256,256);gl.addColorStop(.35,"rgba(255,255,255,0)");gl.addColorStop(.5,"rgba(255,255,255,.12)");gl.addColorStop(.65,"rgba(255,255,255,0)");g.fillStyle=gl;g.fillRect(0,0,256,256);return new THREE.CanvasTexture(c)})(),transparent:true,depthWrite:false}));
+     inner.position.set(0,0,.1105);fg.add(inner);
+     const gls=new THREE.Mesh(new THREE.PlaneGeometry(pw,ph),mats({color:0xffffff,roughness:.02,metalness:.1,transparent:true,opacity:.05,depthWrite:false},3));gls.position.set(0,0,.112);fg.add(gls);
      B(1.1,.05,.08,0,ph/2+.34,.22,brassM,fg);B(1.0,.02,.05,0,ph/2+.3,.22,ledM,fg);
-     const wsh=new THREE.Mesh(new THREE.PlaneGeometry(pw+3.2,ph+3),new THREE.MeshBasicMaterial({map:washTex,color:0xffb868,transparent:true,opacity:.3,blending:THREE.AdditiveBlending,depthWrite:false}));
+     const wsh=new THREE.Mesh(new THREE.PlaneGeometry(pw+3.2,ph+3),new THREE.MeshBasicMaterial({map:washTex,color:0xffb868,transparent:true,opacity:.26,blending:THREE.AdditiveBlending,depthWrite:false}));
      wsh.position.set(0,.1,.02);fg.add(wsh);
      const pq=new THREE.Mesh(new THREE.PlaneGeometry(1.5,.34),new THREE.MeshBasicMaterial({map:plaqueTex("Sanket Biradar","AI Software Engineer",720,170),toneMapped:false}));pq.position.set(0,-(ph/2+.36),.11);fg.add(pq);
      X.portraitY=py;}
     // lights
     const hemi=new THREE.HemisphereLight(0xfff0d8,0xb9a98e,.9);sc.add(hemi);X.lights.hemi=hemi;
     X.lights.pts=[];
+    [[-6,5.6,7,1.7,26],[2,5.9,6,1.5,26],[10,5.6,5,1.7,26],[10,5.6,11.5,1.7,26]].forEach(p=>{const L=new THREE.PointLight(0xffe0b0,1,p[4],1.5);L.position.set(p[0],p[1],p[2]);L.userData.k=p[3];sc.add(L);X.lights.pts.push(L)});
+    [[31,8,2.5],[31,8,12]].forEach(p=>{const L=new THREE.PointLight(0xffe6c0,1,46,1.4);L.position.set(...p);L.userData.k=2.6;sc.add(L);X.lights.pts.push(L)});
     [[0,HALL_H-.5,-4],[0,HALL_H-.5,-11],[0,HALL_H-.5,-18],[0,HALL_H-.5,-25],[0,OFF_H-.4,-33],[-2.6,OFF_H-.5,-37],[2.6,OFF_H-.5,-37]].forEach(p=>{
       const L=new THREE.PointLight(0xffe0b0,.6,16,1.6);L.position.set(...p);sc.add(L);X.lights.pts.push(L)});
     const key=new THREE.SpotLight(0xffe2b8,1.0,14,.62,.7,1.4);key.position.set(0,OFF_H-.2,-33.2);key.target.position.set(0,.8,DESK_Z-.2);key.castShadow=true;key.shadow.mapSize.set(1024,1024);key.shadow.bias=-.0004;key.shadow.normalBias=.02;sc.add(key,key.target);X.lights.key=key;
@@ -2914,7 +3160,11 @@ function init3D(){
       sc.environment=pmrem.fromScene(es,.03).texture}
     /* labels + viewpoints */
     const mkLabel=(txt,pos,cls="",test=null)=>{const d=document.createElement("div");d.className="xl "+cls;d.textContent=txt;$("wingLabels").appendChild(d);X.labels.push({el:d,pos,test});return d};
-    mkLabel("Grand Certificate Hall",new THREE.Vector3(0,3.15,-6),"big",()=>X.cp.z>-3.5);
+    mkLabel("Grand Certificate Hall",new THREE.Vector3(0,3.15,-6),"big",()=>X.cp.z<1.4&&X.cp.z>-3.5);
+    mkLabel("Main Entrance — step inside",new THREE.Vector3(LX1+3,2.6,7),"big",()=>X.cp.x>24);
+    mkLabel("Reception",new THREE.Vector3(-6.4,2.5,7),"big",()=>X.cp.z>2.5&&X.cp.x<15&&X.cp.x>-4);
+    mkLabel("Waiting lounge",new THREE.Vector3(9.5,1.5,11.4),"",()=>X.cp.z>1&&X.cp.x<16&&X.cp.x>3);
+    mkLabel("Certificate Hall →",new THREE.Vector3(0,4.2,.3),"hot",()=>X.cp.z>1&&X.cp.z<14&&X.cp.x<12);
     mkLabel("Executive Office →",new THREE.Vector3(0,3.5,OFF_Z0),"big",()=>X.cp.z<-14&&X.cp.z>-30.5);
     mkLabel("← Certificate Hall",new THREE.Vector3(0,3.15,OFF_Z0+.2),"",()=>X.cp.z<-30.8);
     mkLabel("Sanket Biradar · AI Software Engineer",new THREE.Vector3(0,3.28,OFF_Z1+.3),"big",()=>X.cp.z<-29.5);
@@ -2923,12 +3173,22 @@ function init3D(){
     X.certs.forEach(c=>mkLabel(c.title.length>32?c.title.slice(0,30)+"…":c.title,new THREE.Vector3(c.side*(HW-.2),3.7,c.z),"",()=>(X.mode==="walk"||X.vp===0)&&Math.abs(X.cp.z-c.z)<6.5));
     // viewpoints
     const V=(x,y,z)=>new THREE.Vector3(x,y,z);
-    X.vps=[{t:"Grand Certificate Hall",s:"10 certifications · use ◀ ▶, drag to look, scroll to walk",pos:V(0,1.65,-.9),look:V(0,1.85,-12),kind:"overview"}];
+    X.vps=[
+      {t:"Grand Headquarters Entrance",s:"Sanket Biradar · AI Software Engineer — step through the glass doors ▸",pos:V(36,1.7,7),look:V(16,4.2,7),kind:"entrance"},
+      {t:"Reception Lobby",s:"Marble lobby · reception ahead · the Certificate Hall is on your right",pos:V(13.2,1.65,7),look:V(-4,2.2,7),kind:"lobby"},
+      {t:"Reception",s:"Welcome desk and waiting lounge",pos:V(-1.4,1.62,7.3),look:V(-7.2,1.55,7),kind:"reception"},
+      {t:"Turn right → Certificate Hall",s:"Follow the sign through the doorway",pos:V(.2,1.65,4.2),look:V(0,1.95,-6),kind:"turn"},
+      {t:"Grand Certificate Hall",s:"10 certifications · use ◀ ▶, drag to look, scroll to walk",pos:V(0,1.65,-.9),look:V(0,1.85,-12),kind:"overview"}];
     order.forEach((idx,n)=>{const c=X.certs[idx];X.vps.push({t:`Certificate ${n+1} of 10`,s:`${c.title} · ${c.issuer}`,kind:"cert",i:idx,c})});
     X.vps.push({t:"Entrance to the Executive Office",s:"Walk through the doors →",pos:V(0,1.65,-26.8),look:V(0,1.8,-34),kind:"doors"});
     X.vps.push({t:"Executive Office",s:"Sanket Biradar · AI Software Engineer",pos:V(0,1.6,-31.4),look:V(0,1.8,OFF_Z1),kind:"office"});
     X.vps.push({t:"At the desk",s:"Say hello — and open the About Me display",pos:V(.1,1.5,-33.4),look:V(0,1.55,OFF_Z1),kind:"desk"});
-    X.cp=V(0,1.65,-.9);X.cl=V(0,1.85,-12);X.tp=X.cp.clone();X.tl=X.cl.clone();
+    X.path=new THREE.CatmullRomCurve3([[36,7],[24,7],[17.2,7],[9,7],[3.4,6.8],[.9,5],[0,2.4],[0,.4],[0,-1.2],[0,-33.2]].map(([x,z])=>V(x,1.65,z)),false,"centripetal");
+    X.pathLen=X.path.getLength();X.walkS=0;
+    {const samp=[];for(let k=0;k<=900;k++)samp.push(X.path.getPointAt(k/900));
+     X.sOf=(x,z)=>{let bi=0,bd=1e9;samp.forEach((p,k)=>{const d=(p.x-x)**2+(p.z-z)**2;if(d<bd){bd=d;bi=k}});return bi/900*X.pathLen};
+     X.vps.forEach(v=>{v.sPath=v.kind==="cert"?X.sOf(0,v.c.z):X.sOf(v.pos.x,v.pos.z)})}
+    X.cp=V(36,1.7,7);X.cl=V(16,4.2,7);X.tp=X.cp.clone();X.tl=X.cl.clone();
     X.built=true;X.building=false;
   }
 
@@ -2945,7 +3205,8 @@ function init3D(){
     const key=kc.lit<.1?"day":kc.lit<.6?"gold":"night",t=WTH[key],k=snap?1:1-Math.exp(-dt*3),L=X.lights;
     if(key!==wThemeKey){wThemeKey=key;X.skyM.map=X.sky[key==="gold"?"gold":key];X.skyM.needsUpdate=true}
     L.hemi.color.lerp(wc(t.hs),k);L.hemi.groundColor.lerp(wc(t.hg),k);L.hemi.intensity+=(t.hi-L.hemi.intensity)*k;
-    L.pts.forEach(p=>{p.color.lerp(wc(t.pc),k);p.intensity+=(t.pt-p.intensity)*k});
+    L.pts.forEach(p=>{p.color.lerp(wc(t.pc),k);p.intensity+=(t.pt*(p.userData.k||1)-p.intensity)*k});
+    if(X.groundM)X.groundM.color.lerp(wc(key==="night"?0x26282a:key==="gold"?0xa89f88:0xb9b7a9),k);
     L.key.intensity+=(t.key-L.key.intensity)*k;
     X.ledMs.forEach(m=>m.color.setRGB(1,.72,.42).multiplyScalar(t.led));
     wBg.lerp(wc(t.bg),k);X.scene.fog.color.copy(wBg);X.scene.background=wBg;
@@ -2955,47 +3216,77 @@ function init3D(){
   async function wFade(to,ms=520){fadeEl.style.transitionDuration=(reduce?10:ms)+"ms";fadeEl.style.opacity=to;await wDelay(reduce?20:ms)}
   function wUpdateUI(){
     const v=X.vps[X.vp];
-    const walking=X.vp<0;
-    $("wingTitle").textContent=walking?"Walking the hall":v.t;
-    $("wingSub").textContent=walking?"Scroll or ▲▼ to walk · drag to look around":(v.s||"");
-    $("wingPrev").disabled=!walking&&X.vp<=0;
-    const last=!walking&&X.vp>=X.vps.length-1;
-    $("wingNext").disabled=last;
-    $("wingNext").textContent=(!walking&&v.kind==="doors")?"Enter Office →":"Next ▶";
+    const walking=X.vp===-1,special=X.vp===-2;
+    $("wingTitle").textContent=special?(X.mode==="portrait"?"Portrait":"About Me"):walking?"Walking the hall":v.t;
+    $("wingSub").textContent=special?"Sanket Biradar · AI Software Engineer":walking?"Scroll or ▲▼ to walk · drag to look around":(v.s||"");
+    $("wingPrev").disabled=!walking&&!special&&X.vp<=0;
+    const last=!walking&&!special&&X.vp>=X.vps.length-1;
+    $("wingNext").disabled=last||special;
+    $("wingNext").textContent=(!walking&&!special&&v.kind==="doors")?"Enter Office →":"Next ▶";
     const act=$("wingAct");
-    if(!walking&&v.kind==="cert"){act.hidden=false;act.textContent="View full image";act.dataset.k="cert"}
+    if(special){act.hidden=false;act.textContent=X.mode==="portrait"?"About Me":"Portrait";act.dataset.k=X.mode==="portrait"?"about":"portrait"}
+    else if(!walking&&v.kind==="cert"){act.hidden=false;act.textContent="View full image";act.dataset.k="cert"}
     else if(!walking&&(v.kind==="office"||v.kind==="desk")){act.hidden=false;act.textContent="About Me";act.dataset.k="about"}
     else act.hidden=true;
-    $("wingStep").textContent=walking?"":(v.kind==="cert"?v.t.replace("Certificate ",""):"");
+    $("wingStep").textContent=(walking||special)?"":(v.kind==="cert"?v.t.replace("Certificate ",""):"");
   }
-  function wGoto(i){
-    i=Math.max(0,Math.min(X.vps.length-1,i));const v=X.vps[i];X.vp=i;X.mode="vp";X.yaw=X.pitch=0;
+  function wMove(p,l,dur){
+    if(X.trans&&X.trans.res)X.trans.res();
+    const d=p.distanceTo(X.cp)+X.cl.distanceTo(l)*.3;
+    X.trans={t:0,dur:reduce?.01:(dur||Math.min(2.4,1.0+d*.075)),fp:X.cp.clone(),fl:X.cl.clone(),tp:p.clone(),tl:l.clone(),res:null};
+    X.tp.copy(p);X.tl.copy(l);X.settle=true;
+  }
+  const wMoveP=(p,l,dur)=>new Promise(r=>{wMove(p,l,dur);X.trans.res=r});
+  function wCancelTour(){
+    X.tourId=(X.tourId||0)+1;X.speaking=false;
+    const sp=$("speech");if(sp)sp.classList.remove("show");const sk=$("wingSkip");if(sk)sk.hidden=true;
+    try{if(window.speechSynthesis)speechSynthesis.cancel()}catch(e){}
+  }
+  function wGoto(i,opts){
+    if(!(opts&&opts.tour))wCancelTour();
+    clearTimeout(X.portraitT);
+    i=Math.max(0,Math.min(X.vps.length-1,i));const v=X.vps[i];X.vp=i;X.mode="vp";if(v.sPath!==undefined)X.walkS=v.sPath;
+    let P,L;
     if(v.kind==="cert"){
       const c=v.c,a=W/Math.max(1,H),vh=2*Math.tan(THREE.MathUtils.degToRad(X.cam.fov/2));
-      let d=Math.max((c.h+1.9)/vh,(c.w+1.3)/(vh*a),3.3);d=Math.min(d,HALL_W-.4);
-      X.tp.set(c.pos.x+c.normal.x*d,1.7,c.z);X.tl.set(c.pos.x,1.98,c.z);
-    }else{X.tp.copy(v.pos);X.tl.copy(v.look)}
+      const mob=a<1;let d=Math.max((c.h+1.9+(mob?2.3:0))/vh,(c.w+1.3)/(vh*a),3.3);d=Math.min(d,HALL_W-.4);
+      P=new THREE.Vector3(c.pos.x+c.normal.x*d,1.7,c.z);L=new THREE.Vector3(c.pos.x,mob?1.5:1.98,c.z);
+    }else{P=v.pos;L=v.look}
+    const pr=wMoveP(P,L,opts&&opts.dur);
     wUpdateUI();
+    return pr;
   }
   function wWalk(dz){
-    X.mode="walk";X.vp=-1;X.walkZ=Math.max(.9,Math.min(33.2,X.walkZ+dz));
-    X.tp.set(0,1.65,-X.walkZ);
-    if(X.walkZ>28.5)X.tl.set(0,1.7,OFF_Z1);else X.tl.set(0,1.78,-X.walkZ-8);
+    wCancelTour();clearTimeout(X.portraitT);X.trans=null;X.mode="walk";X.vp=-1;
+    X.walkS=Math.max(0,Math.min(X.pathLen,(X.walkS||0)+dz));
+    const u=X.walkS/X.pathLen,p=X.path.getPointAt(u),tg=X.path.getTangentAt(u);
+    X.tp.copy(p);X.tl.set(p.x+tg.x*6,1.8,p.z+tg.z*6);
     wUpdateUI();
   }
   function wNext(d){
+    if(X.vp===-2){wAbout(false);wGoto(X.vps.findIndex(v=>v.kind==="desk"));return}
     if(X.vp>=0){wGoto(X.vp+d);return}
-    const zs=X.vps.map(v=>v.kind==="cert"?-v.c.z:Math.abs(v.pos.z));
-    if(d>0){let j=zs.findIndex(z=>z>X.walkZ+.4);wGoto(j<0?X.vps.length-1:j)}
-    else{let j=-1;zs.forEach((z,q)=>{if(z<X.walkZ-.4)j=q});wGoto(Math.max(0,j))}
+    const zs=X.vps.map(v=>v.sPath);
+    if(d>0){let j=zs.findIndex(z=>z>X.walkS+.4);wGoto(j<0?X.vps.length-1:j)}
+    else{let j=-1;zs.forEach((z,q)=>{if(z<X.walkS-.4)j=q});wGoto(Math.max(0,j))}
   }
   function wBox(i){
     const c=X.certs[i];$("certImg").src=c.src;$("certImg").alt=c.title;$("certCap").textContent=c.title+" — "+c.issuer;$("certBox").classList.add("open");$("certBox").setAttribute("aria-hidden","false");setTimeout(()=>$("certClose").focus(),50)}
   function wBoxClose(){$("certBox").classList.remove("open");$("certBox").setAttribute("aria-hidden","true")}
   const aboutEl=$("aboutCard");
-  function wAbout(open){
+  function wAbout(open,keepCam){
+    if(open)wCancelTour();
     aboutEl.classList.remove("min");aboutEl.classList.toggle("open",open);aboutEl.setAttribute("aria-hidden",String(!open));wingEl.classList.toggle("aboutOpen",open);
-    if(open){X.tp.set(-.45,1.2,-33.9);X.tl.set(-.72,.95,DESK_Z+.1);X.vp=-2;X.mode="about";X.yaw=X.pitch=0;setTimeout(()=>$("aboutClose").focus({preventScroll:true}),350)}
+    if(open){
+      if(!keepCam){wMove(new THREE.Vector3(-.45,1.2,-33.9),new THREE.Vector3(-.72,.95,DESK_Z+.1),1.4);X.vp=-2;X.mode="about";wUpdateUI()}
+      aboutAnimate();setTimeout(()=>{const c=$("aboutClose");if(c)c.focus({preventScroll:true})},500);
+    }
+  }
+  function wPortrait(){
+    wCancelTour();wAbout(false);X.vp=-2;X.mode="portrait";
+    wMove(new THREE.Vector3(0,1.78,OFF_Z1+3.6),new THREE.Vector3(0,1.62,OFF_Z1),2.0);
+    wUpdateUI();
+    clearTimeout(X.portraitT);X.portraitT=setTimeout(()=>{if(X.mode==="portrait"&&X.active)wAbout(true,true)},1700);
   }
   function wPick(cx,cy){
     const r=canvas.getBoundingClientRect();wMouse.set(((cx-r.left)/r.width)*2-1,-((cy-r.top)/r.height)*2+1);wRay.setFromCamera(wMouse,X.cam);
@@ -3004,7 +3295,8 @@ function init3D(){
   function wClick(o){
     if(!o)return;
     if(o.userData.cert!==undefined){const j=X.vps.findIndex(v=>v.kind==="cert"&&v.i===o.userData.cert);if(X.vp===j)wBox(o.userData.cert);else wGoto(j)}
-    else if(o.userData.about||o.userData.person)wAbout(true);
+    else if(o.userData.person)wPortrait();
+    else if(o.userData.about)wAbout(true);
   }
   let xd=null;
   canvas.addEventListener("pointerdown",e=>{if(!X.active)return;e.stopImmediatePropagation();xd={x:e.clientX,y:e.clientY,moved:0};try{canvas.setPointerCapture(e.pointerId)}catch(_){}canvas.classList.add("dragging")},true);
@@ -3012,7 +3304,7 @@ function init3D(){
     if(!X.active)return;e.stopImmediatePropagation();
     if(xd){const dx=e.clientX-xd.x,dy=e.clientY-xd.y;xd.x=e.clientX;xd.y=e.clientY;xd.moved+=Math.abs(dx)+Math.abs(dy);
       if(e.pointerType==="touch"&&Math.abs(dy)>Math.abs(dx)*1.5&&X.mode!=="about"){if(Math.abs(dy)>.5)wWalk(dy*.035)}
-      else{X.yaw=Math.max(-1.1,Math.min(1.1,X.yaw-dx*.004));X.pitch=Math.max(-.5,Math.min(.5,X.pitch-dy*.003))}
+      else{X.settle=false;X.yaw=Math.max(-1.1,Math.min(1.1,X.yaw-dx*.004));X.pitch=Math.max(-.5,Math.min(.5,X.pitch-dy*.003))}
     }else if(e.pointerType==="mouse"){const o=wPick(e.clientX,e.clientY);X.hover=o;canvas.classList.toggle("hover",!!o)}
   },true);
   const wEnd=e=>{if(!X.active)return;e.stopImmediatePropagation();canvas.classList.remove("dragging");
@@ -3028,9 +3320,10 @@ function init3D(){
   $("wingNext").onclick=()=>wNext(1);
   $("wingOverview").onclick=()=>{wAbout(false);wGoto(0)};
   $("wingUp").onclick=()=>{wAbout(false);wWalk(1.2)};$("wingDown").onclick=()=>{wAbout(false);wWalk(-1.2)};
-  $("wingAct").onclick=()=>{const k=$("wingAct").dataset.k;if(k==="cert")wBox(X.vps[X.vp].i);else wAbout(true)};
+  $("wingAct").onclick=()=>{const k=$("wingAct").dataset.k;if(k==="cert")wBox(X.vps[X.vp].i);else if(k==="portrait")wPortrait();else wAbout(true)};
   $("certClose").onclick=wBoxClose;$("certBox").addEventListener("click",e=>{if(e.target.id==="certBox")wBoxClose()});
   $("aboutClose").onclick=()=>{wAbout(false);wGoto(X.vps.findIndex(v=>v.kind==="desk"))};
+  $("aboutCerts").onclick=()=>{wAbout(false);wGoto(X.vps.findIndex(v=>v.kind==="cert"))};
   $("aboutProfile").onclick=()=>{showResume()};
   $("aboutMin").addEventListener("click",()=>setSheetMin(aboutEl,!aboutEl.classList.contains("min"),$("aboutMin")));
   bindSheetDrag(aboutEl,"#aboutGrip",()=>$("aboutMin"));
@@ -3042,6 +3335,30 @@ function init3D(){
     else if(aboutEl.classList.contains("open")){e.stopImmediatePropagation();$("aboutClose").click()}
   },true);
 
+  X.voice=false;
+  function say(text,ms){
+    const sp=$("speech");sp.textContent=text;sp.classList.add("show");X.speaking=true;
+    if(X.voice&&window.speechSynthesis){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text.replace(/[➜→▸]/g,""));u.rate=.95;speechSynthesis.speak(u)}catch(e){}}
+    return wDelay(reduce?Math.min(ms,900):ms);
+  }
+  async function autoTour(){
+    const id=(X.tourId=(X.tourId||0)+1),ok=()=>id===X.tourId&&X.active;
+    const idx=k=>X.vps.findIndex(v=>v.kind===k);
+    $("wingSkip").hidden=false;
+    await wDelay(reduce?50:900);if(!ok())return;
+    await wGoto(idx("lobby"),{tour:1,dur:6.4});if(!ok())return;        // glide to the doors — they open — and step inside
+    await wGoto(idx("reception"),{tour:1,dur:3.4});if(!ok())return;     // up to the reception desk
+    await say("Welcome to the headquarters of Sanket Biradar — AI Software Engineer.",3200);if(!ok())return;
+    await say("The Certificate Hall is on your right. Please go right ➜",3000);if(!ok())return;
+    $("speech").classList.remove("show");X.speaking=false;
+    await wGoto(idx("turn"),{tour:1,dur:2.6});if(!ok())return;           // turn right
+    await wGoto(idx("overview"),{tour:1,dur:2.8});if(!ok())return;       // through the doorway into the hall
+    await wGoto(idx("cert"),{tour:1,dur:3.0});if(!ok())return;           // up to the first wall of certificates
+    $("wingSkip").hidden=true;
+  }
+  $("wingSkip").onclick=()=>{wGoto(X.vps.findIndex(v=>v.kind==="cert"))};
+  $("wingVoice").onclick=()=>{X.voice=!X.voice;$("wingVoice").setAttribute("aria-pressed",String(X.voice));$("wingVoice").textContent=X.voice?"🔊 Voice":"🔇 Voice";if(!X.voice)try{speechSynthesis.cancel()}catch(e){}};
+  $("wingReplay").onclick=()=>{wCancelTour();wAbout(false);wBoxClose();X.cp.set(36,1.7,7);X.cl.set(16,4.2,7);X.tp.copy(X.cp);X.tl.copy(X.cl);X.trans=null;X.yaw=X.pitch=0;X.walkS=0;wGoto(0);autoTour()};
   let wingSaved=null;
   async function enterWing(){
     if(X.active||X.entering||reading||cine)return;X.entering=true;
@@ -3051,15 +3368,15 @@ function init3D(){
     await new Promise(res=>cineTo({tx:HQX,ty:3.0,tz:HQZ+.4,th:.95,ph:1.25,z:baseD("city")/9.5},2.0,res));
     await wFade(1,450);await pre;
     X.active=true;stage.classList.add("is-wing");wingEl.setAttribute("aria-hidden","false");
-    X.cp.set(0,1.65,-.9);X.cl.set(0,1.85,-12);wThemeKey="";wingTheme(0,true);
-    X.walkZ=.9;wGoto(0);
-    await wDelay(80);await wFade(0,600);X.entering=false;
+    X.cp.set(36,1.7,7);X.cl.set(16,4.2,7);X.trans=null;X.yaw=X.pitch=0;wThemeKey="";wingTheme(0,true);
+    X.walkS=0;wGoto(0);
+    await wDelay(80);await wFade(0,600);X.entering=false;autoTour();
   }
   async function exitWing(){
     if(!X.active||X.exiting)return;X.exiting=true;
     await wFade(1,420);
     wAbout(false);wBoxClose();hideResume();
-    X.active=false;stage.classList.remove("is-wing");wingEl.setAttribute("aria-hidden","true");
+    wCancelTour();X.active=false;stage.classList.remove("is-wing");wingEl.setAttribute("aria-hidden","true");
     if(wingSaved){Object.assign(camT,wingSaved);Object.assign(cam,wingSaved)}
     await wDelay(80);await wFade(0,520);X.exiting=false;X.entering=false;
   }
@@ -3080,9 +3397,17 @@ function init3D(){
     const fov=a<1?64:46;if(Math.abs(X.cam.fov-fov)>.01||Math.abs(X.cam.aspect-a)>.001){X.cam.fov=fov;X.cam.aspect=a;X.cam.updateProjectionMatrix()}
     wingTheme(dt,false);
     const k=reduce?1:1-Math.exp(-dt*3.2);
-    X.cp.lerp(X.tp,k);X.cl.lerp(X.tl,k);
+    if(X.trans){const tr=X.trans;tr.t=Math.min(1,tr.t+dt/tr.dur);const e=ease3(tr.t);X.cp.lerpVectors(tr.fp,tr.tp,e);X.cl.lerpVectors(tr.fl,tr.tl,e);if(tr.t>=1){const rs=tr.res;X.trans=null;if(rs)rs()}}
+    else{X.cp.lerp(X.tp,k);X.cl.lerp(X.tl,k)}
+    if(X.settle){const d=Math.exp(-dt*4);X.yaw*=d;X.pitch*=d;if(Math.abs(X.yaw)+Math.abs(X.pitch)<.002){X.yaw=X.pitch=0}}
     wDir.copy(X.cl).sub(X.cp);wDir.applyAxisAngle(wUP,X.yaw);wRight.crossVectors(wDir,wUP).normalize();wDir.applyAxisAngle(wRight,X.pitch);
     X.cam.position.copy(X.cp);X.cam.lookAt(wTmp.copy(X.cp).add(wDir));
+    // glass doors swing open as the visitor approaches; the receptionist greets people arriving in the lobby
+    {const want=(X.cp.x<29&&X.cp.x>12&&Math.abs(X.cp.z-7)<5)?1:0;X.doorOpen=(X.doorOpen||0)+(want-(X.doorOpen||0))*Math.min(1,dt*2.6);
+     X.doors&&X.doors.forEach(d=>{d.g.rotation.y=d.sgn*X.doorOpen*1.35});
+     if(X.recep&&!reduce){const tt=performance.now()/1000,near=(X.cp.z>2.5&&X.cp.x<6&&X.cp.x>-4)||X.speaking?1:0;X.wv=(X.wv||0)+(near-(X.wv||0))*Math.min(1,dt*3);
+       X.recepHead.rotation.y=Math.sin(tt*.6)*.14+X.wv*.18;X.recepHead.rotation.x=Math.sin(tt*.9)*.03;
+       X.armR.g.rotation.x=-.55+X.wv*-2.1;X.armR.g.rotation.z=X.wv*-.25;X.armR.el.rotation.x=-.9+X.wv*.55;X.armR.el.rotation.z=X.wv*Math.sin(tt*8)*.55}}
     // hover glow on the About display
     const hAbout=X.hover&&X.hover.userData&&(X.hover.userData.about||X.hover.userData.person)?1:0;
     X.dGlow.material.opacity+=((hAbout?.55:.14+.1*Math.sin(performance.now()/500))-X.dGlow.material.opacity)*Math.min(1,dt*8);
@@ -3092,6 +3417,10 @@ function init3D(){
     X.vo=X.vo||{x:0,y:0};X.vo.x+=(tx-X.vo.x)*Math.min(1,dt*6);X.vo.y+=(ty-X.vo.y)*Math.min(1,dt*6);
     if(Math.abs(X.vo.x)>.5||Math.abs(X.vo.y)>.5)X.cam.setViewOffset(W,H,-X.vo.x,X.vo.y,W,H);else if(X.cam.view&&X.cam.view.enabled)X.cam.clearViewOffset();
     renderer.render(X.scene,X.cam);
+    {const sp=$("speech");if(sp&&X.speaking){wTmp.set(-7.4,2.2,7).project(X.cam);const bx=(wTmp.x*.5+.5)*W,by=(-wTmp.y*.5+.5)*H;
+       const ok2=wTmp.z<1&&wTmp.z>-1;sp.style.opacity=ok2?1:0;
+       const w2=sp.offsetWidth||200,h2=sp.offsetHeight||50,cx=Math.max(w2/2+8,Math.min(W-w2/2-8,bx)),cy=Math.max(h2+16,by);
+       sp.style.transform=`translate3d(${(cx-w2/2).toFixed(1)}px,${(cy-h2-10).toFixed(1)}px,0)`}}
     // labels
     X.labels.forEach(l=>{
       const show=!!(l.test&&l.test());
@@ -3402,7 +3731,7 @@ function init3D(){
   }
   requestAnimationFrame(frame);
 
-  if(location.hash==="#debug-traffic")window.__xray={camT,cam,viewCam,setView:setView3D,enterWing,exitWing,wing:{X,go:wGoto,walk:wWalk,about:wAbout},openBook,closeBook,bookW,state:()=>({reading,cine:!!cine}),count:()=>{let m=0,c=0,inst=0;scene.traverse(o=>{if(o.isMesh||o.isPoints||o.isLine){if(o.visible){let v=true,p=o.parent;while(p){if(!p.visible){v=false;break}p=p.parent}if(v){m++;if(o.castShadow)c++;if(o.isInstancedMesh)inst++}}}});return {m,cast:c,inst}},info:()=>({calls:renderer.info.render.calls,tris:renderer.info.render.triangles,geo:renderer.info.memory.geometries,tex:renderer.info.memory.textures})};
+  if(location.hash==="#debug-traffic")window.__xray={camT,cam,viewCam,setView:setView3D,enterWing,exitWing,wing:{X,go:wGoto,walk:wWalk,about:wAbout,portrait:wPortrait,say,tour:autoTour,cancel:wCancelTour},openBook,closeBook,bookW,state:()=>({reading,cine:!!cine}),count:()=>{let m=0,c=0,inst=0;scene.traverse(o=>{if(o.isMesh||o.isPoints||o.isLine){if(o.visible){let v=true,p=o.parent;while(p){if(!p.visible){v=false;break}p=p.parent}if(v){m++;if(o.castShadow)c++;if(o.isInstancedMesh)inst++}}}});return {m,cast:c,inst}},info:()=>({calls:renderer.info.render.calls,tris:renderer.info.render.triangles,geo:renderer.info.memory.geometries,tex:renderer.info.memory.textures})};
   return {readPalette,refresh,setView:setView3D,focus,openBook,closeBook,enterWing,exitWing};
 }
 
