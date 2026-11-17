@@ -467,6 +467,7 @@ a{color:inherit;text-decoration:none}
 .wingpin .bp-dot{background:var(--accent)}
 .wingpin .bp-txt{border-color:var(--accent)}
 .wingpin:hover .bp-txt,.wingpin.hot .bp-txt{background:var(--accent);color:#1b1408}
+.wingsnap{position:absolute;inset:0;width:100%;height:100%;z-index:13;pointer-events:none;opacity:0}
 .wingfade{position:absolute;inset:0;background:#0d0c0a;opacity:0;pointer-events:none;z-index:14;transition:opacity .5s ease}
 .wing{position:absolute;inset:0;display:none;pointer-events:none;z-index:6}
 .stage.is-wing .wing{display:block}
@@ -742,6 +743,7 @@ a{color:inherit;text-decoration:none}
       <button class="rs-btn" id="certClose" type="button">Close ✕</button>
     </div>
   </div>
+  <canvas class="wingsnap" id="wingSnap" aria-hidden="true"></canvas>
   <div class="wingfade" id="wingFade"></div>
 </div>
 <div style="height:48px"></div>
@@ -1774,7 +1776,12 @@ function init3D(){
   function heroParts(n,rng){
     const P=[];let top=BASEY;
     if(n.style==="hq"){
-      n.r=10;top=tower(P,{shape:"chamfer",w:12,d:12,h:36,podium:{ex:6,h:4.2},tiers:[[1,1,.72],[.78,.78,.28]],fins:true,crown:"hq"},rng);
+      n.r=12;top=tower(P,{shape:"chamfer",w:12,d:12,h:36,podium:{ex:6,h:4.2},tiers:[[1,1,.72],[.78,.78,.28]],fins:true,crown:"hq"},rng);
+      // grand entrance: deep portico on marble columns, steps, glass double doors, sign backing
+      P.push(bx(11,.45,4.8,0,BASEY+3.9,11.4,"R"),bx(11.2,.12,5,0,BASEY+3.84,11.4,"A"),bx(10.8,1.25,.2,0,BASEY+4.4,13.86,"A"));
+      [-4.2,-1.4,1.4,4.2].forEach(x=>{P.push(cyl(.38,3.7,20,x,BASEY,13.3,"R"),cyl(.5,.16,20,x,BASEY,13.3,"A"),cyl(.46,.16,20,x,BASEY+3.74,13.3,"A"))});
+      P.push(bx(11.6,.16,.9,0,BASEY,14.25,"R"),bx(12,.09,.9,0,BASEY,15.1,"R"));
+      P.push(bx(3.5,2.8,.16,0,BASEY+.15,9.06,"D"),bx(3.7,.14,.22,0,BASEY+2.97,9.06,"A"));[-1,1].forEach(sd=>P.push(bx(.12,2.95,.22,sd*1.84,BASEY+.1,9.06,"A")));
     }else if(n.style==="tower"){
       const h=24+Math.min(n.deg,14)*1.7,v=n.vi%4;n.r=8;
       if(v===0)top=tower(P,{shape:"chamfer",w:9,d:7,h,podium:{ex:4,h:4},tiers:[[1,1,.8],[.78,.8,.2]],fins:true,crown:"mech"},rng);
@@ -1877,7 +1884,7 @@ function init3D(){
       n.style=sk;n.vi=counters[sk]=(counters[sk]===undefined?0:counters[sk]+1);
       n.fx=sk==="hq"||sk==="tower"||sk==="midrise"?"glass":sk==="datacenter"?"louver":"ribbon";
       n.neutral=sk==="datacenter"?"metal":(sk==="campus"||sk==="lab")?"stone":"glass";
-      n.tint=sk==="tower"||sk==="hq"?.3:.2;
+      n.tint=sk==="hq"?.1:sk==="tower"?.3:.2;
     });
   }
   layoutCity();
@@ -1915,6 +1922,10 @@ function init3D(){
   }
   const cPick_=[];
   nodes.forEach(n=>{finishNode(n,heroParts(n,mulb(n.i*7919+13)))});
+  const HQN=nodes.find(n=>n.style==="hq");
+  HQN.cg.rotation.y=Math.PI/2;                                   // entrance now faces the open plaza and the avenue (east)
+  {const sign=(w,h,x,y,z)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:plaqueTex("SANKET BIRADAR – HEADQUARTERS","",1500,Math.round(1500*h/w),true),toneMapped:false}));m.position.set(x,y,z);HQN.cg.add(m);return m};
+   sign(10.4,.95,0,BASEY+4.42,13.97);sign(8.8,.8,0,BASEY+22.6,6.08);}
 
   /* ---------- terrain, roads, blocks ---------- */
   const terrainH=(x,z)=>{
@@ -1997,6 +2008,15 @@ function init3D(){
    for(let k=0;k<4;k++){const a=GA+Math.PI/4+k*Math.PI/2,r=11.4;lamps.push([Math.sin(a)*r,GZ+Math.cos(a)*r,0])}
    for(let x=-21;x<=21;x+=4.6){if(Math.abs(x)>2.4){hedges.push([x,GZ-8.1,4,0]);hedges.push([x,GZ+8.1,4,0])}}
   }
+
+  // headquarters forecourt: marble plaza, flag poles and planters in front of the entrance
+  {const fx=HQN.c.x+9+5.7,fz=HQN.c.z,pm=stdMat({roughness:.3,metalness:.4,color:new THREE.Color(0x9a9ea2).convertSRGBToLinear()},1),gm=stdMat({roughness:1,color:new THREE.Color(0x56733f).convertSRGBToLinear()},.1);
+   boxT(11.6,.08,13.6,fx,BASEY+.03,fz,walkMat,3);boxT(11.8,.1,.35,fx,BASEY+.04,fz-6.9,walkMat,3);boxT(11.8,.1,.35,fx,BASEY+.04,fz+6.9,walkMat,3);
+   [-5.6,5.6].forEach(dz=>{const p=new THREE.Mesh(new THREE.CylinderGeometry(.07,.1,7.4,10),pm);p.position.set(fx+4.4,BASEY+3.7,fz+dz);p.castShadow=true;city.add(p);
+     const f=new THREE.Mesh(new THREE.PlaneGeometry(2.6,1.5),new THREE.MeshStandardMaterial({color:0x1c1b18,roughness:.7,side:THREE.DoubleSide}));f.position.set(fx+4.4,BASEY+6.3,fz+dz+1.3);f.rotation.y=Math.PI/2;city.add(f);
+     const b=new THREE.Mesh(new THREE.PlaneGeometry(2.6,.28),new THREE.MeshBasicMaterial({color:0xd8b24e,side:THREE.DoubleSide,toneMapped:false}));b.position.set(fx+4.41,BASEY+6.72,fz+dz+1.3);b.rotation.y=Math.PI/2;city.add(b)});
+   [[-3,-5.4],[-3,5.4],[3.4,-5.4],[3.4,5.4]].forEach(([dx,dz])=>{const bx2=boxT(1.3,.55,1.3,fx+dx,BASEY+.3,fz+dz,walkMat,2);bx2.castShadow=true;
+     const bl=new THREE.Mesh(noisyBlob(.7,dx*3+dz,1,.8),gm);bl.position.set(fx+dx,BASEY+.95,fz+dz);bl.castShadow=true;city.add(bl)});}
 
   /* ---------- context neighbourhoods beyond the ring road ---------- */
   const FILLER_MATS={};
@@ -2818,8 +2838,9 @@ function init3D(){
       .then(async ims=>({certs:ims,portrait:await new Promise(r=>{const im=new Image();im.onload=()=>r(im);im.onerror=()=>r(null);im.src=PORTRAIT_SRC})}));
   }
 
-  async function buildWing(){
-    if(X.built||X.building)return;X.building=true;
+  function buildWing(){return X.buildP||(X.buildP=buildWingInner())}
+  async function buildWingInner(){
+    X.building=true;
     const imgs=await loadImages(),WT=wingTextures();
     const sc=new THREE.Scene();X.scene=sc;
     sc.fog=new THREE.Fog(0xd9d2c4,45,160);
@@ -3360,31 +3381,43 @@ function init3D(){
   $("wingVoice").onclick=()=>{X.voice=!X.voice;$("wingVoice").setAttribute("aria-pressed",String(X.voice));$("wingVoice").textContent=X.voice?"🔊 Voice":"🔇 Voice";if(!X.voice)try{speechSynthesis.cancel()}catch(e){}};
   $("wingReplay").onclick=()=>{wCancelTour();wAbout(false);wBoxClose();X.cp.set(36,1.7,7);X.cl.set(16,4.2,7);X.tp.copy(X.cp);X.tl.copy(X.cl);X.trans=null;X.yaw=X.pitch=0;X.walkS=0;wGoto(0);autoTour()};
   let wingSaved=null;
+  const snapC=$("wingSnap");
+  function snapShot(){            // grab the last rendered frame so the screen is never blank while scenes swap
+    return new Promise(res=>{
+      X.snapReq=()=>{snapC.width=canvas.width;snapC.height=canvas.height;snapC.getContext("2d").drawImage(canvas,0,0);snapC.style.transition="none";snapC.style.opacity=1;res()};
+      setTimeout(()=>{if(X.snapReq){X.snapReq=null;res()}},900);
+    });
+  }
+  async function snapFadeOut(ms){
+    await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+    snapC.style.transition=`opacity ${reduce?10:ms}ms ease`;snapC.style.opacity=0;await wDelay(reduce?30:ms);
+  }
   async function enterWing(){
-    if(X.active||X.entering||reading||cine)return;X.entering=true;
-    if(mixT<=.5){setView("city");await wDelay(1100)}
-    select(null);const pre=buildWing();
+    if(X.active||X.entering||reading||cine)return;X.entering=true;X.tm={t0:performance.now(),built:X.built};
+    if(mixT<=.5)setView("city");
+    select(null);const pre=buildWing();                           // normally already prepared in the background
     wingSaved={tx:camT.tx,ty:camT.ty,tz:camT.tz,th:camT.th,ph:camT.ph,z:camT.z};
-    await new Promise(res=>cineTo({tx:HQX,ty:3.0,tz:HQZ+.4,th:.95,ph:1.25,z:baseD("city")/9.5},2.0,res));
-    await wFade(1,450);await pre;
+    // fly straight from wherever the camera is to the headquarters entrance (the city stays visible the whole way)
+    const dd=W/Math.max(1,H)<1?34:24;                                // pull back on tall (phone) screens so the whole entrance fits
+    await new Promise(res=>cineTo({tx:HQN.c.x+11,ty:4.5,tz:HQN.c.z,th:2.0,ph:1.05,z:baseD("city")/dd},2.8,res));
+    X.tm.cine=performance.now()-X.tm.t0;await snapShot();X.tm.snap=performance.now()-X.tm.t0;await pre;X.tm.ready=performance.now()-X.tm.t0;
     X.active=true;stage.classList.add("is-wing");wingEl.setAttribute("aria-hidden","false");
     X.cp.set(36,1.7,7);X.cl.set(16,4.2,7);X.trans=null;X.yaw=X.pitch=0;wThemeKey="";wingTheme(0,true);
     X.walkS=0;wGoto(0);
-    await wDelay(80);await wFade(0,600);X.entering=false;autoTour();
+    await snapFadeOut(700);X.entering=false;autoTour();           // cross-fade from the frozen city frame into the entrance
   }
   async function exitWing(){
     if(!X.active||X.exiting)return;X.exiting=true;
-    await wFade(1,420);
+    await snapShot();
     wAbout(false);wBoxClose();hideResume();
     wCancelTour();X.active=false;stage.classList.remove("is-wing");wingEl.setAttribute("aria-hidden","true");
     if(wingSaved){Object.assign(camT,wingSaved);Object.assign(cam,wingSaved)}
-    await wDelay(80);await wFade(0,520);X.exiting=false;X.entering=false;
+    await snapFadeOut(600);X.exiting=false;X.entering=false;
   }
   const wPin=$("wingPin"),wPinV=new THREE.Vector3();
-  const HQX=BLK.found.cx,HQZ=BLK.found.cz-4+9+2.4;                     // canopy of the headquarters tower
   function updateWingPin(){
     const show=mixT>.5&&mix>.92&&!reading&&!cine&&!X.active&&!X.entering;
-    wPinV.set(HQX,3.0,HQZ+.4);const dist=camera.position.distanceTo(wPinV);wPinV.project(camera);
+    wPinV.set(HQN.c.x+12,7.4,HQN.c.z);const dist=camera.position.distanceTo(wPinV);wPinV.project(camera);
     const x=(wPinV.x*.5+.5)*W,y=(-wPinV.y*.5+.5)*H,inside=wPinV.z<1&&wPinV.z>-1&&x>8&&x<W-8&&y>8&&y<H-8;
     const vis=show&&inside;wPin.style.opacity=vis?1:0;wPin.style.visibility=vis?"visible":"hidden";
     wPin.classList.toggle("near",dist<125);
@@ -3417,6 +3450,7 @@ function init3D(){
     X.vo=X.vo||{x:0,y:0};X.vo.x+=(tx-X.vo.x)*Math.min(1,dt*6);X.vo.y+=(ty-X.vo.y)*Math.min(1,dt*6);
     if(Math.abs(X.vo.x)>.5||Math.abs(X.vo.y)>.5)X.cam.setViewOffset(W,H,-X.vo.x,X.vo.y,W,H);else if(X.cam.view&&X.cam.view.enabled)X.cam.clearViewOffset();
     renderer.render(X.scene,X.cam);
+    if(X.snapReq){const f=X.snapReq;X.snapReq=null;f()}
     {const sp=$("speech");if(sp&&X.speaking){wTmp.set(-7.4,2.2,7).project(X.cam);const bx=(wTmp.x*.5+.5)*W,by=(-wTmp.y*.5+.5)*H;
        const ok2=wTmp.z<1&&wTmp.z>-1;sp.style.opacity=ok2?1:0;
        const w2=sp.offsetWidth||200,h2=sp.offsetHeight||50,cx=Math.max(w2/2+8,Math.min(W-w2/2-8,bx)),cy=Math.max(h2+16,by);
@@ -3661,6 +3695,7 @@ function init3D(){
       else if(camera.view&&camera.view.enabled)camera.clearViewOffset();
     }
     renderer.render(scene,camera);
+    if(X.snapReq){const f=X.snapReq;X.snapReq=null;f()}
     updateBookUI();updateWingPin();
 
     // ---- labels: permanent, prioritised, collision-free ----
@@ -3732,6 +3767,7 @@ function init3D(){
   requestAnimationFrame(frame);
 
   if(location.hash==="#debug-traffic")window.__xray={camT,cam,viewCam,setView:setView3D,enterWing,exitWing,wing:{X,go:wGoto,walk:wWalk,about:wAbout,portrait:wPortrait,say,tour:autoTour,cancel:wCancelTour},openBook,closeBook,bookW,state:()=>({reading,cine:!!cine}),count:()=>{let m=0,c=0,inst=0;scene.traverse(o=>{if(o.isMesh||o.isPoints||o.isLine){if(o.visible){let v=true,p=o.parent;while(p){if(!p.visible){v=false;break}p=p.parent}if(v){m++;if(o.castShadow)c++;if(o.isInstancedMesh)inst++}}}});return {m,cast:c,inst}},info:()=>({calls:renderer.info.render.calls,tris:renderer.info.render.triangles,geo:renderer.info.memory.geometries,tex:renderer.info.memory.textures})};
+  setTimeout(()=>(window.requestIdleCallback?(f=>window.requestIdleCallback(f,{timeout:2500})):(f=>setTimeout(f,600)))(()=>buildWing()),3500);
   return {readPalette,refresh,setView:setView3D,focus,openBook,closeBook,enterWing,exitWing};
 }
 
