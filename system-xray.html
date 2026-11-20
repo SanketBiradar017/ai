@@ -514,6 +514,62 @@ a{color:inherit;text-decoration:none}
   .sm-detail{padding:16px 18px 20px;max-height:none;overflow:visible}.sm-detail h3{font-size:27px}.sm-what{font-size:15px}
 }
 @media(prefers-reduced-motion:reduce){.sm-paper,.skillmenu.open,.sm-item.in,.sm-card.swap{animation:none}}
+/* ---------- The Grand Digital Exhibition (museum) ---------- */
+.mu-info{display:none;pointer-events:auto;position:absolute;right:18px;top:50%;transform:translateY(-50%);width:min(320px,calc(100% - 36px));padding:18px 20px 16px;border-radius:16px;background:rgba(18,16,13,.86);backdrop-filter:blur(12px);border:1px solid rgba(201,160,80,.35);box-shadow:0 18px 50px rgba(0,0,0,.45);color:#efe4cb;font-family:Georgia,serif}
+.mu-info.open{display:block;animation:muPanel .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes muPanel{from{opacity:0;transform:translate(14px,-50%)}to{opacity:1;transform:translateY(-50%)}}
+.mu-info h3{margin:5px 0 8px;font:700 21px/1.2 Georgia,serif;padding-right:26px}.mu-info p{margin:0 0 14px;font:13.5px/1.55 Georgia,serif;color:#d8ccb2}
+.mu-ix{position:absolute;right:10px;top:8px;width:28px;height:28px;border-radius:50%;border:1px solid rgba(201,160,80,.4);background:transparent;color:#efe4cb;font-size:17px;line-height:1;cursor:pointer}
+.mu-info .mu-vl a{padding:7px 13px;font-size:11px}
+@media(max-width:720px){.mu-info{right:8px;left:8px;top:auto;bottom:58px;width:auto;transform:none;padding:13px 15px 12px}.mu-info.open{animation:muPanelM .45s ease}.mu-info h3{font-size:16px}.mu-info p{font-size:12.5px;margin-bottom:10px}}
+@keyframes muPanelM{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+.stage.is-museum .labels,.stage.is-museum .dnav,.stage.is-museum .legend,.stage.is-museum .hint,.stage.is-museum .panel,.stage.is-museum .poi-card,.stage.is-museum .tour-hud,.stage.is-museum .bookpin{display:none!important}
+.mu-ui{display:none;position:absolute;inset:0;pointer-events:none;z-index:9}
+.stage.is-museum .mu-ui{display:block}
+.mu-btn{pointer-events:auto;height:38px;padding:0 15px;border-radius:999px;border:1px solid rgba(201,160,80,.5);background:rgba(18,16,13,.84);backdrop-filter:blur(10px);color:#efe4cb;font:700 11.5px Manrope,sans-serif;letter-spacing:.07em;cursor:pointer;white-space:nowrap;transition:background .2s,border-color .2s}
+.mu-btn:hover{background:rgba(44,37,28,.94);border-color:#c9a050}
+.mu-btn.gold{background:linear-gradient(135deg,#dcbb69,#b6903e);color:#1a150c;border-color:#dcbb69}
+.mu-btn[hidden]{display:none}.mu-btn.on{border-color:#e6c46f;color:#ffe9b0}
+.mu-top{position:absolute;left:14px;right:14px;top:14px;display:flex;gap:12px;align-items:center;justify-content:space-between}
+.mu-prog{display:grid;gap:4px;min-width:210px;padding:9px 14px;border-radius:14px;background:rgba(18,16,13,.8);border:1px solid rgba(201,160,80,.35);color:#efe4cb;text-align:center}
+.mu-prog span{font:700 9.5px 'DM Mono',monospace;letter-spacing:.18em;color:#b9a06a}.mu-prog b{font:700 20px Georgia,serif}
+.mu-prog i{display:block;height:3px;border-radius:3px;background:rgba(201,160,80,.25);overflow:hidden}.mu-prog u{display:block;height:100%;width:0;background:#d9b866;transition:width .6s;text-decoration:none}
+.mu-floor{padding:9px 14px;border-radius:999px;background:rgba(18,16,13,.8);border:1px solid rgba(201,160,80,.35);color:#efe4cb;font:700 10.5px 'DM Mono',monospace;letter-spacing:.14em;white-space:nowrap}
+.mu-bar{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:calc(100% - 20px)}
+.mu-cap{position:absolute;left:50%;bottom:66px;transform:translate(-50%,8px);width:min(580px,calc(100% - 28px));padding:13px 18px;border-radius:16px;background:rgba(18,16,13,.88);backdrop-filter:blur(12px);border:1px solid rgba(201,160,80,.4);color:#efe4cb;opacity:0;transition:opacity .5s,transform .5s}
+.mu-cap.on{opacity:1;transform:translate(-50%,0)}
+.mu-eye{font:700 10px 'DM Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#b9a06a}
+.mu-cap b{display:block;margin:3px 0 4px;font:700 20px Georgia,serif}.mu-cap p{margin:0;font:13.5px/1.5 Georgia,serif;color:#d8ccb2}
+.mu-toast{position:absolute;left:50%;top:80px;transform:translate(-50%,-8px);padding:10px 16px;border-radius:12px;background:rgba(214,176,92,.96);color:#1a150c;font:700 12px Manrope,sans-serif;opacity:0;transition:opacity .4s,transform .4s;max-width:calc(100% - 28px);text-align:center}
+.mu-toast.on{opacity:1;transform:translate(-50%,0)}
+.mu-hover{position:absolute;left:50%;top:128px;transform:translateX(-50%);padding:8px 14px;border-radius:12px;background:rgba(18,16,13,.84);border:1px solid rgba(201,160,80,.4);color:#efe4cb;opacity:0;transition:opacity .3s;text-align:center;max-width:calc(100% - 28px)}
+.mu-hover.on{opacity:1}.mu-hover b{display:block;font:700 14px Georgia,serif}.mu-hover span{font:11px Manrope,sans-serif;color:#b9a06a}
+.mu-hint{position:absolute;left:14px;bottom:66px;font:10px 'DM Mono',monospace;color:#9d8e6c;letter-spacing:.05em;max-width:34%}
+.mu-joy{display:none;pointer-events:auto;position:absolute;left:18px;bottom:78px;width:116px;height:116px;border-radius:50%;background:rgba(18,16,13,.55);border:1px solid rgba(201,160,80,.4);touch-action:none}
+.mu-joy i{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(217,184,102,.82)}
+@media(pointer:coarse){.mu-joy{display:block}.mu-hint{display:none}}
+.mu-viewer,.mu-reveal{display:none;position:absolute;inset:0;z-index:48;background:rgba(9,8,7,.94);align-items:center;justify-content:center;padding:18px;color:#efe4cb;font-family:Georgia,serif}
+.mu-viewer.open,.mu-reveal.open{display:flex;animation:muFade .45s ease}
+@keyframes muFade{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:none}}
+.mu-vbody{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:28px;align-items:center;max-width:1180px;width:100%;max-height:100%}
+.mu-vimg{display:flex;justify-content:center;max-height:calc(100vh - 150px)}.mu-vimg img{max-width:100%;max-height:min(calc(100vh - 150px),720px);object-fit:contain;border-radius:6px;box-shadow:0 20px 70px rgba(0,0,0,.6),0 0 0 1px rgba(201,160,80,.35)}
+.mu-vinfo h2{margin:6px 0 10px;font:700 30px/1.15 Georgia,serif}.mu-vinfo p{margin:0 0 16px;font:15.5px/1.6 Georgia,serif;color:#d8ccb2}
+.mu-vl{display:flex;gap:9px;flex-wrap:wrap}.mu-vl a,.mu-vl button{padding:9px 16px;border-radius:999px;border:1px solid rgba(201,160,80,.55);background:rgba(201,160,80,.12);color:#f3e6c4;font:700 12px Manrope,sans-serif;letter-spacing:.04em;text-decoration:none;cursor:pointer}
+.mu-vl a:hover,.mu-vl button:hover{background:rgba(201,160,80,.28)}
+.mu-vx{position:absolute;right:16px;top:14px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(201,160,80,.5);background:rgba(18,16,13,.8);color:#efe4cb;font-size:24px;cursor:pointer;z-index:2}
+.mu-vn{position:absolute;top:50%;width:46px;height:56px;margin-top:-28px;border-radius:12px;border:1px solid rgba(201,160,80,.4);background:rgba(18,16,13,.7);color:#efe4cb;font-size:30px;cursor:pointer;z-index:2}.mu-vn.prev{left:12px}.mu-vn.next{right:12px}
+.mu-rv{max-width:1100px;width:100%;max-height:100%;overflow:auto;text-align:center}
+.mu-rv h2{margin:8px 0 16px;font:700 34px/1.15 Georgia,serif}
+.mu-rs{display:flex;justify-content:center;gap:34px;margin:6px 0 18px;flex-wrap:wrap}.mu-rs b{display:block;font:700 44px Georgia,serif;color:#e0bd68}.mu-rs span{font:700 10px 'DM Mono',monospace;letter-spacing:.18em;color:#b9a06a}
+.mu-pan{display:flex;gap:8px;overflow:auto;padding:10px 4px 16px;justify-content:flex-start;margin-bottom:14px}.mu-pan img{height:min(26vh,210px);border-radius:5px;box-shadow:0 0 0 1px rgba(201,160,80,.35);flex:none}
+.mu-rv .mu-vl{justify-content:center}
+@media(max-width:720px){
+  .mu-top{left:8px;right:8px;top:8px;flex-wrap:wrap}.mu-prog{min-width:0;padding:7px 10px}.mu-prog b{font-size:16px}.mu-floor{font-size:9px;padding:7px 10px}
+  .mu-bar{bottom:8px;gap:6px}.mu-btn{height:34px;padding:0 10px;font-size:10px}.mu-cap{bottom:56px;padding:10px 13px}.mu-cap b{font-size:16px}.mu-cap p{font-size:12px}
+  .mu-vbody{grid-template-columns:1fr;gap:12px;overflow:auto;align-content:start}.mu-vimg img{max-height:46vh}.mu-vinfo h2{font-size:21px}.mu-vinfo p{font-size:13.5px}.mu-vn{display:none}
+  .mu-rv h2{font-size:22px}.mu-rs b{font-size:30px}.mu-rs{gap:18px}.mu-pan img{height:20vh}
+}
 /* ---------- Riverside Promenade: place card ---------- */
 .poi-card{position:absolute;left:16px;bottom:16px;z-index:38;width:min(420px,calc(100% - 32px));padding:16px 18px 15px;border-radius:20px;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.18)}
 .poi-card[hidden]{display:none}
@@ -2441,7 +2497,7 @@ function init3D(){
   rvTexRip.repeat.set(1,1);
   // keep trees, shrubs, lamps and benches out of the water and off the banks
   function rvCull(){
-    const bad=(x,z,m)=>{if(Math.abs(x)>290||Math.abs(z)>250)return false;const [bi,d]=rvNear(x,z),s=RS[bi];return d<Math.max(s.hL,s.hR)+s.ws+m};
+    const bad=(x,z,m)=>{if(x>-198&&x<-122&&z>50&&z<118)return true;if(Math.abs(x)>290||Math.abs(z)>250)return false;const [bi,d]=rvNear(x,z),s=RS[bi];return d<Math.max(s.hL,s.hR)+s.ws+m};
     for(let i=trees.length-1;i>=0;i--)if(bad(trees[i][0],trees[i][2],1.8))trees.splice(i,1);
     for(let i=shrubs.length-1;i>=0;i--)if(bad(shrubs[i][0],shrubs[i][2],1.2))shrubs.splice(i,1);
     for(let i=lamps.length-1;i>=0;i--)if(bad(lamps[i][0],lamps[i][1],.6))lamps.splice(i,1);
@@ -2824,6 +2880,7 @@ function init3D(){
       else if(poi.btns)poi.btns.forEach(x=>btn(b,x.t,()=>{const w=x.walk;cineTo({tx:w[0].tx,ty:w[0].ty,tz:w[0].tz,th:w[0].th,ph:w[0].ph,z:baseD("city")/w[0].z},2.2,()=>cineTo({tx:w[1].tx,ty:w[1].ty,tz:w[1].tz,th:w[1].th,ph:w[1].ph,z:baseD("city")/w[1].z},6.5))},true));
       else btn(b,"Look around",()=>cineTo({tx:v.tx,ty:v.ty+2,tz:v.tz,th:v.th+.8,ph:1.25,z:baseD("city")/(v.z*.7)},2.6),true);
       poiEl.hidden=false;return}
+    if(id==="museum"){enterMuseum();return}
     if(id==="skillboard"){smOpen();return}
     if(id==="cafe"){b=mk(E,"Riverside Café — Technical Skills Café","Pull up a table: the café menu lists my AI engineering and backend skills, with a real use case and project for each.");flyPOI("cafe");
       btn(b,"📖 Open the skills menu",()=>smOpen(),true);btn(b,"Step inside",()=>cineTo({tx:136,ty:2.1,tz:16,th:1.57,ph:1.5,z:baseD("city")/9},2.6));btn(b,"Terrace view",()=>cineTo({tx:156,ty:1.4,tz:16,th:-1.1,ph:1.35,z:baseD("city")/14},2.4));btn(b,"Step outside",()=>flyPOI("cafe",2.2))}
@@ -2861,6 +2918,540 @@ function init3D(){
     const ai=Math.floor(performance.now()/5200)%AMP.length;if(ai!==RV.ampTex.i&&!reduce)drawAmp(ai);
   }
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!poiEl.hidden)poiClose()});
+
+  /* =========================================================
+     THE GRAND DIGITAL EXHIBITION — a standalone four-floor museum on its own plot (west of the city).
+     Everything below is driven by MU_EXHIBITS: add an entry (or drop an exhibits.json next to the page) and the
+     display, its floor, the counters, the tour and the final reveal all follow — nothing is positioned by hand.
+     ========================================================= */
+  const MU_LI="https://www.linkedin.com/in/sanket-biradar/";
+  const MU_EXHIBITS=[
+    {id:"p01",kind:"project",title:"SourceVault AI",src:"project_imgs/SourceVault AI Knowledge Dashboard.png",desc:DESC.sourcevault},
+    {id:"p02",kind:"project",title:"DataPilot AI",src:"project_imgs/DataPilot AI Analytics Dashboard Poster.png",desc:DESC.datapilot},
+    {id:"p03",kind:"project",title:"ResearchFlow AI",src:"project_imgs/ResearchFlow AI Product Showcase.png",desc:DESC.research},
+    {id:"p04",kind:"project",title:"AutoMail AI",src:"project_imgs/AutoMail AI Email Automation Showcase.png",desc:DESC.automail},
+    {id:"p05",kind:"project",title:"Meeting Intelligence AI",src:"project_imgs/Meeting Intelligence AI Agent Showcase.png",desc:DESC.meeting},
+    {id:"p06",kind:"project",title:"Contextual Question Answering",src:"project_imgs/AI Contextual Question Answering Dashboard.png",desc:DESC.qa},
+    {id:"p07",kind:"project",title:"Multi-Agent AI Content",src:"project_imgs/Multi-Agent AI Content Showcase.png",desc:"LinkedIn showcase of a multi-agent AI content workflow."},
+    {id:"p08",kind:"project",title:"Multi-Agent Conversational System",src:"project_imgs/AI Multi-Agent Conversational System.png",desc:"LinkedIn showcase of a multi-agent conversational AI system."},
+    {id:"p09",kind:"project",title:"Intelligent AI Chatbot",src:"project_imgs/Intelligent AI Chatbot Portfolio Poster.png",desc:"LinkedIn showcase of an AI chatbot project."},
+    {id:"e01",kind:"educational",title:"Traditional AI vs Agentic AI",src:"educational_imgs/Traditional AI vs Agentic AI Explained.png",desc:"An educational post comparing traditional AI systems with agentic AI."},
+    {id:"e02",kind:"educational",title:"RAG vs Agentic RAG",src:"educational_imgs/RAG vs Agentic RAG_ Intelligent Retrieval Workflows.png",desc:"An educational post contrasting classic retrieval-augmented generation with agentic retrieval workflows."},
+    {id:"e03",kind:"educational",title:"MCP — Model Context Protocol",src:"educational_imgs/MCP Model Context Protocol Explainer.png",desc:"An educational explainer of the Model Context Protocol."},
+    {id:"e04",kind:"educational",title:"AI Tools & Tool Calling",src:"educational_imgs/AI Tools_ Tool Calling Explained.png",desc:"An educational post explaining how LLM tool calling works."},
+    {id:"e05",kind:"educational",title:"CrewAI vs AutoGen",src:"educational_imgs/CrewAI vs AutoGen_ Multi-Agent Orchestration.png",desc:"An educational comparison of two multi-agent orchestration frameworks."},
+    {id:"e06",kind:"educational",title:"AI Memory Technologies",src:"educational_imgs/AI Memory Technologies Overview.png",desc:"An educational overview of memory technologies used in AI applications."},
+    {id:"e07",kind:"educational",title:"LangChain Ecosystem",src:"educational_imgs/LangChain Ecosystem Infographic.png",desc:"An educational infographic of the LangChain ecosystem."},
+    {id:"e08",kind:"educational",title:"LangChain Ecosystem Toolkit",src:"educational_imgs/LangChain Ecosystem Toolkit Poster.png",desc:"An educational poster of the LangChain toolkit."},
+    {id:"e09",kind:"educational",title:"AI Guardrails Safety Flow",src:"educational_imgs/AI Guardrails Safety Flow.png",desc:"An educational post on guardrail flows for safer AI systems."},
+    {id:"e10",kind:"educational",title:"AI Guardrails — Safe AI, Simplified",src:"educational_imgs/AI Guardrails_ Safe AI, Simplified.png",desc:"An educational post introducing AI guardrails in simple terms."},
+    {id:"e11",kind:"educational",title:"AI Evaluations Dashboard",src:"educational_imgs/AI Evaluations Dashboard Overview.png",desc:"An educational overview of evaluating AI systems."},
+    {id:"e12",kind:"educational",title:"AI Observability Dashboard",src:"educational_imgs/AI Observability Dashboard Overview.png",desc:"An educational overview of observability for AI applications."},
+    {id:"e13",kind:"educational",title:"AI Model Serving",src:"educational_imgs/AI Model Serving Infographic.png",desc:"An educational infographic on serving AI models."}
+  ];
+  const MU={FH:7,AT:8,M:15.5,HALF:27,CX:-173.5,CZ:84,S:.62,SLOTS_PER_EDU_FLOOR:6,list:[],floors:[[],[],[],[]],byId:{},layouts:[[],[],[],[]],discovered:new Set(),tex:{}};
+  function muDistribute(list){
+    const proj=list.filter(e=>e.kind==="project"),edu=list.filter(e=>e.kind!=="project"),n=edu.length,cap=MU.SLOTS_PER_EDU_FLOOR,fl=[proj,[],[],[]];
+    if(n<=cap*3){fl[1]=edu.slice(0,cap);fl[2]=edu.slice(cap,cap*2);fl[3]=edu.slice(cap*2)}
+    else{const per=Math.ceil(n/3);fl[1]=edu.slice(0,per);fl[2]=edu.slice(per,per*2);fl[3]=edu.slice(per*2)}
+    fl[3]=fl[3].slice();if(fl[3].length<(n<=cap*3?cap:Math.ceil(n/3)))fl[3].push({id:"soon",kind:"soon",title:"Coming soon",desc:"A new exhibit is on its way.",src:""});   // one empty slot is held for the next post
+    return fl;
+  }
+  function muSetExhibits(list){
+    MU.list=list.filter(e=>e.src);MU.floors=muDistribute(list);MU.byId={};
+    MU.floors.forEach((arr,fi)=>arr.forEach(e=>{e.floor=fi+1;MU.byId[e.id]=e}));
+    MU.list=[];MU.floors.forEach(a=>a.forEach(e=>{if(e.kind!=="soon"){e.n=MU.list.length;MU.list.push(e)}}));
+    MU.floors.forEach((a,fi)=>{MU.layouts[fi]=muLayout(a.length,fi)});
+  }
+  // ---- zigzag layout: panels alternate between the atrium side and the façade side of a walking loop; the loop itself stays clear ----
+  function muLayout(n,fl){
+    const m=MU.M,sides=[{C:[m,0],d:[0,-1],o:[1,0],w:5.5},{C:[0,-m],d:[-1,0],o:[0,-1],w:6.8},{C:[-m,0],d:[0,1],o:[-1,0],w:5.5},{C:[0,m],d:[1,0],o:[0,1],w:6.8}];
+    if(fl===3)sides[0].w=7.5;                                                 // the final viewing area keeps the east side open
+    const ranges=[];sides.forEach((sd,si)=>{ranges.push([si,-13,-sd.w]);ranges.push([si,sd.w,13])});
+    let tot=0;ranges.forEach(r=>tot+=r[2]-r[1]);
+    const sp=Math.max(3.3,Math.min(6.4,tot/Math.max(1,n))),out=[];let ri=0,cur=ranges[0][1]+1.3;
+    for(let i=0;i<n;i++){
+      while(ri<ranges.length&&cur>ranges[ri][2]-1.3){ri++;if(ri<ranges.length)cur=ranges[ri][1]+1.3}
+      if(ri>=ranges.length){ri=ranges.length-1;cur=ranges[ri][2]-1.3}
+      const sd=sides[ranges[ri][0]],s=cur,a=i%2?1:-1,L=a*4.4,px=sd.C[0]+sd.d[0]*s+sd.o[0]*L,pz=sd.C[1]+sd.d[1]*s+sd.o[1]*L;
+      const tilt=a*(.44+.12*Math.sin(i*1.7)),fx=-sd.o[0]*a,fz=-sd.o[1]*a,c=Math.cos(tilt),sn=Math.sin(tilt);
+      const nx=fx*c-fz*sn,nz=fx*sn+fz*c,ry=Math.atan2(nx,nz);
+      const vx=sd.C[0]+sd.d[0]*s,vz=sd.C[1]+sd.d[1]*s;                          // viewing spot on the loop's centre line
+      out.push({x:px,z:pz,ry,thick:.5+(i%3)*.18,vx,vz,vyaw:Math.atan2(px-vx,pz-vz),side:ranges[ri][0],s});
+      cur+=sp;
+    }
+    return out;
+  }
+  // ---- stairs: switchback flights inside a stair well; the well opens through the next slab ----
+  const MU_ST=[{k:0,O:[-2.6,-17],U:[0,-1],V:[1,0]},{k:1,O:[2.6,17],U:[0,1],V:[-1,0]},{k:2,O:[-2.6,-17],U:[0,-1],V:[1,0]}];
+  MU_ST.forEach(s=>{s.pt=(u,v)=>[s.O[0]+s.U[0]*u+s.V[0]*v,s.O[1]+s.U[1]*u+s.V[1]*v]});
+  const muStUV=(s,x,z)=>[(x-s.O[0])*s.U[0]+(z-s.O[1])*s.U[1],(x-s.O[0])*s.V[0]+(z-s.O[1])*s.V[1]];
+  function muRamp(s,x,z){const [u,v]=muStUV(s,x,z),y0=MU.FH*s.k;
+    if(u>=0&&u<=6&&v>=0&&v<=2.4)return y0+3.5*u/6;
+    if(u>6&&u<=8.4&&v>=0&&v<=5.2)return y0+3.5;
+    if(u>=0&&u<=6&&v>=2.8&&v<=5.2)return y0+3.5+3.5*(6-u)/6;
+    return null}
+  const muInWell=(s,x,z,u0)=>{const [u,v]=muStUV(s,x,z);return u>=u0&&u<=8.4&&v>=0&&v<=5.2};
+  function muSurface(x,z,y){
+    if(Math.abs(x)>MU.HALF-.5||Math.abs(z)>MU.HALF-.5)return null;
+    const at=Math.abs(x)<MU.AT&&Math.abs(z)<MU.AT;let best=null,bd=1e9;
+    const take=h=>{const d=Math.abs(h-y);if(d<=.62&&d<bd){bd=d;best=h}};
+    for(let k=0;k<4;k++){
+      if(at)continue;                                                          // atrium: the pool below, open air above
+      let ok=true;
+      MU_ST.forEach(s=>{if(s.k===k&&muInWell(s,x,z,.05))ok=false;                // nobody walks under a flight
+        if(s.k+1===k&&muInWell(s,x,z,-.0001))ok=false});                       // the opening in the upper slab
+      if(ok)take(MU.FH*k);
+    }
+    MU_ST.forEach(s=>{const h=muRamp(s,x,z);if(h!==null)take(h)});
+    return best;
+  }
+  function muHitPanel(x,z,y,r){
+    const fl=Math.round(y/MU.FH);if(fl<0||fl>3||Math.abs(y-MU.FH*fl)>.7)return false;
+    const L=MU.layouts[fl];for(let i=0;i<L.length;i++){const p=L[i],dx=x-p.x,dz=z-p.z,c=Math.cos(p.ry),s=Math.sin(p.ry);
+      const lx=dx*c-dz*s,lz=dx*s+dz*c;if(Math.abs(lx)<2.7+r&&Math.abs(lz)<p.thick/2+r)return true}return false}
+  // slide-move: try the full step, then each axis on its own; refuse any step that has no floor under it or hits a panel
+  function muMove(p,dx,dz){
+    const r=.45,tryAt=(x,z)=>{const h=muSurface(x,z,p.y);return h!==null&&!muHitPanel(x,z,h,r)?h:null};
+    let h=tryAt(p.x+dx,p.z+dz);
+    if(h!==null){p.x+=dx;p.z+=dz;return h}
+    h=tryAt(p.x+dx,p.z);if(h!==null){p.x+=dx;return h}
+    h=tryAt(p.x,p.z+dz);if(h!==null){p.z+=dz;return h}
+    return null}
+  // ---- navigation for the tour: a closed loop on every floor + the exact stair centre lines ----
+  const MU_LOOP=[[MU.M,MU.M],[MU.M,-MU.M],[-MU.M,-MU.M],[-MU.M,MU.M]];
+  function muLoopT(x,z){let best=1e9,bt=0,acc=0;for(let i=0;i<4;i++){const a=MU_LOOP[i],b=MU_LOOP[(i+1)%4],l=Math.hypot(b[0]-a[0],b[1]-a[1]),dx=(b[0]-a[0])/l,dz=(b[1]-a[1])/l,t=Math.max(0,Math.min(l,(x-a[0])*dx+(z-a[1])*dz)),px=a[0]+dx*t,pz=a[1]+dz*t,d=Math.hypot(x-px,z-pz);if(d<best){best=d;bt=acc+t}acc+=l}return bt}
+  function muLoopP(t){const per=4*2*MU.M;t=((t%per)+per)%per;const l=2*MU.M;const i=Math.floor(t/l),f=t-i*l,a=MU_LOOP[i%4],b=MU_LOOP[(i+1)%4];return [a[0]+(b[0]-a[0])*f/l,a[1]+(b[1]-a[1])*f/l]}
+  function muLoopPath(x0,z0,x1,z1){const per=8*MU.M,t0=muLoopT(x0,z0),t1=muLoopT(x1,z1);let d=t1-t0;if(d>per/2)d-=per;if(d<-per/2)d+=per;
+    const pts=[],step=2*MU.M;let t=t0;const sg=d>=0?1:-1;
+    const corner=Math.floor(t0/step+(sg>0?1e-6:-1e-6));let c=sg>0?Math.floor(t0/step)+1:Math.ceil(t0/step)-1;
+    while(sg>0?c*step<t0+d-.01:c*step>t0+d+.01){pts.push(muLoopP(c*step));c+=sg}
+    pts.push(muLoopP(t0+d));return pts}
+  function muStairPath(s,up){
+    const p=(u,v)=>s.pt(u,v),a=[p(-1.4,1.2),p(.4,1.2),p(5.7,1.2),p(7.2,1.8),p(7.2,3.6),p(5.7,4.0),p(.5,4.0),p(-1.4,4.0)];
+    return up?a:a.slice().reverse()}
+  // pure-logic self test (also exposed for debugging): can the walker climb every flight through the real surface rules?
+  function muSelfTest(){
+    const res={};
+    MU_ST.forEach((s,i)=>{const pl={x:0,y:MU.FH*s.k,z:0},path=muStairPath(s,true);pl.x=path[0][0];pl.z=path[0][1];pl.y=muSurface(pl.x,pl.z,pl.y);let ok=pl.y!==null,steps=0;
+      for(let k=1;k<path.length&&ok;k++){const tx=path[k][0],tz=path[k][1];let guard=0;while(Math.hypot(tx-pl.x,tz-pl.z)>.06&&guard++<600){const d=Math.hypot(tx-pl.x,tz-pl.z),st=Math.min(.12,d),h=muMove(pl,(tx-pl.x)/d*st,(tz-pl.z)/d*st);if(h===null){ok=false;break}pl.y=h;steps++}}
+      res["stair"+(i+1)]={reached:ok,finalY:pl.y,expected:MU.FH*(s.k+1),steps}});
+    return res}
+  // ---- exterior: scaled to the neighbourhood (≈ a 7-storey block), on the end of the south-west avenue, with its own road, plaza and car park ----
+  const muP=[],muGl=[],muFm=fmFor("punched","stone"),muSc=MU.S,muEL=MU.HALF+.4;       // muEL = local x of the entrance façade
+  const mX=x=>MU.CX+x*muSc,mZ=z=>MU.CZ+z*muSc,mY=y=>BASEY+y*muSc;
+  const mB=(w,h,d,x,y,z,sl,ry)=>muP.push(bx(w*muSc,h*muSc,d*muSc,mX(x),mY(y),mZ(z),sl,ry||0)),mC=(r,h,n,x,y,z,sl,rt)=>muP.push(cyl(r*muSc,h*muSc,n,mX(x),mY(y),mZ(z),sl,rt===undefined?undefined:rt*muSc));
+  const wB=(w,h,d,x,y,z,sl,ry)=>muP.push(bx(w,h,d,x,y,z,sl,ry||0)),wC=(r,h,n,x,y,z,sl,rt)=>muP.push(cyl(r,h,n,x,y,z,sl,rt));
+  const muPX=mX(muEL+13.6),muLane=-129;                                              // muPX = front edge of the entrance steps
+  {const H=29,E=muEL,cz=MU.CZ,gl=(r,x,y,z)=>muGl.push({g:new THREE.SphereGeometry(r*muSc,6,5),x:mX(x),y:mY(y),z:mZ(z)});
+   // plinth, stone wings + rear block, tall glass hall between them
+   mB(58,.9,58,0,0,0,"R");mB(18,H,54,-18,1.2,0,"R");mB(36,H,13,9,1.2,-20.5,"R");mB(36,H,13,9,1.2,20.5,"R");
+   [-1,1].forEach(sd=>{for(let k=0;k<5;k++){const z=sd*(20.5-5.2+k*2.6);mB(.5,23,.9,E-.7,3.2,z,"G");mB(.6,23.4,.14,E-.65,3,z-.55,"A");mB(.6,23.4,.14,E-.65,3,z+.55,"A")}});
+   mB(.5,H-1,28,E-.45,1.2,0,"G");for(let z=-13;z<=13.1;z+=2.6)mB(.34,H-1,.5,E+.05,1.2,z,"A");
+   [7.3,14.3,21.3,28.3].forEach(y=>mB(1.2,.5,28.4,E-.4,y,0,"R"));
+   mB(39,.9,57,-.5,H+1.2,0,"R");mB(39.4,.5,57.4,-.5,H+2.1,0,"A");
+   // skylight over the atrium + the rooftop water channel
+   mB(17,1.5,17,0,H+2.1,0,"D");[-8.5,-4,0,4,8.5].forEach(o=>{mB(.3,1.6,17.4,o,H+2.1,0,"A");mB(17.4,.3,.3,0,H+3.4,o,"A")});mB(17.6,.4,.4,0,H+3.6,0,"A");
+   mB(10,.9,2.6,-14,H+2.1,0,"R");mB(9.4,.12,2.1,-14,H+2.95,0,"D");
+   // entrance: four columns, canopy, glass doors, steps
+   mB(15,1.3,32,E+6.6,13.2,0,"R");mB(15.2,.3,32.2,E+6.6,14.5,0,"A");
+   [-13.5,-4.6,4.6,13.5].forEach(z=>{mC(1.05,13.2,24,E+12.6,0,z,"R");mC(1.3,.4,24,E+12.6,0,z,"A");mC(1.2,.4,24,E+12.6,13.0,z,"A")});
+   mB(.4,5.6,7.4,E+.1,1.2,0,"D");[-3.9,3.9].forEach(dz=>mB(.5,5.8,.5,E+.15,1.2,dz,"A"));
+   for(let i=0;i<4;i++)mB(1.6,.3*(i+1),30,E+13.4+i*.9,0,0,"R");
+   [-17,17].forEach(z=>mB(1.4,22,2.4,E+1.2,1.2,z,"R"));
+   for(let z=-14;z<=14.1;z+=4.7){gl(.2,E+13.8,.9,z);gl(.2,E+.4,.8,z)}[-13.5,-4.6,4.6,13.5].forEach(z=>gl(.28,E+11.2,.7,z));
+   // ---- ground: avenue extension, drop-off lane, plaza, car park (all world coordinates) ----
+   planeT(5,6,-127.5,cz,.04,asphaltMat,12);planeT(5,2.2,-127.5,cz-3.9,.1,walkMat,6);planeT(5,2.2,-127.5,cz+3.9,.1,walkMat,6);          // the existing avenue, continued to the lane
+   planeT(6,58,muLane,cz,.04,asphaltMat,12);                                                                                              // N–S drop-off lane, z 55..113
+   [[-1],[1]].forEach(([sg])=>{planeT(2.2,23,-132.8,cz+sg*17.5,.1,walkMat,6)});                                                          // lane footway on the plaza side
+   for(let k=-3;k<=3;k++)boxT(5.4,.02,.5,muLane,.055,cz+k*1.2,markMat,2);                                                              // zebra crossing where the avenue meets the lane
+   boxT(14,.26,34,-139,.13,cz,walkMat,6);boxT(14,.27,2.4,-139,.135,cz,pavMat,3);boxT(.3,.3,34,-132.1,.15,cz,pavMat,3);                    // entrance plaza + its central axis + kerb
+   [[-1],[1]].forEach(([sg])=>{const zc=cz+sg*(17+5.8);                                                                                 // two small car parks, entered from the lane
+     boxT(12,.04,11.8,-140,.02,zc,asphaltMat,12);
+     for(let i=0;i<=5;i++){const x=-146+i*2.4;[sg>0?zc-3.45:zc+3.45,sg>0?zc+3.45:zc-3.45].forEach(zz=>boxT(.12,.02,4.2,x,.05,zz,markMat,2))}
+     boxT(12,.07,1.1,-140,.29,cz+sg*(17+11.4),lawnMat,1.7)});
+   boxT(46,.07,12,-168,.29,cz-29,lawnMat,1.7);boxT(46,.07,12,-168,.29,cz+29,lawnMat,1.7);boxT(8,.07,34,-186,.29,cz,lawnMat,1.7);
+   // plaza furniture: planters, bollards, flag poles
+   [[-141.5,cz-12],[-141.5,cz+12],[-135.5,cz-9],[-135.5,cz+9]].forEach(([x,z])=>{wB(2.2,.55,2.2,x,.26,z,"R");wB(1.9,.4,1.9,x,.81,z,"L")});
+   for(let z=cz-15;z<=cz+15.1;z+=3){if(Math.abs(z-cz)<2.2)continue;wC(.14,.75,8,-132.9,.26,z,"R")}
+   [-6,6].forEach(dz=>{wC(.07,5.6,6,-143,.26,cz+dz,"A");wB(.05,1.1,1.7,-143,4.4,cz+dz+.86,"A")});
+   // bake with the city's own theme-aware material set
+   const baked=bake(muP,BASEY),grp=new THREE.Group();
+   for(const s in baked){const m=new THREE.Mesh(baked[s],muFm[s]);m.castShadow=s!=="D"&&s!=="L";m.receiveShadow=true;if(s==="D")m.renderOrder=2;grp.add(m)}
+   city.add(grp);city.add(new THREE.Mesh(mergeParts(muGl),rvGlowM));
+   const sg=(t,s,w,h,x,y,z)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(w*muSc,h*muSc),new THREE.MeshBasicMaterial({map:plaqueTex(t,s,1500,Math.round(1500*h/w),true),toneMapped:false}));m.position.set(mX(x),mY(y),mZ(z));m.rotation.y=Math.PI/2;city.add(m)};
+   sg("THE GRAND DIGITAL EXHIBITION","Sanket Biradar · LinkedIn showcase museum",17,2.3,E+14.2,13.8,0);
+   sg("THE GRAND DIGITAL EXHIBITION","",20,2.2,E+.6,26.6,0);
+   // a handful of parked cars (one merged geometry, instanced, varied colours)
+   {const car=mergeCol([{g:new THREE.BoxGeometry(2.1,.5,.95),y:.45,c:[1,1,1]},{g:new THREE.BoxGeometry(1.1,.4,.86),x:-.1,y:.85,c:[.55,.62,.7]},{g:new THREE.CylinderGeometry(.22,.22,1,8),x:.65,y:.22,rx:0,c:[.1,.1,.1]},{g:new THREE.CylinderGeometry(.22,.22,1,8),x:-.65,y:.22,c:[.1,.1,.1]}].map(o=>{if(o.g.type==="CylinderGeometry")o.g.rotateX(Math.PI/2);return o}));
+     const cr=mulb(333),slots=[];[-1,1].forEach(sg2=>{const zc=cz+sg2*(17+5.8);for(let i=0;i<5;i++)[-3.45,3.45].forEach(o=>{if(cr()<.62)slots.push([-146+1.2+i*2.4,zc+o,Math.PI/2])})});
+     const cm=new THREE.InstancedMesh(car,new THREE.MeshStandardMaterial({vertexColors:true,roughness:.4,metalness:.45}),Math.max(1,slots.length));
+     const pal=[0xb02a2a,0x2d4a7a,0xe8e8e4,0x1c1d20,0x7a8088,0x2f6a52,0xc79a3a];
+     slots.forEach((s2,i)=>{D.position.set(s2[0],.3,s2[1]);D.rotation.set(0,s2[2],0);D.scale.set(.95,.95,.95);D.updateMatrix();cm.setMatrixAt(i,D.matrix);cm.setColorAt(i,new THREE.Color(pal[Math.floor(cr()*pal.length)]).convertSRGBToLinear())});
+     cm.count=slots.length;cm.castShadow=true;cm.frustumCulled=false;city.add(cm)}
+   RV.POI.push({id:"museum",proxy:rProxy(58*muSc,34*muSc,58*muSc,MU.CX,17*muSc,cz)});
+  }
+  // landscaping is added after the city's tree clean-up (see muLate)
+  function muLate(){
+    const cz=MU.CZ,r=mulb(2718);
+    for(let x=-189;x<=-148;x+=6.5){trees.push([x,.3,cz-29+(r()-.5)*3,.85+r()*.3,r()<.4?1:0],[x,.3,cz+29+(r()-.5)*3,.85+r()*.3,r()<.4?1:0])}
+    for(let z=cz-16;z<=cz+16.1;z+=8)trees.push([-186.5,.3,z,.9+r()*.2,0]);
+    [-139.8,-137].forEach(x=>[cz-13.5,cz+13.5].forEach(z=>trees.push([x,.8,z,.65,0])));
+    for(let x=-146;x<=-134;x+=6)[cz-23.2,cz+23.2].forEach(z=>trees.push([x,.3,z,.7,0]));
+    for(let x=-137;x<=-125;x+=6){trees.push([x,.1,cz-3.9,.7,0],[x,.1,cz+3.9,.7,0])}
+    for(let z=cz-26;z<=cz+26.1;z+=13)lamps.push([-126.2,z,Math.PI/2]);
+    for(let z=cz-14;z<=cz+14.1;z+=14)lamps.push([-133.6,z,-Math.PI/2]);
+    [[-136,cz-8],[-136,cz+8],[-141.2,cz-5],[-141.2,cz+5]].forEach(([x,z])=>benches.push([x,z,Math.PI/2]));
+    for(let i=0;i<9;i++)shrubs.push([-157.2+(r()-.5)*.4,.3,cz-18+i*4.5,.5+r()*.25]);
+  }
+  // ---- interior: built once, on first entry, as its own scene (same pattern as the Executive Wing) ----
+  const M={active:false,entering:false,exiting:false,built:false,scene:null,cam:null,disp:[],floorTex:[false,false,false,false],t:0,mist:null};
+  function muBuild(){
+    if(M.built)return;
+    const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(56,1,.1,170);M.scene=sc;M.cam=cam;sc.fog=new THREE.Fog(0x0d0c0b,38,120);sc.background=new THREE.Color(0x0d0c0b);
+    const mat=(o,env)=>{const m=new THREE.MeshStandardMaterial(o);m.envMapIntensity=env===undefined?.6:env;return m};
+    // polished black marble
+    const mc=(()=>{const [c,g]=mkC(512),r=mulb(77);g.fillStyle="#141517";g.fillRect(0,0,512,512);
+      for(let i=0;i<46;i++){g.strokeStyle=`rgba(${120+r()*70|0},${120+r()*60|0},${125+r()*60|0},${.05+r()*.14})`;g.lineWidth=.5+r()*1.6;g.beginPath();let x=r()*512,y=r()*512;g.moveTo(x,y);for(let k=0;k<5;k++){x+=(r()-.5)*160;y+=(r()-.5)*160;g.quadraticCurveTo(x+(r()-.5)*70,y+(r()-.5)*70,x,y)}g.stroke()}
+      speck(g,512,2200,26,56,2);return toTex(c)})();
+    const MM={S:mat({map:T.conc.map,color:lin(0x2a2c30),roughness:.78},.3),R:mat({map:T.conc.map,color:lin(0x17181a),roughness:.55},.5),A:mat({color:lin(0xc9a050),metalness:.92,roughness:.3},1.3),
+      G:mat({map:mc,color:0xdddddd,roughness:.12,metalness:.2},.6),D:new THREE.MeshStandardMaterial({color:0x9bb7c6,transparent:true,opacity:.2,roughness:.05,metalness:.2,side:THREE.DoubleSide,depthWrite:false}),L:mat({map:T.conc.map,color:lin(0x202226),roughness:.9},.2)};
+    MM.D.envMapIntensity=1.2;
+    const P=[],GLOW=[],SLIT=[],B=(w,h,d,x,y,z,s,ry)=>P.push(bx(w,h,d,x,y,z,s,ry||0)),C=(r,h,n,x,y,z,s,rt)=>P.push(cyl(r,h,n,x,y,z,s,rt));
+    const FH=MU.FH,AT=MU.AT,Hf=27,TUBE=(a,b,r)=>P.push(part(new THREE.TubeGeometry(new THREE.LineCurve3(V3(a[0],a[1],a[2]),V3(b[0],b[1],b[2])),1,r||.04,6),"A",0,0,0));
+    // floors: slabs built from cells around the holes (atrium + the stair opening that arrives on that level)
+    const holes=k=>{const h=[];if(k>0)h.push([-AT,AT,-AT,AT]);MU_ST.forEach(s=>{if(s.k+1===k){const a=s.pt(0,0),b=s.pt(8.4,5.2);h.push([Math.min(a[0],b[0]),Math.max(a[0],b[0]),Math.min(a[1],b[1]),Math.max(a[1],b[1])])}});return h};
+    const slab=(k,y,t)=>{const hs=k===99?[[-AT,AT,-AT,AT]]:holes(k),xs=[-Hf,Hf],zs=[-Hf,Hf];if(k===0)hs.push([-AT,AT,-AT,AT]);
+      hs.forEach(h=>{xs.push(h[0],h[1]);zs.push(h[2],h[3])});xs.sort((a,b)=>a-b);zs.sort((a,b)=>a-b);
+      for(let i=0;i<xs.length-1;i++)for(let j=0;j<zs.length-1;j++){const cx=(xs[i]+xs[i+1])/2,cz=(zs[j]+zs[j+1])/2,w=xs[i+1]-xs[i],d=zs[j+1]-zs[j];if(w<.01||d<.01)continue;
+        if(hs.some(h=>cx>h[0]&&cx<h[1]&&cz>h[2]&&cz<h[3]))continue;B(w,t,d,cx,y-t,cz,"G")}};
+    for(let k=0;k<4;k++)slab(k,FH*k,.6);
+    slab(99,FH*4,.8);                                                        // roof with the big skylight opening
+    // ground floor reflecting pool
+    B(16.8,1.9,.5,0,-1.6,-8.3,"R");B(16.8,1.9,.5,0,-1.6,8.3,"R");B(.5,1.9,16.2,-8.3,-1.6,0,"R");B(.5,1.9,16.2,8.3,-1.6,0,"R");B(16,.3,16,0,-1.9,0,"R");
+    [[0,-8.3,17.2,.8],[0,8.3,17.2,.8],[-8.3,0,.8,16.4],[8.3,0,.8,16.4]].forEach(a=>B(a[2],.4,a[3],a[0],0,a[1],"A"));
+    // outer walls (door opening on the east wall) and four atrium columns
+    B(1,29.2,55,-27,-.6,0,"S");B(55,29.2,1,0,-.6,-27,"S");B(55,29.2,1,0,-.6,27,"S");
+    B(1,29.2,23.5,27,-.6,-15.75,"S");B(1,29.2,23.5,27,-.6,15.75,"S");B(1,23.7,8,27,5.5,0,"S");[-3.9,3.9].forEach(z=>B(1.2,5.6,.4,26.7,0,z,"A"));
+    [[-8.9,-8.9],[8.9,-8.9],[-8.9,8.9],[8.9,8.9]].forEach(a=>{C(.85,28.2,20,a[0],-.6,a[1],"R");for(let k=0;k<4;k++)C(1,.25,20,a[0],FH*k,a[1],"A")});
+    // glass balustrades round the atrium on every upper floor
+    for(let k=1;k<=3;k++){const y=FH*k;[-1,1].forEach(sd=>{B(16,1.1,.08,0,y,sd*(AT+.05),"D");B(16.2,.08,.14,0,y+1.1,sd*(AT+.05),"A");B(.08,1.1,16,sd*(AT+.05),y,0,"D");B(.14,.08,16.2,sd*(AT+.05),y+1.1,0,"A")})}
+    // stair wells: solid steps, landing, spine wall, handrails and glass round the slab opening
+    MU_ST.forEach(s=>{const y0=FH*s.k,wp=(u,v)=>s.pt(u,v),rise=.35,run=.6;
+      for(let i=0;i<10;i++){const p=wp((i+.5)*run,1.2);B(2.4,rise*(i+.5),run,p[0],y0,p[1],"R");const q=wp(6-(i+.5)*run,4.0);B(2.4,3.5+rise*(i+.5),run,q[0],y0,q[1],"R")}
+      let p=wp(7.2,2.6);B(5.2,3.5,2.4,p[0],y0,p[1],"R");p=wp(3,2.6);B(.4,FH,6,p[0],y0,p[1],"S");
+      {const a=wp(0,0),b=wp(6,0),c=wp(6,5.2),e=wp(0,5.2);TUBE([a[0],y0+1.1,a[1]],[b[0],y0+4.6,b[1]],.05);TUBE([c[0],y0+4.6,c[1]],[e[0],y0+8.1,e[1]],.05);
+       for(let u=0;u<=6.01;u+=1.5){const q=wp(u,0),r2=wp(u,5.2);C(.035,1.1,6,q[0],y0+u/6*3.5,q[1],"A");C(.035,1.1,6,r2[0],y0+3.5+(6-u)/6*3.5,r2[1],"A")}}
+      const yu=FH*(s.k+1),eg=(u0,v0,u1,v1)=>{const a=wp(u0,v0),b=wp(u1,v1),mx=(a[0]+b[0])/2,mz=(a[1]+b[1])/2,w=Math.abs(a[0]-b[0])+.08,d=Math.abs(a[1]-b[1])+.08;B(w,1.1,d,mx,yu,mz,"D");B(w+.06,.08,d+.06,mx,yu+1.1,mz,"A")};
+      eg(0,0,8.4,0.0001);eg(0,5.2,8.4,5.2);eg(8.4,0,8.4,5.2);eg(0,0,0,2.7)});
+    // display walls (zigzag) + frames + ceiling track lights
+    const DISP=[];
+    MU.floors.forEach((arr,fi)=>arr.forEach((ex,i)=>{const L=MU.layouts[fi][i],y=FH*fi,c=Math.cos(L.ry),sn=Math.sin(L.ry),lp=(lx,lz)=>[L.x+lx*c+lz*sn,L.z-lx*sn+lz*c];
+      B(5.4,5.2,L.thick,L.x,y,L.z,"S",L.ry);B(5.6,.16,L.thick+.1,L.x,y+5.2,L.z,"A",L.ry);B(5.6,.3,L.thick+.14,L.x,y,L.z,"A",L.ry);
+      const fp=lp(0,L.thick/2+.07);B(4.5,4.5,.12,fp[0],y+.62,fp[1],"A",L.ry);
+      const tp=lp(0,L.thick/2+1.2);B(3.6,.12,.2,tp[0],y+6.2,tp[1],"A",L.ry);[-1.4,0,1.4].forEach(o=>{const q=lp(o,L.thick/2+1.2);C(.12,.3,10,q[0],y+5.95,q[1],"A");GLOW.push({g:new THREE.CircleGeometry(.1,10),x:q[0],y:y+5.93,z:q[1],rx:Math.PI/2})});
+      DISP.push({ex,fi,L,y,lp})}));
+    // light slits in the outer walls, warm ceiling coves
+    for(let k=0;k<4;k++)for(let o=-20;o<=20.1;o+=10){const y=FH*k+1.4;SLIT.push({g:new THREE.PlaneGeometry(2.4,4.4),x:o,y:y+2.2,z:-26.46},{g:new THREE.PlaneGeometry(2.4,4.4),x:o,y:y+2.2,z:26.46,ry:Math.PI},{g:new THREE.PlaneGeometry(2.4,4.4),x:-26.46,y:y+2.2,z:o,ry:Math.PI/2},{g:new THREE.PlaneGeometry(2.4,4.4),x:26.46,y:y+2.2,z:o+(Math.abs(o)<5?99:0),ry:-Math.PI/2})}
+    for(let k=0;k<4;k++){const y=FH*(k+1)-.7;[-1,1].forEach(sd=>{GLOW.push({g:new THREE.BoxGeometry(31,.07,.34),x:0,y,z:sd*MU.M},{g:new THREE.BoxGeometry(.34,.07,31),x:sd*MU.M,y,z:0})})}
+    // rooftop channel + beams over the skylight
+    [-8.5,-4,0,4,8.5].forEach(o=>{B(.4,.5,17.6,o,FH*4+.8,0,"A");B(17.6,.5,.4,0,FH*4+.8,o,"A")});
+    B(2.4,.6,12,-4,FH*4+.8,0,"R");B(7,.7,7,0,FH*4,0,"R");
+    // final viewing area on floor 4 (east side): dais, seating and a plaque
+    {const y=FH*3,fx=21.5;C(3.7,.5,40,fx,y,0,"R");C(3.78,.12,40,fx,y+.5,0,"A");C(.9,1.1,20,fx,y+.5,0,"S");B(2.2,.12,1.4,fx,y+1.6,0,"A",.3);
+     [-1,1].forEach(sd=>{B(.9,.5,4.6,fx-5.4,y,sd*3.5,"S");B(.5,.5,3.4,fx+5.2,y,sd*3.6,"S")});}
+    // reflecting pool floor sparkle + glow bodies (merged once)
+    const baked=bake(P,0),g=new THREE.Group();
+    for(const s in baked){const m=new THREE.Mesh(baked[s],MM[s]);m.receiveShadow=false;if(s==="D")m.renderOrder=3;g.add(m)}
+    sc.add(g);M.MM=MM;
+    M.glowMat=new THREE.MeshBasicMaterial({color:0xffd8a0,toneMapped:false});M.slitMat=new THREE.MeshBasicMaterial({color:0xaec6d6,toneMapped:false});
+    const mg=(list,m)=>{const gg=new THREE.BufferGeometry(),pos=[],nor=[];list.forEach(o=>{const q=o.g.index?o.g.toNonIndexed():o.g.clone();if(o.rx)q.rotateX(o.rx);if(o.ry)q.rotateY(o.ry);q.translate(o.x,o.y,o.z);const pa=q.attributes.position.array,na=q.attributes.normal.array;for(let i=0;i<pa.length;i++){pos.push(pa[i]);nor.push(na[i])}});gg.setAttribute("position",new THREE.Float32BufferAttribute(pos,3));gg.setAttribute("normal",new THREE.Float32BufferAttribute(nor,3));return new THREE.Mesh(gg,m)};
+    sc.add(mg(GLOW,M.glowMat),mg(SLIT.filter(o=>o.x<90&&o.z<90),M.slitMat));
+    // daylight beyond the entrance door and over the skylight
+    {const d=new THREE.Mesh(new THREE.PlaneGeometry(14,12),new THREE.MeshBasicMaterial({color:0xcfe0ea,toneMapped:false,side:THREE.DoubleSide}));d.position.set(32,3.5,0);d.rotation.y=-Math.PI/2;sc.add(d);
+     const sk=new THREE.Mesh(new THREE.PlaneGeometry(40,40),new THREE.MeshBasicMaterial({color:0x9fbad0,toneMapped:false,side:THREE.DoubleSide}));sk.rotation.x=Math.PI/2;sk.position.set(0,FH*4+7,0);sc.add(sk)}
+    // radial glow texture for the wall washes
+    const rg=(()=>{const [c,gg]=mkC(128),gr=gg.createRadialGradient(64,64,0,64,64,64);gr.addColorStop(0,"rgba(255,226,170,.9)");gr.addColorStop(1,"rgba(255,226,170,0)");gg.fillStyle=gr;gg.fillRect(0,0,128,128);const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;return t})();
+    const plq=(t,k,ww)=>{const [c,gg]=mkC(512);c.height=64;gg.fillStyle="#17181a";gg.fillRect(0,0,512,64);gg.strokeStyle="rgba(201,160,80,.7)";gg.lineWidth=2;gg.strokeRect(2,2,508,60);gg.textAlign="left";gg.fillStyle="#e9dcc0";gg.font="700 22px Georgia,serif";let s=t;while(gg.measureText(s).width>470&&s.length>6)s=s.slice(0,-2);if(s!==t)s+="…";gg.fillText(s,18,28);gg.fillStyle="#b6975a";gg.font="italic 15px Georgia,serif";gg.fillText(k,18,50);const tx=new THREE.CanvasTexture(c);tx.encoding=THREE.sRGBEncoding;tx.anisotropy=aniso;return tx};
+    const phTex=t=>{const [c,gg]=mkC(256);c.height=288;gg.fillStyle="#1d1f23";gg.fillRect(0,0,256,288);gg.strokeStyle="#c9a050";gg.lineWidth=2;gg.strokeRect(10,10,236,268);gg.fillStyle="#c9a050";gg.textAlign="center";gg.font="700 22px Georgia,serif";gg.fillText(t,128,150);const tx=new THREE.CanvasTexture(c);tx.encoding=THREE.sRGBEncoding;return tx};
+    M.disp=DISP.map((d,i)=>{const ex=d.ex,Wd=3.4,Hd=3.8,mapT=phTex(ex.kind==="soon"?"COMING SOON":"Loading…"),mesh=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:mapT,toneMapped:false}));
+      const pp=d.lp(0,d.L.thick/2+.14);mesh.position.set(pp[0],d.y+2.75,pp[1]);mesh.rotation.y=d.L.ry;mesh.scale.set(Wd,Hd,1);mesh.userData.disp=i;sc.add(mesh);
+
+      const wq=d.lp(0,d.L.thick/2+.04),wash=new THREE.Mesh(new THREE.PlaneGeometry(7,6.4),new THREE.MeshBasicMaterial({map:rg,transparent:true,opacity:.12,depthWrite:false,blending:THREE.AdditiveBlending,toneMapped:false}));wash.position.set(wq[0],d.y+2.8,wq[1]);wash.rotation.y=d.L.ry;sc.add(wash);
+      return {ex,d,mesh,wash,mat:mesh.material,tex:mapT,vx:d.L.vx,vz:d.L.vz,vyaw:d.L.vyaw,y:d.y,hot:0}});
+    // lights: a handful only (warm room + aqua pool)
+    sc.add(new THREE.HemisphereLight(0xdfe6ee,0x2a2018,.62));M.hemi=sc.children[sc.children.length-1];
+    const PL=(c,i,d,x,y,z)=>{const l=new THREE.PointLight(c,i,d,1.6);l.position.set(x,y,z);sc.add(l);return l};
+    M.pl=[PL(0x9fe6ff,1.2,26,0,.2,0),PL(0xffd9a0,1.1,60,0,19,0),PL(0xffe0b0,.8,40,0,3.5,-14),PL(0xffe0b0,.8,40,0,3.5,14),PL(0xffe0b0,.8,40,0,10.5,0),PL(0xffe0b0,.8,40,0,17.5,0),PL(0xffe0b0,.8,40,0,24.5,0)];
+    if(lowPower){[2,3,5,6].forEach(i=>{M.pl[i].visible=false})}               // phones: fewer lights, same look
+    // environment for the marble reflections
+    {const es=new THREE.Scene(),eu={top:{value:new THREE.Color(1,.9,.75)},hor:{value:new THREE.Color(.38,.3,.22)},sunCol:{value:new THREE.Color(1,.82,.55)},sunDir:{value:new THREE.Vector3(.1,.95,-.1).normalize()},op:{value:1},exp:{value:5}};
+      es.add(new THREE.Mesh(new THREE.SphereGeometry(50,32,16),new THREE.ShaderMaterial({uniforms:eu,vertexShader:SKY_V,fragmentShader:SKY_F,side:THREE.BackSide})));sc.environment=pmrem.fromScene(es,.03).texture}
+    muWaterfall(sc);
+    M.built=true;muHud();
+  }
+  // ---- the central waterfall: a curtain falling from the rooftop trough into the reflecting pool ----
+  function muWaterfall(sc){
+    const V="varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}",
+      F="uniform float t;uniform float a;varying vec2 vUv;float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1.,0.)),f.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.,1.)),f.x),f.y);}"+
+      "void main(){float y=vUv.y,u=vUv.x*54.;float s1=n(vec2(u,y*13.+t*5.2)),s2=n(vec2(u*1.7+3.,y*27.+t*8.8)),s3=n(vec2(u*.6,y*5.+t*3.1));float st=smoothstep(.34,.9,s1*.55+s2*.35+s3*.25);float foam=smoothstep(.1,0.,y)*(.5+.5*n(vec2(u*2.,t*6.)));vec3 col=mix(vec3(.6,.8,.92),vec3(1.),st*.85+foam);float al=clamp(.32+st*.68,0.,1.)*a*smoothstep(1.,.985,y);gl_FragColor=vec4(col,clamp(al+foam*.55,0.,.9));gl_FragColor=linearToOutputTexel(gl_FragColor);}";
+    const mk=(r0,r1,len,y,a,tm)=>{const m=new THREE.Mesh(new THREE.CylinderGeometry(r0,r1,len,56,1,true),new THREE.ShaderMaterial({uniforms:{t:{value:0},a:{value:a}},vertexShader:V,fragmentShader:F,transparent:true,depthWrite:false,side:THREE.DoubleSide}));m.position.set(0,y,0);m.renderOrder=4;sc.add(m);return m};
+    M.wf=[mk(2.7,3.0,27.4,14.3,.82),mk(1.75,1.95,27.2,14.4,.7)];
+    // rooftop basin and pool water
+    const rim=new THREE.Mesh(new THREE.CylinderGeometry(3.4,3.6,.8,40),new THREE.MeshStandardMaterial({color:0x1b1c1e,roughness:.5,metalness:.2}));rim.position.set(0,28.2,0);sc.add(rim);
+    const top=new THREE.Mesh(new THREE.CircleGeometry(3.05,40),new THREE.MeshBasicMaterial({color:0xcfeaf4,toneMapped:false}));top.rotation.x=-Math.PI/2;top.position.set(0,28.62,0);sc.add(top);
+    const rip=rvTexRip.clone();rip.needsUpdate=true;rip.repeat.set(3,3);M.rip=rip;
+    const pool=new THREE.Mesh(new THREE.PlaneGeometry(15.8,15.8),new THREE.MeshStandardMaterial({color:0x1d6d78,roughness:.06,metalness:.25,transparent:true,opacity:.86,bumpMap:rip,bumpScale:.6}));pool.rotation.x=-Math.PI/2;pool.position.set(0,-.18,0);pool.material.envMapIntensity=1.4;sc.add(pool);
+    const under=new THREE.Mesh(new THREE.PlaneGeometry(15.4,15.4),new THREE.MeshBasicMaterial({color:0x0c3a46,toneMapped:false}));under.rotation.x=-Math.PI/2;under.position.set(0,-1.7,0);sc.add(under);
+    [[-5.5,-5.5],[5.5,-5.5],[-5.5,5.5],[5.5,5.5],[0,-6.4],[0,6.4],[-6.4,0],[6.4,0]].forEach(a=>{const d=new THREE.Mesh(new THREE.CircleGeometry(.55,16),new THREE.MeshBasicMaterial({color:0x7fe6ff,toneMapped:false}));d.rotation.x=-Math.PI/2;d.position.set(a[0],-1.62,a[1]);sc.add(d)});
+    // splash + mist (cheap points; fewer on phones)
+    const NS=lowPower?90:240,pos=new Float32Array(NS*3),ph=Float32Array.from({length:NS},()=>Math.random()),an=Float32Array.from({length:NS},()=>Math.random()*6.283),sg=new THREE.BufferGeometry();sg.setAttribute("position",new THREE.BufferAttribute(pos,3));
+    const sp=new THREE.Points(sg,new THREE.PointsMaterial({color:0xeaf8ff,size:.16,transparent:true,opacity:.85,depthWrite:false}));sp.frustumCulled=false;sc.add(sp);
+    const NM=lowPower?30:80,mp=new Float32Array(NM*3),mph=Float32Array.from({length:NM},()=>Math.random()),man=Float32Array.from({length:NM},()=>Math.random()*6.283),mg=new THREE.BufferGeometry();mg.setAttribute("position",new THREE.BufferAttribute(mp,3));
+    const mist=new THREE.Points(mg,new THREE.PointsMaterial({color:0xdff3fa,size:2.6,transparent:true,opacity:.1,depthWrite:false}));mist.frustumCulled=false;sc.add(mist);
+    M.fx={NS,pos,ph,an,sg,NM,mp,mph,man,mg};
+    const rings=[0,1,2].map(i=>{const m=new THREE.Mesh(new THREE.RingGeometry(.4,.5,48),new THREE.MeshBasicMaterial({color:0xdff3f8,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide}));m.rotation.x=-Math.PI/2;m.position.set(0,-.14,0);sc.add(m);return m});M.rings=rings;
+  }
+  function muUpdateWater(dt,time){
+    M.wf.forEach((m,i)=>{m.material.uniforms.t.value=time*(i?1.15:1)});M.rip.offset.y=(M.rip.offset.y-dt*.03)%1;M.rip.offset.x=Math.sin(time*.2)*.04;
+    const f=M.fx;for(let i=0;i<f.NS;i++){const t=(time*.9+f.ph[i])%1,r=2.7+t*(1.6+f.ph[i]*2.2);f.pos[i*3]=Math.cos(f.an[i])*r;f.pos[i*3+1]=-.1+Math.sin(t*3.14159)*(1.1+f.ph[i]*1.4);f.pos[i*3+2]=Math.sin(f.an[i])*r}f.sg.attributes.position.needsUpdate=true;
+    for(let i=0;i<f.NM;i++){const t=(time*.15+f.mph[i])%1,r=1.5+t*5;f.mp[i*3]=Math.cos(f.man[i]+time*.1)*r;f.mp[i*3+1]=.4+t*6;f.mp[i*3+2]=Math.sin(f.man[i]+time*.1)*r}f.mg.attributes.position.needsUpdate=true;
+    M.rings.forEach((m,i)=>{const t=((time*.55)+i/3)%1,s=1+t*7;m.scale.set(s,s,s);m.material.opacity=.5*(1-t)});
+  }
+  // ---- textures: loaded floor by floor, downscaled, disposed when the visitor leaves ----
+  function muLoadTex(ex){
+    if(!ex.src||ex.tex||ex.loading)return;ex.loading=true;
+    const im=new Image();im.onload=()=>{
+      const mx=lowPower?640:1024,sc=Math.min(1,mx/Math.max(im.naturalWidth,im.naturalHeight)),w=Math.round(im.naturalWidth*sc),h=Math.round(im.naturalHeight*sc),c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(im,0,0,w,h);
+      const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.anisotropy=aniso;t.generateMipmaps=true;t.minFilter=THREE.LinearMipmapLinearFilter;ex.tex=t;ex.aspect=im.naturalWidth/im.naturalHeight;ex.loading=false;
+      const tc=document.createElement("canvas"),ts=300/Math.max(w,h);tc.width=Math.round(w*ts);tc.height=Math.round(h*ts);tc.getContext("2d").drawImage(c,0,0,tc.width,tc.height);ex.thumb=tc.toDataURL("image/jpeg",.82);
+      const d=M.disp.find(q=>q.ex===ex);if(d){d.mat.map=t;d.mat.needsUpdate=true;const hd=3.8,wd=Math.min(4.7,hd*ex.aspect),h2=wd/ex.aspect;d.mesh.scale.set(wd,Math.min(hd,h2),1)}
+    };im.onerror=()=>{ex.loading=false};im.src=encodeURI(ex.src);
+  }
+  function muLoadFloor(fl){if(fl<0||fl>3)return;M.floorTex[fl]=true;(MU.floors[fl]||[]).forEach(muLoadTex)}
+  function muDispose(){MU.list.forEach(e=>{if(e.tex){e.tex.dispose();e.tex=null}e.loading=false;e.thumb=null});M.floorTex=[false,false,false,false]}
+  // ---- discovery ----
+  const MU_KEY="gde-discovered";
+  try{const s=JSON.parse(localStorage.getItem(MU_KEY)||"[]");s.forEach(id=>MU.discovered.add(id))}catch(e){}
+  const muTotal=()=>MU.list.length,muDone=()=>MU.list.filter(e=>MU.discovered.has(e.id)).length,muUnlocked=()=>muTotal()>0&&muDone()>=muTotal();
+  function muDiscover(ex){if(!ex||ex.kind==="soon"||MU.discovered.has(ex.id))return;MU.discovered.add(ex.id);try{localStorage.setItem(MU_KEY,JSON.stringify([...MU.discovered]))}catch(e){}muHud();if(muUnlocked())muToast("All exhibits discovered — the Grand Final Reveal is unlocked.")}
+  // ---- HUD, viewer, final reveal (DOM, created once) ----
+  const muDom=document.createElement("div");muDom.className="mu-ui";
+  muDom.innerHTML='<div class="mu-top"><button class="mu-btn" id="muExit" type="button">← Exit museum</button><div class="mu-prog" role="status"><span>EXHIBITION DISCOVERED</span><b id="muCount">0 / 0</b><i><u id="muBar"></u></i></div><div class="mu-floor" id="muFloor"></div></div>'+
+    '<div class="mu-cap" id="muCap"><div class="mu-eye" id="muCapE"></div><b id="muCapT"></b><p id="muCapP"></p></div><div class="mu-toast" id="muToast"></div>'+
+    ''+
+    '<div class="mu-bar" role="group" aria-label="Museum controls"><button class="mu-btn" id="muPrev" type="button" aria-label="Previous exhibit">◀ PREV</button><button class="mu-btn gold" id="muNext" type="button" aria-label="Next exhibit">NEXT ▶</button><button class="mu-btn" id="muTour" type="button">START AUTO TOUR</button><button class="mu-btn" id="muPause" type="button" hidden>PAUSE</button><button class="mu-btn" id="muSkipD" type="button" hidden>SKIP DISPLAY</button><button class="mu-btn" id="muSkipS" type="button" hidden>SKIP SECTION</button><button class="mu-btn" id="muTourX" type="button" hidden>EXIT TOUR</button><button class="mu-btn" id="muFinal" type="button">GRAND FINAL REVEAL 🔒</button></div>'+
+    '<div class="mu-hint" id="muHint">NEXT ▶ walks you to the next exhibit · WASD to walk · drag to look · click an exhibit for details</div><div class="mu-joy" id="muJoy"><i></i></div>';
+  stage.appendChild(muDom);
+  // click-only information panel: the artwork stays on its wall; nothing is shown until a visitor clicks it
+  const muV=document.createElement("div");muV.className="mu-info";muV.setAttribute("role","dialog");muV.setAttribute("aria-hidden","true");
+  muV.innerHTML='<button class="mu-ix" type="button" aria-label="Close details">×</button><div class="mu-eye"></div><h3></h3><p></p><div class="mu-vl"></div>';muDom.appendChild(muV);
+  const muR=document.createElement("div");muR.className="mu-reveal";muR.setAttribute("role","dialog");muR.setAttribute("aria-hidden","true");stage.appendChild(muR);
+  const $m=id=>document.getElementById(id);
+  function muToast(t){const e=$m("muToast");e.textContent=t;e.classList.add("on");clearTimeout(muToast.t);muToast.t=setTimeout(()=>e.classList.remove("on"),4200)}
+  function muHud(){const n=muTotal(),d=muDone();$m("muCount").textContent=d+" / "+n;$m("muBar").style.width=(n?d/n*100:0)+"%";const b=$m("muFinal");b.textContent=muUnlocked()?"GRAND FINAL REVEAL ✦":"GRAND FINAL REVEAL 🔒";b.classList.toggle("on",muUnlocked());b.title=muUnlocked()?"Open the panoramic overview":`Open ${n-d} more exhibit${n-d===1?"":"s"} to unlock`}
+  const FLN=["FLOOR 1 · PROJECT EXHIBITION","FLOOR 2 · KNOWLEDGE I","FLOOR 3 · KNOWLEDGE II","FLOOR 4 · KNOWLEDGE III"];
+  let muViewI=-1;
+  function muOpenViewer(n){const L=MU.list;if(!L.length)return;muViewI=(n+L.length)%L.length;const ex=L[muViewI];muDiscover(ex);
+    muV.querySelector(".mu-eye").textContent=(ex.kind==="project"?"Project showcase":"Educational post")+" · Floor "+ex.floor;
+    muV.querySelector("h3").textContent=ex.title;muV.querySelector("p").textContent=ex.desc||"";
+    const l=muV.querySelector(".mu-vl");l.innerHTML="";const a=document.createElement("a");a.href=ex.url||MU_LI;a.target="_blank";a.rel="noopener";a.textContent=ex.url?"View original LinkedIn post ↗":"Open on LinkedIn ↗";l.appendChild(a);
+    if(ex.link){const b=document.createElement("a");b.href=ex.link;b.target="_blank";b.rel="noopener";b.textContent="View project ↗";l.appendChild(b)}
+    muV.classList.remove("open");void muV.offsetWidth;muV.classList.add("open");muV.setAttribute("aria-hidden","false")}
+  function muCloseViewer(){muV.classList.remove("open");muV.setAttribute("aria-hidden","true");muViewI=-1}
+  muV.querySelector(".mu-ix").onclick=muCloseViewer;
+  function muReveal(){
+    if(!muUnlocked()){muToast("Open every exhibit to unlock the Grand Final Reveal.");return}
+    const pj=MU.list.filter(e=>e.kind==="project").length,ed=MU.list.filter(e=>e.kind==="educational").length;
+    M.rev={t:0};
+    muR.innerHTML='<div class="mu-rv"><div class="mu-eye">THE GRAND DIGITAL EXHIBITION</div><h2>Ideas shared. Systems built. Knowledge explored.</h2><div class="mu-rs"><div><b>'+pj+'</b><span>PROJECTS</span></div><div><b>'+ed+'</b><span>EDUCATIONAL POSTS</span></div><div><b>'+MU.list.length+'</b><span>TOTAL EXHIBITS</span></div></div><div class="mu-pan"></div><div class="mu-vl"><a href="#" id="muRvP">Explore my projects</a><a href="'+MU_LI+'" target="_blank" rel="noopener">Visit my LinkedIn profile ↗</a><button type="button" id="muRvX">Close</button></div></div>';
+    const pan=muR.querySelector(".mu-pan");MU.list.forEach(ex=>{const i=document.createElement("img");i.alt=ex.title;i.loading="lazy";i.src=ex.thumb||encodeURI(ex.src);i.title=ex.title;pan.appendChild(i)});
+    muR.classList.add("open");muR.setAttribute("aria-hidden","false");
+    muR.querySelector("#muRvX").onclick=muRevealClose;muR.querySelector("#muRvP").onclick=e=>{e.preventDefault();muRevealClose();exitMuseum().then(()=>{if(chips.proj)chips.proj.click()})};
+  }
+  function muRevealClose(){muR.classList.remove("open");muR.setAttribute("aria-hidden","true");M.rev=null}
+  muR.addEventListener("pointerdown",e=>{if(e.target===muR)muRevealClose()});
+  $m("muFinal").onclick=muReveal;
+  $m("muExit").onclick=()=>exitMuseum();
+  // ---- first-person controller + camera (no avatar): the visitor's eyes are the camera ----
+  const MS={yaw:-Math.PI/2,pitch:0,keys:{},joy:{x:0,z:0},drag:null,lastDrag:0,bob:0,speedNow:0,eye:1.65};
+  const MP={x:24,y:0,z:0,yaw:-Math.PI/2};
+  function muSnapY(){const h=muSurface(MP.x,MP.z,MP.y);if(h!==null)MP.y=h}
+  const muAng=(a,b)=>{let d=b-a;while(d>Math.PI)d-=6.2832;while(d<-Math.PI)d+=6.2832;return d};
+  function muPlace(x,y,z,yaw){MP.x=x;MP.y=y;MP.z=z;MP.yaw=yaw;MS.yaw=yaw;MS.pitch=0;MS.speedNow=0;MS.bob=0;muSnapY()}
+  // one physics step: world-space velocity in, grounded result out (stairs follow the real surfaces)
+  function muWalk(dt,vx,vz){
+    const sp=Math.hypot(vx,vz);let moved=0;
+    if(sp>.001){const ox=MP.x,oz=MP.z,h=muMove(MP,vx*dt,vz*dt);if(h!==null){MP.y+=(h-MP.y)*Math.min(1,dt*14);moved=Math.hypot(MP.x-ox,MP.z-oz)/Math.max(dt,1e-4)}else muSnapY()}
+    else{const h=muSurface(MP.x,MP.z,MP.y);if(h!==null)MP.y+=(h-MP.y)*Math.min(1,dt*14)}
+    MP.yaw=MS.yaw;MS.speedNow+=(moved-MS.speedNow)*Math.min(1,dt*10);return moved}
+  function muCamera(dt){
+    const k=Math.min(1,MS.speedNow/3.2);MS.bob+=MS.speedNow*dt*2.3;
+    const onStair=MU_ST.some(s=>muRamp(s,MP.x,MP.z)!==null),bob=Math.sin(MS.bob*2)*.04*k*(onStair?1.4:1);
+    M.cam.position.set(MP.x,MP.y+MS.eye+bob,MP.z);M.cam.rotation.order="YXZ";M.cam.rotation.set(MS.pitch+Math.sin(MS.bob)*.004*k,MS.yaw+Math.PI,Math.sin(MS.bob)*.006*k)}
+  function muManualInput(dt){
+    const k=MS.keys,turn=(k.arrowleft?1:0)-(k.arrowright?1:0);if(turn)MS.yaw+=turn*dt*1.9;
+    const fw=(k.w||k.arrowup?1:0)-(k.s||k.arrowdown?1:0)+(-MS.joy.z),st=(k.d?1:0)-(k.a?1:0)+MS.joy.x;
+    const run=k.shift?1.55:1,spd=3.3*run,len=Math.hypot(fw,st);if(len<.05){muWalk(dt,0,0);return}
+    const n=Math.min(1,len),f=[Math.sin(MS.yaw),Math.cos(MS.yaw)],r=[-Math.cos(MS.yaw),Math.sin(MS.yaw)];
+    muWalk(dt,(f[0]*fw+r[0]*st)/len*spd*n,(f[1]*fw+r[1]*st)/len*spd*n)}
+  // nearest display in front of the visitor → gentle emphasis + title
+  function muProximity(dt){
+    const fl=Math.round(MP.y/MU.FH);let best=null,bd=1e9;
+    M.disp.forEach(d=>{const near=d.fi===fl&&Math.abs(MP.y-d.y)<1.2;let target=0;
+      if(near){const dx=d.d.L.x-MP.x,dz=d.d.L.z-MP.z,dist=Math.hypot(dx,dz);if(dist<8){const a=Math.abs(muAng(MS.yaw,Math.atan2(dx,dz)));if(a<.9){target=1;if(dist<bd){bd=dist;best=d}}}}
+      d.hot+=(target-d.hot)*Math.min(1,dt*5);d.wash.material.opacity=.1+.34*d.hot;d.mat.color.setScalar(.82+.2*d.hot)});
+  }
+  const muRay=new THREE.Raycaster(),muMouse=new THREE.Vector2();
+  function muPick(cx,cy){const r=canvas.getBoundingClientRect();muMouse.set(((cx-r.left)/r.width)*2-1,-((cy-r.top)/r.height)*2+1);muRay.setFromCamera(muMouse,M.cam);const h=muRay.intersectObjects(M.disp.map(d=>d.mesh),false);return h.length?M.disp[h[0].object.userData.disp]:null}
+  // input (capture phase, so the city's own handlers stay out of the way while the museum is open)
+  const muOpen=()=>M.active&&!muR.classList.contains("open");
+  canvas.addEventListener("pointerdown",e=>{if(!M.active)return;e.stopImmediatePropagation();if(!muOpen())return;MS.drag={x:e.clientX,y:e.clientY,sx:e.clientX,sy:e.clientY,moved:0,id:e.pointerId};try{canvas.setPointerCapture(e.pointerId)}catch(_){}},true);
+  canvas.addEventListener("pointermove",e=>{if(!M.active)return;e.stopImmediatePropagation();const d=MS.drag;
+    if(d&&d.id===e.pointerId){const dx=e.clientX-d.x,dy=e.clientY-d.y;d.x=e.clientX;d.y=e.clientY;d.moved+=Math.abs(dx)+Math.abs(dy);if(!MT.on||MT.paused){if(MN.on)VW=null;MS.yaw-=dx*.0045;MS.pitch=Math.max(-1.15,Math.min(1.15,MS.pitch-dy*.0038));MS.lastDrag=performance.now()}}
+    else if(e.pointerType==="mouse"&&muOpen())canvas.classList.toggle("hover",!!muPick(e.clientX,e.clientY))},true);
+  const muUp=e=>{if(!M.active)return;e.stopImmediatePropagation();const d=MS.drag;MS.drag=null;if(d&&d.moved<7&&e.type==="pointerup"&&muOpen()){const p=muPick(d.sx,d.sy);if(p&&p.ex.kind!=="soon"){if(MT.on&&!MT.paused)muToast("Pause the tour to open an exhibit yourself.");else muOpenViewer(MU.list.indexOf(p.ex))}}};
+  canvas.addEventListener("pointerup",muUp,true);canvas.addEventListener("pointercancel",muUp,true);
+  canvas.addEventListener("wheel",e=>{if(!M.active)return;e.stopImmediatePropagation();e.preventDefault()},{capture:true,passive:false});
+  document.addEventListener("keydown",e=>{if(!M.active)return;const k=e.key.toLowerCase();
+    if(k==="escape"&&muV.classList.contains("open")){muCloseViewer();e.stopImmediatePropagation();return}
+    if(!MT.on&&!muR.classList.contains("open")&&!(e.target&&e.target.closest&&e.target.closest("input,textarea"))){if(k==="n"||k===" "){muNext(1);e.preventDefault();e.stopImmediatePropagation();return}if(k==="p"){muNext(-1);e.stopImmediatePropagation();return}}
+    if(muR.classList.contains("open")){if(k==="escape")muRevealClose();return}
+    if(k==="escape"){if(MT.on)muTourStop();else exitMuseum();e.stopImmediatePropagation();return}
+    if(["w","a","s","d","shift","arrowup","arrowdown","arrowleft","arrowright"].includes(k)){if(!(e.target&&e.target.closest&&e.target.closest("input,textarea")))MS.keys[k]=1;if(k.startsWith("arrow"))e.preventDefault();e.stopImmediatePropagation()}},true);
+  document.addEventListener("keyup",e=>{if(!M.active)return;delete MS.keys[e.key.toLowerCase()]},true);
+  window.addEventListener("blur",()=>{MS.keys={}});
+  {const jy=$m("muJoy"),kn=jy.firstChild;let id=null,o=null;
+   jy.addEventListener("pointerdown",e=>{id=e.pointerId;o=jy.getBoundingClientRect();jy.setPointerCapture(id);upd(e)});
+   const upd=e=>{if(e.pointerId!==id)return;const cx=o.left+o.width/2,cy=o.top+o.height/2,dx=(e.clientX-cx)/(o.width/2),dy=(e.clientY-cy)/(o.height/2),l=Math.hypot(dx,dy),n=l>1?1/l:1;MS.joy.x=dx*n;MS.joy.z=dy*n;kn.style.transform=`translate(${dx*n*30}px,${dy*n*30}px)`};
+   jy.addEventListener("pointermove",upd);const end=e=>{if(e.pointerId!==id)return;id=null;MS.joy.x=MS.joy.z=0;kn.style.transform=""};jy.addEventListener("pointerup",end);jy.addEventListener("pointercancel",end)}
+  // ---- museum auto tour: the visitor's eyes walk the loop and the real stair surfaces; every await is guarded by one token ----
+  const MT={on:false,paused:false,tok:0,agent:null,waits:[],skipD:false,skipS:false,floor:0,boost:1},MN={on:false,tok:0,i:-1};
+  const muAlive=t=>MT.on&&t===MT.tok;
+  const muWait=ms=>new Promise(r=>MT.waits.push({left:reduce?Math.min(ms,600):ms,r}));
+  function muCap(e,t,p){$m("muCapE").textContent=e;$m("muCapT").textContent=t;$m("muCapP").textContent=p||"";$m("muCap").classList.add("on")}
+  let VW=null;                                                                // where the eyes should settle (yaw/pitch), or null = look along the path
+  function muWalkPath(pts){return new Promise(res=>{MT.agent={pts:pts.slice(),i:0,res,stuck:0}})}
+  const muPos=()=>[MP.x,MP.z],muAl=t=>typeof t==="function"?t():muAlive(t);
+  function muRouteTo(x,z){const [a,b]=muPos(),near=muLoopP(muLoopT(a,b)),pts=[];if(Math.hypot(near[0]-a,near[1]-b)>.9)pts.push(near);return pts.concat(muLoopPath(near[0],near[1],x,z),[[x,z]])}
+  // smooth, human pace: eases out of a stop, slows for turns and stairs, eases into the final waypoint
+  function muAgentStep(dt){
+    const a=MT.agent;if(!a)return false;if(a.i>=a.pts.length){MT.agent=null;a.res(true);return false}
+    const tx=a.pts[a.i][0],tz=a.pts[a.i][1],dx=tx-MP.x,dz=tz-MP.z,d=Math.hypot(dx,dz),last=a.i===a.pts.length-1;
+    if(d<.22){a.i++;return true}
+    const hd=Math.atan2(dx,dz),ae=Math.abs(muAng(MS.yaw,hd));
+    if(!VW)MS.yaw+=muAng(MS.yaw,hd)*Math.min(1,dt*2.6);
+    let tgt=2.7*(1-Math.min(.55,ae*.45));if(last)tgt=Math.min(tgt,.4+d*1.15);if(MU_ST.some(s=>muRamp(s,MP.x,MP.z)!==null))tgt*=.82;
+    if(a.v===undefined)a.v=MS.speedNow;a.v+=(tgt-a.v)*Math.min(1,dt*2.6);
+    const sp=Math.min(a.v,d/Math.max(dt,1e-4)),ox=MP.x,oz=MP.z;muWalk(dt,dx/d*sp,dz/d*sp);
+    if(Math.hypot(MP.x-ox,MP.z-oz)<sp*dt*.15&&d>.3){a.stuck+=dt;if(a.stuck>1.4){a.i++;a.stuck=0}}else a.stuck=0;return true}
+  async function muGoto(x,z,t){const ok=await muWalkPath(muRouteTo(x,z));return ok&&muAl(t)}
+  async function muFace(yaw,tok){VW={yaw,pitch:0};for(let i=0;i<90&&muAlive(tok);i++){if(Math.abs(muAng(MS.yaw,yaw))<.05)break;await muWait(30)}return muAlive(tok)}
+  async function muClimb(k,tok){                                              // from the loop point at the stair entrance, up the real flights, back onto the loop of the next floor
+    const s=MU_ST[k],ent=s.pt(-1.4,2.6),loopP=muLoopP(muLoopT(ent[0],ent[1]));
+    if(!await muGoto(loopP[0],loopP[1],tok))return false;
+    muCap("Staircase","Up to Floor "+(k+2),"Following the stairs to the next exhibition floor.");
+    if(!await muWalkPath(muStairPath(s,true))||!muAlive(tok))return false;
+    return true}
+  async function muTourRun(tok){
+    $m("muCap").classList.remove("on");M.floorTex[0]||muLoadFloor(0);
+    muPlace(24,0,0,-Math.PI/2);MS.yaw=-Math.PI/2;
+    muCap("Welcome","The Grand Digital Exhibition","Four floors of exhibits around a waterfall that falls from the rooftop.");
+    await muWait(3600);if(!muAlive(tok))return;
+    if(!await muGoto(17,0,tok))return;
+    if(!await muFace(-Math.PI/2,tok))return;
+    muCap("The Atrium","A waterfall from the rooftop","It falls from the skylight into the reflecting pool and stays in view on every floor.");
+    await muWait(4200);if(!muAlive(tok))return;
+    for(let f=0;f<4;f++){
+      MT.floor=f;muLoadFloor(f);muLoadFloor(f+1);MT.skipS=false;
+      const ds=M.disp.filter(d=>d.d.fi===f);
+      muCap("Floor "+(f+1),FLN[f].split(" · ")[1],ds.length+" exhibit"+(ds.length===1?"":"s")+" on this floor.");await muWait(1800);if(!muAlive(tok))return;
+      for(const d of ds){
+        if(MT.skipS)break;MT.skipD=false;
+        const ok=await muGoto(d.vx,d.vz,tok);if(!muAlive(tok))return;if(!ok||MT.skipD||MT.skipS)continue;
+        if(!await muFace(d.vyaw,tok))return;
+        VW={yaw:d.vyaw,pitch:Math.atan2(d.y+2.7-(MP.y+MS.eye),Math.hypot(d.d.L.x-MP.x,d.d.L.z-MP.z))};
+        $m("muCap").classList.remove("on");
+        let w=d.ex.kind==="soon"?1800:3800;while(w>0&&muAlive(tok)&&!MT.skipD&&!MT.skipS){await muWait(120);w-=120}
+        if(!muAlive(tok))return}
+      VW=null;$m("muCap").classList.remove("on");
+      if(f<3){if(!await muClimb(f,tok))return;MT.skipS=false}
+    }
+    // final viewing area on floor 4
+    muCap("Final experience","The panoramic viewing area","One last stop above the waterfall.");
+    if(!await muGoto(17.8,0,tok))return;if(!await muFace(Math.PI/2,tok))return;
+    await muWait(1500);if(!muAlive(tok))return;
+    MT.on=false;muTourUi();if(muUnlocked())muReveal();else muToast("Tour complete — click every exhibit to unlock the Grand Final Reveal.");
+  }
+  function muTourUi(){const on=MT.on;$m("muTour").hidden=on;$m("muPrev").hidden=on;$m("muNext").hidden=on;["muPause","muSkipD","muSkipS","muTourX"].forEach(id=>$m(id).hidden=!on);$m("muPause").textContent=MT.paused?"RESUME":"PAUSE";if(!on)$m("muCap").classList.remove("on")}
+  function muTourStart(){if(MT.on||TP.on||!M.active)return;muNavCancel();muCloseViewer();muRevealClose();MT.on=true;MT.paused=false;MT.skipD=MT.skipS=false;MT.waits.length=0;MT.agent=null;const tok=++MT.tok;muTourUi();muTourRun(tok)}
+  function muTourStop(){if(!MT.on)return;MT.on=false;MT.tok++;MT.agent=null;MT.waits.length=0;MT.paused=false;muSnapY();muTourUi()}
+  $m("muTour").onclick=muTourStart;$m("muTourX").onclick=muTourStop;
+  $m("muPause").onclick=()=>{if(!MT.on)return;MT.paused=!MT.paused;muTourUi()};
+  $m("muSkipD").onclick=()=>{if(MT.on){MT.skipD=true;if(MT.agent){const a=MT.agent;MT.agent=null;a.res(false)}}};
+  $m("muSkipS").onclick=()=>{if(MT.on){MT.skipS=true;MT.skipD=true;if(MT.agent){const a=MT.agent;MT.agent=null;a.res(false)}}};
+  // ---- guided navigation: NEXT / PREV walk (never jump) to the neighbouring exhibit and climb or descend the real stairs by themselves ----
+  const muSleep=ms=>new Promise(r=>setTimeout(r,ms)),muFloorNow=()=>Math.max(0,Math.min(3,Math.round(MP.y/MU.FH)));
+  function muStops(){const st=[];M.disp.filter(d=>d.ex.kind!=="soon").forEach(d=>st.push({d,fl:d.d.fi,x:d.vx,z:d.vz,yaw:d.vyaw}));st.push({final:true,fl:3,x:17.8,z:0,yaw:Math.PI/2});return st}
+  function muNavCancel(){if(!MN.on)return;MN.on=false;MN.tok++;if(MT.agent){const a=MT.agent;MT.agent=null;a.res(false)}VW=null;muNavUi()}
+  async function muNavTo(st,al){
+    for(let g=0;g<4&&al()&&muFloorNow()!==st.fl;g++){const f=muFloorNow(),up=st.fl>f,s=MU_ST[up?f:f-1],a=up?s.pt(-1.4,1.2):s.pt(-1.4,4.0),lp=muLoopP(muLoopT(a[0],a[1]));
+      if(!await muGoto(lp[0],lp[1],al))return false;if(!await muWalkPath(muStairPath(s,up))||!al())return false}
+    if(!al()||muFloorNow()!==st.fl)return false;
+    if(!await muGoto(st.x,st.z,al))return false;
+    const pitch=st.d?Math.atan2(st.d.y+2.7-(MP.y+MS.eye),Math.hypot(st.d.d.L.x-MP.x,st.d.d.L.z-MP.z)):0;
+    VW={yaw:st.yaw,pitch};for(let i=0;i<60&&al();i++){if(Math.abs(muAng(MS.yaw,st.yaw))<.05&&Math.abs(MS.pitch-pitch)<.04)break;await muSleep(40)}
+    return al()}
+  function muNavUi(){const n=Math.max(0,muStops().length-1);$m("muNext").textContent=MN.on?"NEXT ▶ ···":"NEXT ▶";$m("muNext").title=MN.i<0?"Walk to the first exhibit":"Walk to the next exhibit ("+Math.min(MN.i+2,n)+" of "+n+")"}
+  async function muNext(dir){
+    if(MT.on||!M.active||muR.classList.contains("open"))return;
+    const st=muStops(),last=st.length-1;if(!last)return;
+    let i=MN.i+dir;if(dir>0&&MN.i>=last){muToast("That was the last exhibit.");return}i=Math.max(0,Math.min(last,i));
+    muCloseViewer();muNavCancel();MN.on=true;MN.i=i;const tok=++MN.tok,al=()=>MN.on&&tok===MN.tok;muNavUi();
+    const ok=await muNavTo(st[i],al);
+    if(MN.on&&tok===MN.tok){MN.on=false;VW=null;muNavUi();if(ok&&st[i].final){if(muUnlocked())muReveal();else muToast("The final viewing area — click every exhibit to unlock the Grand Final Reveal.")}}
+  }
+  $m("muNext").onclick=()=>muNext(1);$m("muPrev").onclick=()=>muNext(-1);
+  // ---- frame, enter / exit ----
+  function muViewEase(dt){const v=VW;MS.yaw+=muAng(MS.yaw,v?v.yaw:MS.yaw)*Math.min(1,dt*2.8);MS.pitch+=((v?v.pitch:0)-MS.pitch)*Math.min(1,dt*2.8)}
+  M.frame=function(dt){
+    if(!M.built)return;const a=W/Math.max(1,H),fov=a<1?74:64;if(Math.abs(M.cam.fov-fov)>.01||Math.abs(M.cam.aspect-a)>.001){M.cam.fov=fov;M.cam.aspect=a;M.cam.updateProjectionMatrix()}
+    M.t+=dt;const open=muR.classList.contains("open");
+    if(MT.on){if(!MT.paused){const td=dt*MT.boost;MT.waits.slice().forEach(o=>{o.left-=td*1000;if(o.left<=0){MT.waits.splice(MT.waits.indexOf(o),1);o.r()}});if(!muAgentStep(td))muWalk(td,0,0)}else muWalk(dt,0,0)}
+    else if(MN.on){const k=MS.keys,mv=k.w||k.a||k.s||k.d||k.arrowup||k.arrowdown||Math.abs(MS.joy.x)+Math.abs(MS.joy.z)>.15;if(mv){muNavCancel();muManualInput(dt)}else if(!muAgentStep(dt))muWalk(dt,0,0)}
+    else if(!open)muManualInput(dt);else muWalk(dt,0,0);
+    if(muViewI>=0&&!MT.on){const d=M.disp.find(q=>q.ex===MU.list[muViewI]);if(d&&Math.hypot(d.d.L.x-MP.x,d.d.L.z-MP.z)>11)muCloseViewer()}
+    const fl=Math.max(0,Math.min(3,Math.round(MP.y/MU.FH)));if(fl!==M.fl){M.fl=fl;$m("muFloor").textContent=FLN[fl];muLoadFloor(fl);if(fl<3)muLoadFloor(fl+1)}
+    if(!reduce)muUpdateWater(dt,M.t);
+    if((MT.on&&!MT.paused)||MN.on)muViewEase(dt);
+    muCamera(dt);muProximity(dt);
+    if(M.rev){M.rev.t+=dt}
+    {const rv=M.rev?Math.min(1,M.rev.t/2.2):0;M.hemi.intensity=.62+.9*rv;M.glowMat.color.setRGB(1,.85+.1*rv,.62+.2*rv);M.pl.forEach((l,i)=>{if(i>0)l.intensity=(i===1?1.1:.8)*(1+.9*rv)})}
+    // standing on the dais with every exhibit discovered opens the final reveal by itself
+    if(!MT.on&&fl===3&&muUnlocked()&&!open&&Math.hypot(MP.x-21.5,MP.z)<3.3&&!M.revShown){M.revShown=true;muReveal()}if(Math.hypot(MP.x-21.5,MP.z)>5)M.revShown=false;
+    renderer.render(M.scene,M.cam);if(X.snapReq){const f=X.snapReq;X.snapReq=null;f()}
+  };
+  async function enterMuseum(){
+    if(M.active||M.entering||X.active||X.entering||reading||TP.on)return;M.entering=true;
+    for(let i=0;i<60&&cine;i++)await muSleep(100);
+    try{if(mixT<=.5)setView("city");select(null);poiClose();
+      M.saved={tx:camT.tx,ty:camT.ty,tz:camT.tz,th:camT.th,ph:camT.ph,z:camT.z};
+      await new Promise(res=>cineTo({tx:MU.CX+MU.HALF*MU.S+9,ty:3,tz:MU.CZ,th:1.5,ph:1.05,z:baseD("city")/(W/Math.max(1,H)<1?44:30)},2.8,res));
+      await snapShot();muBuild();
+      MT.on=false;MN.on=false;MN.i=-1;VW=null;muPlace(24,0,0,-Math.PI/2);M.fl=-1;M.revShown=false;muLoadFloor(0);muLoadFloor(1);muHud();muTourUi();
+      M.active=true;stage.classList.add("is-museum");$m("muFloor").textContent=FLN[0];
+      await snapFadeOut(700);
+    }finally{M.entering=false}
+  }
+  async function exitMuseum(){
+    if(!M.active||M.exiting)return;M.exiting=true;
+    try{muTourStop();muNavCancel();muCloseViewer();muRevealClose();MS.keys={};MS.joy.x=MS.joy.z=0;await snapShot();M.active=false;stage.classList.remove("is-museum");
+      if(M.saved){Object.assign(camT,M.saved);Object.assign(cam,M.saved)}muDispose();await snapFadeOut(600)}
+    finally{M.exiting=false}
+  }
+  muSetExhibits(MU_EXHIBITS);
+  // optional: exhibits.json next to the page extends the exhibition without touching the code
+  fetch("exhibits.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(Array.isArray(j)&&j.length){const base=MU_EXHIBITS.slice();j.forEach((e,i)=>{if(e&&e.src)base.push(Object.assign({id:e.id||"x"+i,kind:e.kind||"educational",title:e.title||"Untitled",desc:e.desc||"",url:e.url||"",link:e.link||""},e))});if(!M.built){MU_EXHIBITS.length=0;base.forEach(e=>MU_EXHIBITS.push(e));muSetExhibits(MU_EXHIBITS)}}}).catch(()=>{});
 
   /* ---------- contact shadows (soft AO decals under every footprint) ---------- */
   {const dm=new THREE.MeshBasicMaterial({map:T.shadow,transparent:true,opacity:.5,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-2});
@@ -2901,6 +3492,7 @@ function init3D(){
    for(let z=-52;z<=52;z+=8)trees.push([-86.5,0,z,.8,0],[86.5,0,z,.8,0]);}
   for(let i=trees.length-1;i>=0;i--){const t=trees[i];if(t[0]>-8&&t[0]<14&&t[2]>78.8&&t[2]<92)trees.splice(i,1)}
   rvCull();                                                     // nothing grows in the river or on its banks
+  muLate();                                                     // museum landscaping (after the clean-up, so it stays)
   const terrainTreeY=(t)=>t[1]===0?terrainH(t[0],t[2]):t[1];
   const broad=trees.filter(t=>!t[4]),conif=trees.filter(t=>t[4]===1),blos=trees.filter(t=>t[4]===2);
   const treeMat=stdMat({roughness:.9,metalness:0,vertexColors:true},.12);
@@ -3411,9 +4003,9 @@ function init3D(){
     d.textContent=n.label;d.style.setProperty("--dot",dotColor(n));labelsEl.appendChild(d);
     n.el=d;n.short=SHORT[n.label]||n.label;n.shown=false;n.pr=-1;n.curTxt=n.label;
   });
-  const distLabels=[...DISTRICTS,{key:"garden",name:"The Reading Garden",label:[0,GZ]},{key:"hq",name:"Headquarters",label:[HQS.x,HQS.z]},{key:"river",name:"Riverside Promenade",label:[182,0]}].map(D=>{
+  const distLabels=[...DISTRICTS,{key:"garden",name:"The Reading Garden",label:[0,GZ]},{key:"hq",name:"Headquarters",label:[HQS.x,HQS.z]},{key:"river",name:"Riverside Promenade",label:[182,0]},{key:"museum",name:"The Grand Digital Exhibition",label:[-173.5,84]}].map(D=>{
     const d=document.createElement("div");d.className="lbl dist";
-    d.textContent=D.key==="garden"||D.key==="hq"||D.key==="river"?D.name:D.name+" · "+nodes.filter(n=>n.dist===D.key).length;labelsEl.appendChild(d);
+    d.textContent=D.key==="garden"||D.key==="hq"||D.key==="river"||D.key==="museum"?D.name:D.name+" · "+nodes.filter(n=>n.dist===D.key).length;labelsEl.appendChild(d);
     return {D,el:d,w:100,h:28};
   });
   const ringLabels=RINGS.map(rg=>{
@@ -3492,6 +4084,7 @@ function init3D(){
   mkChip("wing","Headquarters",()=>enterWing());
   mkChip("garden","Reading Garden",()=>Object.assign(camT,{tx:0,ty:2,tz:GZ,z:baseD("city")/78,ph:1.0,th:GA}));
   mkChip("river","Riverside",()=>Object.assign(camT,{tx:wx(172,0),ty:3,tz:0,th:-1.15,ph:.95,z:baseD("city")/190}));
+  mkChip("museum","Museum",()=>enterMuseum());
   mkChip("river2","Whole river",()=>Object.assign(camT,{tx:70,ty:0,tz:10,th:-.5,ph:.85,z:baseD("city")/380}));
   setActiveChip("overview");
 
@@ -4395,6 +4988,7 @@ function init3D(){
     if(state.hover!==lastHov){lastHov=state.hover;refresh();}
     PK.forEach(k=>cur[k].lerp(tgt[k],lk));
     for(const k in kc)kc[k]+=(kt[k]-kc[k])*lk;
+    if(M.active){M.frame(dt);return}
     if(X.active){X.frame(dt);return}
     mix+=(mixT-mix)*Math.min(1,dt*5.5);if(Math.abs(mixT-mix)<.002)mix=mixT;
     const e=ease(mix),su=Math.max(.0001,1-e),scy=Math.max(.0001,e);
@@ -4515,7 +5109,7 @@ function init3D(){
     const overlap=(x,y,w,h)=>{for(const p of placed){if(x<p.x+p.w+3&&x+w+3>p.x&&y<p.y+p.h+2&&y+h+2>p.y)return true}return false};
     distLabels.forEach(dl=>{
       const D=dl.D;
-      const gk=D.key==="garden"||D.key==="hq"||D.key==="river";cpos.set(D.label[0],D.key==="hq"?HQN.topY+2.5:gk?6:D.key==="proj"?4:15,D.label[1]-(gk||D.key==="proj"?0:BD/2-4)).multiplyScalar(scy);
+      const gk=D.key==="garden"||D.key==="hq"||D.key==="river"||D.key==="museum";cpos.set(D.label[0],D.key==="museum"?19:D.key==="hq"?HQN.topY+2.5:gk?6:D.key==="proj"?4:15,D.label[1]-(gk||D.key==="proj"?0:BD/2-4)).multiplyScalar(scy);
       cpos.project(camera);
       const x=(cpos.x*.5+.5)*W-dl.w/2,y=(-cpos.y*.5+.5)*H-dl.h;
       const vis=inCity&&!reading&&scy>.8&&cpos.z<1&&x>2&&x+dl.w<W-2&&y>2&&y+dl.h<H-2;
@@ -4574,7 +5168,7 @@ function init3D(){
   }
   requestAnimationFrame(frame);
 
-  if(location.hash==="#debug-traffic")window.__xray={rv:{koi,fs,RV,fCast,fReel,poiOpen,rvHit,koiCall,smOpen,SKILLS,rvNear,RS,ROUTES,rvPtAt,rvPeople,updateWalkers},heliSeek:(sec)=>{HELI.t0=performance.now()/1000-sec},heliInfo:()=>({...hs,TOT:HELI.TOT,TR:HELI.TR,L:HELI.L,cruise:hCruise}),camT,cam,viewCam,setView:setView3D,enterWing,exitWing,wing:{X,go:wGoto,walk:wWalk,about:wAbout,portrait:wPortrait,say,tour:autoTour,cancel:wCancelTour},openBook,closeBook,bookW,state:()=>({reading,cine:!!cine}),count:()=>{let m=0,c=0,inst=0;scene.traverse(o=>{if(o.isMesh||o.isPoints||o.isLine){if(o.visible){let v=true,p=o.parent;while(p){if(!p.visible){v=false;break}p=p.parent}if(v){m++;if(o.castShadow)c++;if(o.isInstancedMesh)inst++}}}});return {m,cast:c,inst}},info:()=>({calls:renderer.info.render.calls,tris:renderer.info.render.triangles,geo:renderer.info.memory.geometries,tex:renderer.info.memory.textures})};
+  if(location.hash==="#debug-traffic")window.__xray={museum:{muBuild,muPlace,muWalk,muNext,muNavTo,muStops,muAgentStep,muViewEase,MN,muFloorNow,muLoopT,muLoopP,muStairPath,MU,M,MP,MS,MT,muSurface,muMove,muSelfTest,muLayout,muSetExhibits,enterMuseum,exitMuseum,muOpenViewer,muDiscover,muReveal,muTourStart,muTourStop,muRouteTo,muLoopPath,MU_ST},rv:{koi,fs,RV,fCast,fReel,poiOpen,rvHit,koiCall,smOpen,SKILLS,rvNear,RS,ROUTES,rvPtAt,rvPeople,updateWalkers},heliSeek:(sec)=>{HELI.t0=performance.now()/1000-sec},heliInfo:()=>({...hs,TOT:HELI.TOT,TR:HELI.TR,L:HELI.L,cruise:hCruise}),camT,cam,viewCam,setView:setView3D,enterWing,exitWing,wing:{X,go:wGoto,walk:wWalk,about:wAbout,portrait:wPortrait,say,tour:autoTour,cancel:wCancelTour},openBook,closeBook,bookW,state:()=>({reading,cine:!!cine}),count:()=>{let m=0,c=0,inst=0;scene.traverse(o=>{if(o.isMesh||o.isPoints||o.isLine){if(o.visible){let v=true,p=o.parent;while(p){if(!p.visible){v=false;break}p=p.parent}if(v){m++;if(o.castShadow)c++;if(o.isInstancedMesh)inst++}}}});return {m,cast:c,inst}},info:()=>({calls:renderer.info.render.calls,tris:renderer.info.render.triangles,geo:renderer.info.memory.geometries,tex:renderer.info.memory.textures})};
   setTimeout(()=>(window.requestIdleCallback?(f=>window.requestIdleCallback(f,{timeout:2500})):(f=>setTimeout(f,600)))(()=>buildWing()),3500);
 
   /* =========================================================
